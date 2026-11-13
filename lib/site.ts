@@ -5,7 +5,12 @@ export const siteMode: "demo" | "live" =
   process.env.NEXT_PUBLIC_SITE_MODE === "live" ? "live" : "demo";
 export const isLive = siteMode === "live";
 
-export const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000").replace(/\/+$/, "");
+// Base URL: NEXT_PUBLIC_SITE_URL if set; otherwise, on Vercel, the project's
+// production domain (a system variable available at build time); otherwise localhost.
+const vercelUrl = process.env.VERCEL_PROJECT_PRODUCTION_URL
+  ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+  : undefined;
+export const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL || vercelUrl || "http://localhost:3000").replace(/\/+$/, "");
 
 export function absoluteUrl(path = "/") {
   return `${siteUrl}${path.startsWith("/") ? path : `/${path}`}`;
