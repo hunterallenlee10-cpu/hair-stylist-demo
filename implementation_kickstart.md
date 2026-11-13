@@ -52,7 +52,7 @@ the always-visible second path and calling as the third.
 - [x] Phase 3: services bento, The Work gallery with filters and lightbox
 - [x] Phase 4: The Studio, how it works + Keep it loud, holiday band + model strip, reviews, FAQ, final CTA
 - [x] Phase 5: Consult Builder, wiring and pre-selects, prefilled SMS, mobile sticky bar, `/contact`
-- [ ] Phase 6: launch switch, titles and descriptions, single h1, JSON-LD, robots, sitemap, `llms.txt`, OG image, favicon, 404, `SEO-LAUNCH.md`
+- [x] Phase 6: launch switch, titles and descriptions, single h1, JSON-LD, robots, sitemap, `llms.txt`, OG image, favicon, 404, `SEO-LAUNCH.md`
 - [ ] Phase 6b: Lighthouse on a production build, mobile and desktop, live and demo modes
 - [ ] Phase 7: final review, commit, ready for GitHub and Vercel
 

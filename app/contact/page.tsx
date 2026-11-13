@@ -8,7 +8,7 @@ import { ConsultForm } from "@/components/ConsultBuilder/ConsultForm";
 import { JsonLd } from "@/components/JsonLd";
 import { addressLine1, addressLine2, business, directionsUrl, mapEmbedUrl, smsHref, telHref } from "@/lib/business";
 import { breadcrumbSchema } from "@/lib/schema";
-import { absoluteUrl } from "@/lib/site";
+import { absoluteUrl, ogImage } from "@/lib/site";
 import { container, textLink } from "@/lib/ui";
 
 const title = "Contact Disco Lemonade Studio | Vivid Hair in Leonardtown, MD";
@@ -19,8 +19,16 @@ export const metadata: Metadata = {
   title: { absolute: title },
   description,
   alternates: { canonical: absoluteUrl("/contact") },
-  openGraph: { title, description, url: absoluteUrl("/contact") },
-  twitter: { title, description },
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    siteName: "Disco Lemonade Studio",
+    title,
+    description,
+    url: absoluteUrl("/contact"),
+    images: [ogImage],
+  },
+  twitter: { card: "summary_large_image", title, description, images: [ogImage.url] },
 };
 
 const tiles = [

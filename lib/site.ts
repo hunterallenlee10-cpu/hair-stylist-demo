@@ -16,3 +16,10 @@ export const lastModified = {
   "/": "2026-11-13",
   "/contact": "2026-11-13",
 } as const;
+
+export const ogImage = {
+  url: "/og-image.png",
+  width: 1200,
+  height: 630,
+  alt: "Disco Lemonade Studio: vivids, rainbows, vanilla or otherwise. Leonardtown, MD",
+};

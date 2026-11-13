@@ -13,10 +13,19 @@ import { FinalCta } from "@/components/sections/FinalCta";
 import { Footer } from "@/components/sections/Footer";
 import { WavyDivider } from "@/components/WavyDivider";
 import { ScrollUi } from "@/components/ScrollUi";
+import { JsonLd } from "@/components/JsonLd";
+import { homeSchema } from "@/lib/schema";
+import { absoluteUrl } from "@/lib/site";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  alternates: { canonical: absoluteUrl("/") },
+};
 
 export default function Home() {
   return (
     <>
+      <JsonLd data={homeSchema()} />
       <Nav />
       <main id="main">
         <Hero />

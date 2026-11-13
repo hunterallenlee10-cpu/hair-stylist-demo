@@ -5,7 +5,7 @@ import "./globals.css";
 import { WaveDefs } from "@/components/WaveDefs";
 import { ConsultProvider } from "@/components/ConsultBuilder/ConsultContext";
 import { business } from "@/lib/business";
-import { isLive, siteUrl } from "@/lib/site";
+import { isLive, ogImage, siteUrl } from "@/lib/site";
 
 const fraunces = Fraunces({
   subsets: ["latin"],
@@ -28,9 +28,31 @@ export const viewport: Viewport = {
   initialScale: 1,
 };
 
+const title = "Vivid Hair Color in Leonardtown, MD | Disco Lemonade Studio";
+const description =
+  "Mickayla Ramsey paints vivids, rainbows and lived-in color at Disco Lemonade Studio in Leonardtown, MD. Text CONSULTATION to (240) 561-8519 to start.";
+
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
+  title: { default: title, template: "%s | Disco Lemonade Studio" },
+  description,
   applicationName: business.name,
+  authors: [{ name: business.owner }],
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    siteName: business.name,
+    title,
+    description,
+    url: "/",
+    images: [ogImage],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title,
+    description,
+    images: ["/og-image.png"],
+  },
   // Demo mode stays out of Google; live mode is indexable.
   robots: isLive ? { index: true, follow: true } : { index: false, follow: false },
   icons: {
