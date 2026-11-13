@@ -47,7 +47,7 @@ the always-visible second path and calling as the third.
 
 ## Checklist
 
-- [ ] Phase 1: scaffold, tokens, fonts, `WavyFrame`, lemon mark, nav, hero with The Melt, footer
+- [x] Phase 1: scaffold, tokens, fonts, `WavyFrame`, lemon mark, nav, hero with The Melt, footer
 - [ ] Phase 2: Why Disco Lemonade, the Flavor Dial
 - [ ] Phase 3: services bento, The Work gallery with filters and lightbox
 - [ ] Phase 4: The Studio, how it works + Keep it loud, holiday band + model strip, reviews, FAQ, final CTA
