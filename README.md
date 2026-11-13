@@ -19,7 +19,7 @@ npm run build && npm start   # production build
 | Variable | Values | Default |
 |---|---|---|
 | `NEXT_PUBLIC_SITE_MODE` | `demo` or `live` | `demo` |
-| `NEXT_PUBLIC_SITE_URL` | base URL, no trailing slash | `http://localhost:3000` |
+| `NEXT_PUBLIC_SITE_URL` | base URL, no trailing slash | the Vercel production domain on Vercel, else `http://localhost:3000` |
 
 Demo mode serves `noindex, nofollow`, an empty sitemap and the concept footer line. Live mode
 serves `index, follow`, lists the sitemap in `robots.txt` and hides the concept line. Both are
