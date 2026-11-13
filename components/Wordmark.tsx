@@ -12,7 +12,7 @@ export function Wordmark({ size = "md" }: { size?: "md" | "lg" }) {
         >
           Disco Lemonade
         </span>
-        <span className={`font-sans font-bold tracking-[0.28em] text-muted ${big ? "text-[0.625rem] sm:text-xs" : "text-[0.625rem]"}`}>
+        <span className={`font-sans font-bold tracking-[0.28em] text-muted max-[359px]:hidden ${big ? "text-[0.625rem] sm:text-xs" : "text-[0.625rem]"}`}>
           STUDIO
         </span>
       </span>

@@ -57,7 +57,7 @@ export function HolidayBand() {
               ))}
             </ul>
           </div>
-          <PlanButton preset={{ model: true, looks: ["Full rainbow"] }} className={`${btnGhost} w-full sm:w-auto`}>
+          <PlanButton preset={{ model: true }} className={`${btnGhost} w-full sm:w-auto`}>
             Ask about modeling
           </PlanButton>
         </div>

@@ -20,6 +20,7 @@
   --breakpoint-xs: 26rem;
 }
 
+@layer base {
 :root {
   color-scheme: dark;
   --nav-h: 64px;
@@ -64,6 +65,9 @@ body {
   border-radius: 6px;
 }
 
+}
+
+@layer components {
 /* Fraunces with the soft and wonky axes turned up. */
 .font-display,
 .display {
@@ -191,11 +195,35 @@ body {
   margin-bottom: 20px;
 }
 
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
   *::after {
     transition-duration: 0.01ms !important;
     animation-duration: 0.01ms !important;
+  }
+}
+
+/* Consult Builder step change: a short fade and lift. */
+@keyframes stepIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes sheetIn {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
   }
 }
