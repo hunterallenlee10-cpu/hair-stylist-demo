@@ -10,7 +10,7 @@ import { isLive, ogImage, siteUrl } from "@/lib/site";
 const fraunces = Fraunces({
   subsets: ["latin"],
   style: ["normal", "italic"],
-  axes: ["SOFT", "WONK", "opsz"],
+  axes: ["SOFT", "WONK"],
   variable: "--font-fraunces",
   display: "swap",
 });
@@ -74,7 +74,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           Skip to content
         </a>
         <ConsultProvider>{children}</ConsultProvider>
-        <Analytics />
+        {/* Vercel Analytics only on Vercel builds; its script 404s anywhere else. */}
+        {process.env.VERCEL ? <Analytics /> : null}
       </body>
     </html>
   );

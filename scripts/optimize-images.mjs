@@ -3,7 +3,7 @@
 // bottom right is out of frame. Writes lib/image-dimensions.json so every
 // <Image> gets its real width and height (no layout shift).
 import sharp from "sharp";
-import { readdir, writeFile } from "node:fs/promises";
+import { mkdir, readdir, writeFile } from "node:fs/promises";
 import path from "node:path";
 
 const RAW = "public/images/raw";
@@ -27,3 +27,15 @@ for (const file of files) {
   console.log(`${name}.webp  ${info.width}x${info.height}  ${(info.size / 1024).toFixed(0)} KB`);
 }
 await writeFile("lib/image-dimensions.json", JSON.stringify(dims, null, 2) + "\n");
+
+// Static responsive sizes for the hero (the LCP image), so it never waits on
+// the on-demand image optimizer. Never upscaled past the native 1357px.
+const HERO = "01-hot-pink-violet-blue-melt-back-BEST";
+await mkdir(path.join(OUT, "hero"), { recursive: true });
+for (const w of [480, 720, 960, 1200]) {
+  const info = await sharp(path.join(RAW, `${HERO}.jpg`))
+    .resize({ width: w, withoutEnlargement: true })
+    .webp({ quality: w <= 720 ? 62 : 70, effort: 6 })
+    .toFile(path.join(OUT, "hero", `${HERO}-${w}.webp`));
+  console.log(`hero/${HERO}-${w}.webp  ${info.width}x${info.height}  ${(info.size / 1024).toFixed(0)} KB`);
+}

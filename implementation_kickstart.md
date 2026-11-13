@@ -53,21 +53,21 @@ the always-visible second path and calling as the third.
 - [x] Phase 4: The Studio, how it works + Keep it loud, holiday band + model strip, reviews, FAQ, final CTA
 - [x] Phase 5: Consult Builder, wiring and pre-selects, prefilled SMS, mobile sticky bar, `/contact`
 - [x] Phase 6: launch switch, titles and descriptions, single h1, JSON-LD, robots, sitemap, `llms.txt`, OG image, favicon, 404, `SEO-LAUNCH.md`
-- [ ] Phase 6b: Lighthouse on a production build, mobile and desktop, live and demo modes
-- [ ] Phase 7: final review, commit, ready for GitHub and Vercel
+- [x] Phase 6b: Lighthouse on a production build, mobile and desktop, live and demo modes
+- [x] Phase 7: final review, commit, ready for GitHub and Vercel
 
 ## Final review checklist
 
-- [ ] Hero sells the job. The Melt plays once. At 375px the headline and primary button are visible without scrolling.
-- [ ] Flavor Dial swaps photo and readout at all 5 stops; mouse, touch and keyboard.
-- [ ] Every Plan button opens the builder with the right pre-selects. SMS link prefilled with CONSULTATION. Phone, text, directions, Instagram, gift card links work.
-- [ ] Every "Things only this business has" item is on the page.
-- [ ] Zero em dashes, zero "--" in copy, zero stock/AI images, zero invented facts, zero profanity.
-- [ ] Drafts and samples labelled.
-- [ ] 2 fonts, 3 colours plus text, motion in 2 places only.
-- [ ] No photo above native size. Photo 08 has the sign cropped out.
-- [ ] 375px: no overflow, burger works, sticky bar works.
-- [ ] Footer on both pages; concept line in demo only. Demo `noindex, nofollow`; live `index, follow` + sitemap.
-- [ ] OG image and favicon are hers.
-- [ ] Lighthouse SEO 100 live; others 90+. Demo: only the indexing audit fails.
-- [ ] One h1 per page with service and town. Unique titles and descriptions. JSON-LD validates.
+- [x] Hero sells the job. The Melt plays once. At 375px the headline and primary button are visible without scrolling.
+- [x] Flavor Dial swaps photo and readout at all 5 stops; mouse, touch and keyboard.
+- [x] Every Plan button opens the builder with the right pre-selects. SMS link prefilled with CONSULTATION. Phone, text, directions, Instagram, gift card links work.
+- [x] Every "Things only this business has" item is on the page.
+- [x] Zero em dashes, zero "--" in copy, zero stock/AI images, zero invented facts, zero profanity.
+- [x] Drafts and samples labelled.
+- [x] 2 fonts, 3 colours plus text, motion in 2 places only.
+- [x] No photo above native size. Photo 08 has the sign cropped out.
+- [x] 375px: no overflow, burger works, sticky bar works.
+- [x] Footer on both pages; concept line in demo only. Demo `noindex, nofollow`; live `index, follow` + sitemap.
+- [x] OG image and favicon are hers.
+- [x] Lighthouse SEO 100 live; others 90+. Demo: only the indexing audit fails.
+- [x] One h1 per page with service and town. Unique titles and descriptions. JSON-LD validates.

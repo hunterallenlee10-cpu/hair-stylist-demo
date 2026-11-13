@@ -77,7 +77,7 @@ export default function ConsultModal({ preset, onClose }: { preset: ConsultPrese
             <X className="h-6 w-6" strokeWidth={2} aria-hidden="true" />
           </button>
         </div>
-        <div className="overflow-y-auto overscroll-contain px-5 pb-8 pt-6 sm:px-8">
+        <div data-scroll className="overflow-y-auto overscroll-contain px-5 pb-8 pt-6 sm:px-8">
           <ConsultForm preset={preset} titleId={titleId} />
         </div>
       </div>

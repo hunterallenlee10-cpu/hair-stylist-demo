@@ -15,6 +15,7 @@ await sharp(Buffer.from(lemonSvg({ size: 32, background: "#120E10" })), { densit
   .resize(48, 48)
   .png()
   .toFile("public/favicon-48.png");
+await writeFile("public/lemon-mark.svg", lemonSvg({ size: 64 }));
 await writeFile("public/lemon-thumb.svg", lemonSvg({ size: 56, rotate: 0 }).replace("#3A1424", "#120E10"));
 
 // The Melt mask: opaque top, a soft wavy edge, transparent below.

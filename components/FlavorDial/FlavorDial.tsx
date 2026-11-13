@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import { animate, useReducedMotion } from "framer-motion";
 import { useEffect, useId, useRef, useState } from "react";
 import { ArrowRight } from "lucide-react";
 import { WavyFrame } from "@/components/WavyFrame";
@@ -20,17 +19,34 @@ const LAST = flavors.length; // 5
  * On first view it sweeps once from 1 to 5, then never moves by itself again.
  */
 export function FlavorDial() {
-  const reduce = useReducedMotion();
   const [stop, setStop] = useState<number>(LAST); // server and no-JS: Full rainbow
   const rootRef = useRef<HTMLDivElement>(null);
   const touched = useRef(false);
   const swept = useRef(false);
-  const sweep = useRef<ReturnType<typeof animate> | null>(null);
+  const sweep = useRef<{ stop: () => void } | null>(null);
   const readoutId = useId();
+  // Load the five photos once the section is near the viewport, not before.
+  const [near, setNear] = useState(false);
+  useEffect(() => {
+    const el = rootRef.current;
+    if (!el) return;
+    const io = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((e) => e.isIntersecting)) {
+          setNear(true);
+          io.disconnect();
+        }
+      },
+      { rootMargin: "600px 0px" },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
 
   // Arm the sweep: start at 1 while the section is still off screen.
+  // Framer Motion is imported on demand when the sweep is about to run.
   useEffect(() => {
-    if (reduce || swept.current) return;
+    if (swept.current || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const el = rootRef.current;
     if (!el) return;
     const rect = el.getBoundingClientRect();
@@ -42,23 +58,26 @@ export function FlavorDial() {
         if (!entries.some((e) => e.isIntersecting) || swept.current) return;
         swept.current = true;
         io.disconnect();
-        sweep.current = animate(1, LAST, {
-          duration: 2,
-          delay: 0.25,
-          ease: [0.45, 0, 0.25, 1],
-          onUpdate: (v) => {
-            if (!touched.current) setStop(Math.round(v));
-          },
+        import("framer-motion/dom").then(({ animate }) => {
+          if (touched.current) return;
+          sweep.current = animate(1, LAST, {
+            duration: 2,
+            delay: 0.25,
+            ease: [0.45, 0, 0.25, 1],
+            onUpdate: (v) => {
+              if (!touched.current) setStop(Math.round(v));
+            },
+          });
         });
       },
-      { threshold: 0.45 },
+      { threshold: 0.3 },
     );
     io.observe(el);
     return () => {
       io.disconnect();
       sweep.current?.stop();
     };
-  }, [reduce]);
+  }, []);
 
   const choose = (n: number) => {
     touched.current = true;
@@ -78,11 +97,15 @@ export function FlavorDial() {
   const pct = ((stop - 1) / (LAST - 1)) * 100;
 
   return (
-    <div ref={rootRef} className="grid items-center gap-10 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-20">
+    <div ref={rootRef} className="grid items-center gap-6 sm:gap-10 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-20">
       {/* Photo: stacked, crossfaded. Lazy images still load as the section nears the viewport. */}
-      <figure className="mx-auto w-full max-w-[280px] xs:max-w-[320px] sm:max-w-[420px] lg:max-w-[520px]">
+      <figure className="mx-auto w-full max-w-[236px] xs:max-w-[260px] sm:max-w-[420px] lg:max-w-[520px]">
         <WavyFrame shape="portrait" className="shadow-soft">
-          {flavors.map((fl, i) => {
+          <noscript>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={photos.melt.src} alt={photos.melt.alt} width={photos.melt.width} height={photos.melt.height} className="absolute inset-0 h-full w-full object-cover" />
+          </noscript>
+          {near && flavors.map((fl, i) => {
             const p = photos[fl.photo];
             const active = i === stop - 1;
             return (
@@ -93,8 +116,8 @@ export function FlavorDial() {
                 aria-hidden={active ? undefined : true}
                 width={p.width}
                 height={p.height}
-                sizes="(min-width: 1024px) 520px, (min-width: 640px) 420px, 320px"
-                loading="lazy"
+                sizes="(min-width: 1024px) 520px, (min-width: 640px) 420px, 260px"
+                loading="eager"
                 className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-[250ms] ease-out ${
                   active ? "opacity-100" : "opacity-0"
                 }`}
@@ -102,7 +125,7 @@ export function FlavorDial() {
             );
           })}
         </WavyFrame>
-        <figcaption className="mt-4 min-h-[28px] text-center text-muted lg:text-left lg:pl-4">
+        <figcaption className="mt-3 min-h-[3rem] text-center text-[0.9375rem] leading-snug text-muted sm:mt-4 sm:min-h-[28px] sm:text-base lg:pl-4 lg:text-left">
           {"note" in f ? f.note : photos[f.photo].caption}
         </figcaption>
       </figure>
@@ -112,14 +135,14 @@ export function FlavorDial() {
           <p className="eyebrow text-muted">
             Stop <span className="text-accent">{stop}</span> of {LAST}
           </p>
-          <p className="display mt-3 text-[2.75rem] font-[800] italic leading-none text-ink sm:text-[3.5rem]">{f.name}</p>
-          <p className="mt-4 min-h-[5.25rem] max-w-[34rem] text-lg leading-relaxed text-muted sm:min-h-[3.5rem]">
+          <p className="display mt-2 text-[2.25rem] font-[800] italic leading-none text-ink sm:mt-3 sm:text-[3.5rem]">{f.name}</p>
+          <p className="mt-3 min-h-[4.75rem] max-w-[34rem] leading-relaxed text-muted sm:mt-4 sm:min-h-[3.5rem] sm:text-lg">
             {f.readout}
           </p>
         </div>
 
         {/* The dial */}
-        <div className="relative mt-8 select-none">
+        <div className="relative mt-5 select-none sm:mt-8">
           <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 top-0 h-14">
             <div className="absolute inset-x-[28px] top-1/2 h-[2px] -translate-y-1/2 bg-line" />
             <div

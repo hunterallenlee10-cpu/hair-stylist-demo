@@ -56,7 +56,7 @@ export function Hero() {
 
         {/* Photo: type first on mobile, then the photo, starting inside the first screen. */}
         <div className="relative mt-8 lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:mt-0 lg:self-center">
-          <figure className="relative mx-auto w-full max-w-[560px] lg:max-w-[520px]">
+          <figure className="relative mx-auto w-full max-w-[560px] px-3 sm:px-0 lg:max-w-[520px]">
             <div className="relative rotate-[2deg]">
               <div aria-hidden="true" className="wave-portrait absolute -inset-[10px] bg-line" />
               <WavyFrame shape="portrait" className="shadow-soft">

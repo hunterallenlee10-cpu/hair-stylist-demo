@@ -75,7 +75,12 @@ export function ConsultForm({
   useEffect(() => {
     if (shown.current.step === step && shown.current.done === done) return;
     shown.current = { step, done };
-    headRef.current?.focus({ preventScroll: false });
+    const head = headRef.current;
+    if (!head) return;
+    head.focus({ preventScroll: true });
+    const scroller = head.closest<HTMLElement>("[data-scroll]");
+    if (scroller) scroller.scrollTo({ top: 0 });
+    else head.closest("form, [aria-live]")?.scrollIntoView({ block: "nearest" });
   }, [step, done]);
 
   const set = <K extends keyof ConsultAnswers>(k: K, v: ConsultAnswers[K]) => {

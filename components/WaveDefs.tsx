@@ -1,4 +1,3 @@
-import { LEMON_PATH } from "@/lib/lemon";
 import { WAVE_SHAPES, wavePath } from "@/lib/wave";
 
 /** Defines every wavy-mirror clip-path once, so frames can use `clip-path: url(#wave-*)`. */
@@ -11,9 +10,6 @@ export function WaveDefs() {
             <path d={wavePath(aspect)} />
           </clipPath>
         ))}
-        <clipPath id="lemon-clip">
-          <path d={LEMON_PATH} />
-        </clipPath>
       </defs>
     </svg>
   );
