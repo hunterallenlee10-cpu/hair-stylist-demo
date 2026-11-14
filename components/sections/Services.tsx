@@ -1,16 +1,26 @@
 import Image from "next/image";
 import type { ReactNode } from "react";
 import { ArrowUpRight, Scissors, WandSparkles } from "lucide-react";
-import { SectionHeading } from "@/components/SectionHeading";
 import { WavyFrame } from "@/components/WavyFrame";
 import { PlanButton } from "@/components/ConsultBuilder/PlanButton";
 import { business, services, type ServiceId } from "@/lib/business";
 import { photos, type PhotoKey } from "@/lib/photos";
-import { container, sectionPad } from "@/lib/ui";
+import { container } from "@/lib/ui";
 
 const svc = (id: ServiceId) => services.find((s) => s.id === id)!;
 
-function Photo({ k, sizes, position = "50% 50%" }: { k: PhotoKey; sizes: string; position?: string }) {
+function Photo({
+  k,
+  sizes,
+  position = "50% 50%",
+  first = false,
+}: {
+  k: PhotoKey;
+  sizes: string;
+  position?: string;
+  /** The first photo on the page is the LCP image: preload it instead of lazy-loading. */
+  first?: boolean;
+}) {
   const p = photos[k];
   return (
     <Image
@@ -19,7 +29,7 @@ function Photo({ k, sizes, position = "50% 50%" }: { k: PhotoKey; sizes: string;
       width={p.width}
       height={p.height}
       sizes={sizes}
-      loading="lazy"
+      {...(first ? { preload: true, fetchPriority: "high" as const } : { loading: "lazy" as const })}
       className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
       style={{ objectPosition: position }}
     />
@@ -57,9 +67,9 @@ function Tile({
       )}
       <div className="mt-auto flex items-end justify-between gap-4">
         <div>
-          <h3 className={`display font-[800] leading-[1.02] text-ink ${big ? "text-[2rem] sm:text-[2.75rem]" : "text-[1.625rem]"}`}>
+          <h2 className={`display font-[800] leading-[1.02] text-ink ${big ? "text-[2rem] sm:text-[2.75rem]" : "text-[1.625rem]"}`}>
             {s.name}
-          </h3>
+          </h2>
           <p className={`mt-2 text-muted ${big ? "max-w-[26rem] text-lg" : ""}`}>{s.blurb}</p>
         </div>
         <PlanButton
@@ -76,20 +86,16 @@ function Tile({
 
 export function Services() {
   return (
-    <section id="services" aria-labelledby="services-title" className={sectionPad}>
+    <section aria-label="Services" className="pb-6 lg:pb-10">
       <div className={container}>
-        <SectionHeading id="services-title" kicker="Services" title="What she paints.">
-          Tap anything that looks like you. It goes straight into your consultation plan.
-        </SectionHeading>
-
-        <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:mt-16 lg:grid-cols-4 lg:grid-rows-[auto_auto_auto]">
+        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4 lg:grid-rows-[auto_auto_auto]">
           <Tile
             id="vivid-color"
             big
             className="sm:col-span-2 lg:row-span-2"
             media={
               <WavyFrame shape="landscape" className="w-full">
-                <Photo k="melt" sizes="(min-width: 1024px) 640px, (min-width: 640px) 90vw, 100vw" position="50% 88%" />
+                <Photo first k="melt" sizes="(min-width: 1024px) 640px, (min-width: 640px) 90vw, 100vw" position="50% 88%" />
               </WavyFrame>
             }
           />

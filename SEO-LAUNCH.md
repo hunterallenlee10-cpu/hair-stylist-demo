@@ -10,13 +10,13 @@ Flip it to live only when Mickayla has approved the site and the domain is ready
    - `NEXT_PUBLIC_SITE_URL` = `https://<the real domain>` (no trailing slash)
 2. Redeploy. These are build-time variables, so a redeploy is required.
 3. Confirm on the live domain:
-   - View source on `/` and `/contact`: `<meta name="robots" content="index, follow">`.
+   - View source on any page: `<meta name="robots" content="index, follow">`.
    - The canonical on each page points at the real domain.
    - `/robots.txt` lists `Sitemap: https://<domain>/sitemap.xml`.
-   - `/sitemap.xml` lists `/` and `/contact`.
+   - `/sitemap.xml` lists all six pages (`/`, `/work`, `/services`, `/new-here`, `/studio`, `/contact`).
    - The footer no longer shows "Concept preview by Lee Enterprises Unlimited."
    - Paste the home URL into a link preview (iMessage, Slack) and check the OG image.
-4. Update `lastModified` in `lib/site.ts` whenever a page changes.
+4. Update the `lastModified` date for a page in `lib/site.ts` (`pages`) whenever it changes.
 5. Submit the sitemap in **Google Search Console** (verify the domain first) and **Bing Webmaster Tools**.
 6. Create or claim the **Google Business Profile** for Disco Lemonade Studio
    (26011 Point Lookout Rd #3, Leonardtown, MD 20650, (240) 561-8519). Note: Google Maps already
@@ -38,6 +38,7 @@ Search the code for `DRAFT` and `Sample`. As of this build:
 - [ ] Holiday message and dates (the lemon band).
 - [ ] Whether the vivid model call is still open.
 - [ ] Reply method and timing after the planner ("Mickayla will reply to plan your consultation").
+- [ ] Which pricing approach to publish on `/services`, if any (hourly, "starting at", or a first-visit package). Comparable vivid specialists publish one of these.
 - [ ] Three sample reviews: replace with real Google reviews. Only then consider review schema.
 - [ ] Studio photo and a photo of Mickayla (currently labelled placeholders).
 - [ ] A logo file, if she has one (the wordmark is currently set in type).

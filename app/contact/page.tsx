@@ -1,35 +1,17 @@
-import type { Metadata } from "next";
 import { Instagram, MapPin, MessageCircle, Phone } from "lucide-react";
-import { Nav } from "@/components/sections/Nav";
-import { Footer } from "@/components/sections/Footer";
-import { FinalCta } from "@/components/sections/FinalCta";
-import { ScrollUi } from "@/components/ScrollUi";
+import { PageShell } from "@/components/PageShell";
 import { ConsultForm } from "@/components/ConsultBuilder/ConsultForm";
-import { JsonLd } from "@/components/JsonLd";
 import { addressLine1, addressLine2, business, directionsUrl, mapEmbedUrl, smsHref, telHref } from "@/lib/business";
-import { breadcrumbSchema } from "@/lib/schema";
-import { absoluteUrl, ogImage } from "@/lib/site";
+import { pageMeta } from "@/lib/meta";
+import { pageSchema } from "@/lib/schema";
 import { container, textLink } from "@/lib/ui";
 
-const title = "Contact Disco Lemonade Studio | Vivid Hair in Leonardtown, MD";
-const description =
-  "Text CONSULTATION to (240) 561-8519 to plan vivid or natural hair color with Mickayla at Disco Lemonade Studio, 26011 Point Lookout Rd #3, Leonardtown, MD.";
-
-export const metadata: Metadata = {
-  title: { absolute: title },
-  description,
-  alternates: { canonical: absoluteUrl("/contact") },
-  openGraph: {
-    type: "website",
-    locale: "en_US",
-    siteName: "Disco Lemonade Studio",
-    title,
-    description,
-    url: absoluteUrl("/contact"),
-    images: [ogImage],
-  },
-  twitter: { card: "summary_large_image", title, description, images: [ogImage.url] },
-};
+export const metadata = pageMeta({
+  title: "Contact Disco Lemonade Studio | Vivid Hair in Leonardtown, MD",
+  description:
+    "Text CONSULTATION to (240) 561-8519 to plan vivid or natural hair color with Mickayla at Disco Lemonade Studio, 26011 Point Lookout Rd #3, Leonardtown, MD.",
+  path: "/contact",
+});
 
 const tiles = [
   {
@@ -58,10 +40,7 @@ const tiles = [
 
 export default function ContactPage() {
   return (
-    <>
-      <JsonLd data={breadcrumbSchema()} />
-      <Nav />
-      <main id="main">
+    <PageShell schema={pageSchema("Contact", "/contact")}>
         <section aria-labelledby="contact-title" className="pb-12 pt-10 lg:pb-16 lg:pt-20">
           <div className={container}>
             <h1 id="contact-title">
@@ -110,7 +89,7 @@ export default function ContactPage() {
                 Plan My Dream Hair.
               </h2>
               <p className="mt-5 text-lg text-muted">
-                Five quick steps. At the end you get a ready-to-send text that starts with CONSULTATION, so Mickayla knows
+                Three quick steps. At the end you get a ready-to-send text that starts with CONSULTATION, so Mickayla knows
                 exactly what you are after.
               </p>
             </div>
@@ -120,7 +99,7 @@ export default function ContactPage() {
           </div>
         </section>
 
-        <section aria-labelledby="visit-title" className="py-[72px] lg:py-[112px]">
+        <section id="visit" aria-labelledby="visit-title" className="pt-[72px] lg:pt-[112px]">
           <div className={`${container} grid gap-6 lg:grid-cols-[0.8fr_1.2fr] lg:gap-10`}>
             <div className="rounded-[20px] border border-line bg-surface p-7 sm:p-8">
               <h2 id="visit-title" className="display text-[2rem] font-[800] leading-tight text-ink">
@@ -168,11 +147,6 @@ export default function ContactPage() {
             </div>
           </div>
         </section>
-
-        <FinalCta />
-      </main>
-      <Footer />
-      <ScrollUi />
-    </>
+    </PageShell>
   );
 }

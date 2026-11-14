@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { Menu, MessageCircle, Phone, X } from "lucide-react";
 import { Wordmark } from "@/components/Wordmark";
@@ -8,16 +9,16 @@ import { PlanButton } from "@/components/ConsultBuilder/PlanButton";
 import { business, smsHref, telHref } from "@/lib/business";
 import { btnGhost, btnPrimary, container } from "@/lib/ui";
 
-const anchors = [
-  { href: "/#vivids", label: "Vivids" },
-  { href: "/#find-your-flavor", label: "Find Your Flavor" },
-  { href: "/#services", label: "Services" },
-  { href: "/#work", label: "Work" },
-  { href: "/#the-studio", label: "The Studio" },
-  { href: "/#faq", label: "FAQ" },
+// Four destinations, one page each. Short enough to show in full on desktop.
+const links = [
+  { href: "/work", label: "Work" },
+  { href: "/services", label: "Services" },
+  { href: "/new-here", label: "New here" },
+  { href: "/studio", label: "The studio" },
 ];
 
 export function Nav() {
+  const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const sheetRef = useRef<HTMLDivElement>(null);
@@ -73,25 +74,31 @@ export function Nav() {
           <Wordmark />
         </Link>
 
-        <nav aria-label="Main" className="hidden xl:block">
+        <nav aria-label="Main" className="hidden lg:block">
           <ul className="flex items-center">
-            {anchors.map((a) => (
-              <li key={a.href}>
-                <a
-                  href={a.href}
-                  className="inline-flex min-h-[44px] items-center whitespace-nowrap rounded-full px-3 text-[0.9375rem] font-medium text-muted transition-colors hover:text-ink"
-                >
-                  {a.label}
-                </a>
-              </li>
-            ))}
+            {links.map((a) => {
+              const current = pathname === a.href;
+              return (
+                <li key={a.href}>
+                  <Link
+                    href={a.href}
+                    aria-current={current ? "page" : undefined}
+                    className={`inline-flex min-h-[44px] items-center whitespace-nowrap rounded-full px-4 text-[0.9375rem] font-medium transition-colors hover:text-ink ${
+                      current ? "text-ink underline decoration-accent decoration-2 underline-offset-8" : "text-muted"
+                    }`}
+                  >
+                    {a.label}
+                  </Link>
+                </li>
+              );
+            })}
           </ul>
         </nav>
 
-        <div className="hidden items-center gap-3 xl:flex">
+        <div className="hidden items-center gap-3 lg:flex">
           <a
             href={smsHref()}
-            className="hidden min-h-[44px] items-center gap-2 whitespace-nowrap rounded-full px-2 text-[0.9375rem] font-semibold text-ink hover:text-accent min-[1400px]:inline-flex"
+            className="hidden min-h-[44px] items-center gap-2 whitespace-nowrap rounded-full px-2 text-[0.9375rem] font-semibold text-ink hover:text-accent min-[1200px]:inline-flex"
           >
             <MessageCircle className="h-[18px] w-[18px] text-accent" strokeWidth={2} aria-hidden="true" />
             Text {business.phoneDisplay}
@@ -102,7 +109,7 @@ export function Nav() {
         <button
           ref={burgerRef}
           type="button"
-          className="-mr-2 inline-flex h-12 w-12 items-center justify-center rounded-full text-ink xl:hidden"
+          className="-mr-2 inline-flex h-12 w-12 items-center justify-center rounded-full text-ink lg:hidden"
           aria-label="Open menu"
           aria-expanded={open}
           aria-controls="mobile-menu"
@@ -119,7 +126,7 @@ export function Nav() {
           role="dialog"
           aria-modal="true"
           aria-label="Menu"
-          className="fixed inset-0 z-50 flex flex-col overflow-y-auto bg-bg xl:hidden"
+          className="fixed inset-0 z-50 flex flex-col overflow-y-auto bg-bg lg:hidden"
         >
           <div className={`${container} flex h-[var(--nav-h)] shrink-0 items-center justify-between`}>
             <Link href="/" onClick={() => setOpen(false)} className="flex min-h-[44px] items-center" aria-label="Disco Lemonade Studio, home">
@@ -139,15 +146,16 @@ export function Nav() {
           </div>
           <nav aria-label="Mobile" className={`${container} flex flex-1 flex-col pb-8 pt-4`}>
             <ul className="flex flex-col">
-              {anchors.map((a) => (
+              {links.map((a) => (
                 <li key={a.href} className="border-b border-line">
-                  <a
+                  <Link
                     href={a.href}
                     onClick={() => setOpen(false)}
+                    aria-current={pathname === a.href ? "page" : undefined}
                     className="display flex min-h-[64px] items-center text-[2rem] font-[700] text-ink"
                   >
                     {a.label}
-                  </a>
+                  </Link>
                 </li>
               ))}
               <li className="border-b border-line">

@@ -21,7 +21,7 @@
 - Complimentary consultation for every new client
 
 ## How booking works
-1. Text CONSULTATION to (240) 561-8519, or use the planner on the website.
+1. Text CONSULTATION to (240) 561-8519, or use the planner on the website (/contact).
 2. Free consultation: share your hair history and inspiration. Mickayla maps out the plan, timing and price.
 3. Color day.
 
@@ -35,4 +35,8 @@
 
 ## Pages
 - Home: /
+- The work (gallery): /work
+- Services: /services
+- New here (how booking works, FAQ, vivid care rules, model call): /new-here
+- The studio: /studio
 - Contact and planner: /contact

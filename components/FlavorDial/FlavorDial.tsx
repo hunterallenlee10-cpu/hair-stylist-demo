@@ -7,7 +7,6 @@ import { WavyFrame } from "@/components/WavyFrame";
 import { PlanButton } from "@/components/ConsultBuilder/PlanButton";
 import { flavors } from "@/lib/flavors";
 import { photos } from "@/lib/photos";
-import { business } from "@/lib/business";
 import { btnPrimary } from "@/lib/ui";
 
 const LAST = flavors.length; // 5
@@ -214,11 +213,6 @@ export function FlavorDial() {
             ))}
           </div>
         </div>
-
-        {/* DRAFT: confirm typical session lengths */}
-        <p className="mt-8 max-w-[34rem] text-[0.9375rem] leading-relaxed text-muted">
-          {business.sessionLine} Your consultation gives you the real number.
-        </p>
 
         <PlanButton preset={{ looks: [f.builder] }} className={`${btnPrimary} mt-8 w-full sm:w-auto`}>
           Plan this look <ArrowRight className="h-5 w-5" strokeWidth={2.25} aria-hidden="true" />

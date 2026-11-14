@@ -6,7 +6,7 @@ import { ChevronLeft, ChevronRight, Instagram, X } from "lucide-react";
 import { gallery, galleryFilters, type GalleryFilter } from "@/lib/gallery";
 import { photos } from "@/lib/photos";
 import { business } from "@/lib/business";
-import { container, sectionPad, textLink } from "@/lib/ui";
+import { container, textLink } from "@/lib/ui";
 
 export function Work() {
   const [filter, setFilter] = useState<GalleryFilter>("All");
@@ -15,37 +15,25 @@ export function Work() {
   const triggerRef = useRef<HTMLButtonElement | null>(null);
 
   return (
-    <section id="work" aria-labelledby="work-title" className={`${sectionPad} border-y border-line bg-[#160F12]`}>
+    <section aria-label="Gallery" className="pb-6 lg:pb-10">
       <div className={container}>
-        <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
-          <div className="max-w-[44rem]">
-            <p className="eyebrow text-muted">The work</p>
-            <h2 id="work-title" className="display mt-3 text-[2.5rem] font-[800] leading-[0.98] text-ink sm:text-[3.25rem] lg:text-[4rem]">
-              After beats before.
-            </h2>
-            <p className="mt-5 text-lg text-muted">
-              Every photo here is her own work, straight from her chair.{" "}
-              <span className="display italic text-ink">after &gt;&gt;&gt;&gt;&gt; before.</span>
-            </p>
-          </div>
-          <div role="group" aria-label="Filter the work" className="-mx-1 flex flex-wrap gap-2">
-            {galleryFilters.map((f) => (
-              <button
-                key={f}
-                type="button"
-                aria-pressed={filter === f}
-                onClick={() => setFilter(f)}
-                className={`min-h-[44px] rounded-full border px-5 font-semibold transition-colors ${
-                  filter === f ? "border-accent bg-accent text-on-accent" : "border-line text-ink hover:border-muted"
-                }`}
-              >
-                {f}
-              </button>
-            ))}
-          </div>
+        <div role="group" aria-label="Filter the work" className="-mx-1 flex flex-wrap gap-2">
+          {galleryFilters.map((f) => (
+            <button
+              key={f}
+              type="button"
+              aria-pressed={filter === f}
+              onClick={() => setFilter(f)}
+              className={`min-h-[44px] rounded-full border px-5 font-semibold transition-colors ${
+                filter === f ? "border-accent bg-accent text-on-accent" : "border-line text-ink hover:border-muted"
+              }`}
+            >
+              {f}
+            </button>
+          ))}
         </div>
 
-        <ul className="masonry mt-12 columns-2 lg:mt-16 lg:columns-3 xl:columns-4" aria-live="polite">
+        <ul className="masonry mt-8 columns-2 lg:mt-10 lg:columns-3 xl:columns-4" aria-live="polite">
           {items.map((g) => {
             const p = photos[g.photo];
             const idx = items.indexOf(g);
@@ -72,7 +60,9 @@ export function Work() {
                         width={p.width}
                         height={p.height}
                         sizes="(min-width: 1280px) 320px, (min-width: 1024px) 420px, 50vw"
-                        loading="lazy"
+                        {...(idx === 0 && filter === "All"
+                          ? { preload: true, fetchPriority: "high" as const }
+                          : { loading: idx < 4 ? ("eager" as const) : ("lazy" as const) })}
                         className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
                       />
                     </div>
