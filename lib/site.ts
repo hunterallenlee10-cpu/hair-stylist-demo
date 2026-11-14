@@ -17,10 +17,14 @@ export function absoluteUrl(path = "/") {
 }
 
 // Real last-modified dates for the sitemap. Update when a page changes.
-export const lastModified = {
-  "/": "2026-11-13",
-  "/contact": "2026-11-13",
-} as const;
+export const pages = [
+  { path: "/", lastModified: "2026-11-14", priority: 1 },
+  { path: "/work", lastModified: "2026-11-14", priority: 0.8 },
+  { path: "/services", lastModified: "2026-11-14", priority: 0.9 },
+  { path: "/new-here", lastModified: "2026-11-14", priority: 0.8 },
+  { path: "/studio", lastModified: "2026-11-14", priority: 0.7 },
+  { path: "/contact", lastModified: "2026-11-14", priority: 0.7 },
+] as const;
 
 export const ogImage = {
   url: "/og-image.png",

@@ -26,8 +26,8 @@ export function Hero() {
               Vivid hair color in Leonardtown, MD <span aria-hidden="true" className="hidden px-1 text-accent sm:inline">·</span>{" "}
               <span className="block sm:inline">Southern Maryland</span>
             </span>
-            <span className="display mt-4 block text-[2.875rem] font-[800] leading-[0.94] text-ink xs:text-[3.25rem] sm:text-[4.5rem] lg:mt-6 lg:text-[4.25rem] xl:text-[5.125rem]">
-              Your dream hair.{" "}
+            <span className="display mt-4 block text-[2.875rem] font-[800] leading-[0.94] text-ink xs:text-[3.25rem] sm:text-[4.5rem] lg:mt-6 lg:text-[3.75rem] xl:text-[4.5rem]">
+              <span className="lg:whitespace-nowrap">Your dream hair.</span>{" "}
               <span className="block italic font-[700] text-accent">Vanilla or otherwise.</span>
             </span>
           </h1>
@@ -72,11 +72,11 @@ export function Hero() {
           </figure>
         </div>
 
-        <ul className="mt-10 grid gap-3 sm:grid-cols-3 lg:col-start-1 lg:row-start-2 lg:mt-12 lg:self-start lg:gap-4">
+        <ul className="mt-8 flex flex-wrap gap-x-5 gap-y-2 sm:mt-10 sm:grid sm:grid-cols-3 sm:gap-3 lg:col-start-1 lg:row-start-2 lg:mt-12 lg:self-start lg:gap-4">
           {facts.map((f) => (
             <li
               key={f}
-              className="flex min-h-[56px] items-center gap-3 border-t border-line pt-3 text-[0.8125rem] font-bold uppercase tracking-[0.12em] text-ink"
+              className="flex items-center gap-2 text-[0.8125rem] font-bold uppercase tracking-[0.12em] text-ink sm:min-h-[56px] sm:gap-3 sm:border-t sm:border-line sm:pt-3"
             >
               <span aria-hidden="true" className="h-2 w-2 shrink-0 rounded-full bg-accent" />
               {f}

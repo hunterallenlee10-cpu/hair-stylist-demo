@@ -11,14 +11,13 @@ import {
   lengthOptions,
   lookOptions,
   thicknessOptions,
-  validPhone,
   type ConsultAnswers,
 } from "@/lib/consult";
 import { btnGhost, btnPrimary } from "@/lib/ui";
 import type { ConsultPreset } from "./ConsultContext";
 
-const TOTAL = 5;
-const titles = ["What are we doing?", "Where is your hair now?", "Length and thickness.", "A little more.", "Your info."];
+const TOTAL = 3;
+const titles = ["What are we doing?", "Your hair now.", "Last bit."];
 
 const chip =
   "relative inline-flex min-h-[48px] cursor-pointer items-center gap-2 rounded-full border px-4 py-2 font-semibold transition-colors has-[:focus-visible]:outline has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-accent";
@@ -93,8 +92,6 @@ export function ConsultForm({
   const check = () => {
     if (step === 1 && !a.looks.length) return "Pick at least one. “Not sure yet” counts.";
     if (step === 2 && !a.hairNow) return "Pick the closest one. There is no wrong answer.";
-    if (step === 5 && !validPhone(a.phone))
-      return "That phone number looks short. Use 10 digits, like 240 555 0123, so Mickayla can text you back.";
     return "";
   };
 
@@ -126,9 +123,7 @@ export function ConsultForm({
             ["Extras", [a.longSession && "Long session is fine", a.model && "Vivid model"].filter(Boolean).join(", ")],
             ["Dream hair", a.dream],
             ["Name", a.name],
-            ["Phone", a.phone],
             ["Best days", a.days],
-            ["Notes", a.notes],
           ]
             .filter(([, v]) => v)
             .map(([k, v]) => (
@@ -203,22 +198,21 @@ export function ConsultForm({
         )}
 
         {step === 2 && (
-          <fieldset className="mt-6">
-            <legend className="text-muted">Be honest. It changes the plan, not the welcome.</legend>
-            <div className="mt-4 flex flex-wrap gap-2">
-              {hairNowOptions.map((h) => (
-                <Chip key={h.label} type="radio" name="hairNow" checked={a.hairNow === h.label} onChange={() => set("hairNow", h.label)}>
-                  {h.label}
-                </Chip>
-              ))}
-            </div>
-          </fieldset>
-        )}
-
-        {step === 3 && (
           <div className="mt-6 grid gap-8">
             <fieldset>
-              <legend className="font-semibold text-ink">Length</legend>
+              <legend className="text-muted">Be honest. It changes the plan, not the welcome.</legend>
+              <div className="mt-4 flex flex-wrap gap-2">
+                {hairNowOptions.map((h) => (
+                  <Chip key={h.label} type="radio" name="hairNow" checked={a.hairNow === h.label} onChange={() => set("hairNow", h.label)}>
+                    {h.label}
+                  </Chip>
+                ))}
+              </div>
+            </fieldset>
+            <fieldset>
+              <legend className="font-semibold text-ink">
+                Length <span className="font-normal text-muted">(optional)</span>
+              </legend>
               <div className="mt-3 flex flex-wrap gap-2">
                 {lengthOptions.map((l) => (
                   <Chip key={l} type="radio" name="length" checked={a.length === l} onChange={() => set("length", l)}>
@@ -228,7 +222,9 @@ export function ConsultForm({
               </div>
             </fieldset>
             <fieldset>
-              <legend className="font-semibold text-ink">Thickness</legend>
+              <legend className="font-semibold text-ink">
+                Thickness <span className="font-normal text-muted">(optional)</span>
+              </legend>
               <div className="mt-3 flex flex-wrap gap-2">
                 {thicknessOptions.map((t) => (
                   <Chip key={t} type="radio" name="thickness" checked={a.thickness === t} onChange={() => set("thickness", t)}>
@@ -240,62 +236,27 @@ export function ConsultForm({
           </div>
         )}
 
-        {step === 4 && (
-          <div className="mt-6 grid gap-5">
-            <fieldset>
-              <legend className="text-muted">Optional. Tick anything that fits.</legend>
-              <div className="mt-4 flex flex-wrap gap-2">
-                <Chip type="checkbox" name="longSession" checked={a.longSession} onChange={() => set("longSession", !a.longSession)}>
-                  I am happy to sit for a long session
-                </Chip>
-                <Chip type="checkbox" name="model" checked={a.model} onChange={() => set("model", !a.model)}>
-                  I would like to be a vivid model
-                </Chip>
-              </div>
-            </fieldset>
-            <div>
-              <label htmlFor={`${uid}-dream`} className="font-semibold text-ink">
-                Describe your dream hair in a sentence. <span className="font-normal text-muted">(optional)</span>
-              </label>
-              <input
-                id={`${uid}-dream`}
-                className={field}
-                value={a.dream}
-                maxLength={160}
-                onChange={(e) => set("dream", e.target.value)}
-                placeholder="Peach to lilac, soft root, nothing brassy"
-              />
-            </div>
-            <p className="text-muted">You can send inspiration photos in the text thread after this.</p>
-          </div>
-        )}
-
-        {step === 5 && (
-          <div className="mt-6 grid gap-5">
+        {step === 3 && (
+          <div className="mt-6 grid gap-6">
+            <p className="text-muted">All optional. No phone number needed: the plan goes as a text from your own phone.</p>
             <div className="grid gap-5 sm:grid-cols-2">
               <div>
                 <label htmlFor={`${uid}-name`} className="font-semibold text-ink">
-                  Name <span className="font-normal text-muted">(optional)</span>
+                  Your name
                 </label>
                 <input id={`${uid}-name`} className={field} autoComplete="given-name" value={a.name} onChange={(e) => set("name", e.target.value)} />
               </div>
               <div>
-                <label htmlFor={`${uid}-phone`} className="font-semibold text-ink">
-                  Phone <span className="font-normal text-muted">(required)</span>
+                <label htmlFor={`${uid}-dream`} className="font-semibold text-ink">
+                  Your dream hair in a sentence
                 </label>
                 <input
-                  id={`${uid}-phone`}
+                  id={`${uid}-dream`}
                   className={field}
-                  type="tel"
-                  inputMode="tel"
-                  autoComplete="tel"
-                  required
-                  aria-required="true"
-                  aria-invalid={!!error && step === 5}
-                  aria-describedby={error ? `${uid}-error` : undefined}
-                  value={a.phone}
-                  onChange={(e) => set("phone", e.target.value)}
-                  placeholder="(240) 555 0123"
+                  value={a.dream}
+                  maxLength={160}
+                  onChange={(e) => set("dream", e.target.value)}
+                  placeholder="Peach to lilac, soft root"
                 />
               </div>
             </div>
@@ -309,12 +270,18 @@ export function ConsultForm({
                 ))}
               </div>
             </fieldset>
-            <div>
-              <label htmlFor={`${uid}-notes`} className="font-semibold text-ink">
-                Notes <span className="font-normal text-muted">(optional)</span>
-              </label>
-              <textarea id={`${uid}-notes`} rows={3} className={field} value={a.notes} onChange={(e) => set("notes", e.target.value)} />
-            </div>
+            <fieldset>
+              <legend className="font-semibold text-ink">Anything else?</legend>
+              <div className="mt-3 flex flex-wrap gap-2">
+                <Chip type="checkbox" name="longSession" checked={a.longSession} onChange={() => set("longSession", !a.longSession)}>
+                  I am happy to sit for a long session
+                </Chip>
+                <Chip type="checkbox" name="model" checked={a.model} onChange={() => set("model", !a.model)}>
+                  I would like to be a vivid model
+                </Chip>
+              </div>
+            </fieldset>
+            <p className="text-muted">You can send inspiration photos in the text thread after this.</p>
           </div>
         )}
       </div>

@@ -7,7 +7,8 @@ export function FindYourFlavor() {
     <section id="find-your-flavor" aria-labelledby="flavor-title" className={`${sectionPad} border-y border-line bg-[#160F12]`}>
       <div className={container}>
         <SectionHeading id="flavor-title" kicker="Find your flavor" title="How loud are we going?" className="mb-12 lg:mb-16">
-          Slide from vanilla to full rainbow. Every stop is real work from her chair.
+          <span className="display italic text-ink">&ldquo;Do you do vanilla hair? Or just vivids?&rdquo;</span> Both. Slide to
+          see.
         </SectionHeading>
         <FlavorDial />
       </div>

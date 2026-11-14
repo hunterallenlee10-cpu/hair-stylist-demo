@@ -44,11 +44,11 @@ export function salonSchema() {
 export function serviceSchemas() {
   return services.map((s) => ({
     "@type": "Service",
-    "@id": absoluteUrl(`/#${s.id}`),
+    "@id": absoluteUrl(`/services#${s.id}`),
     name: s.name,
     serviceType: s.schemaDescription,
     description: s.blurb,
-    url: absoluteUrl(`/#${s.id}`),
+    url: absoluteUrl(`/services#${s.id}`),
     provider: { "@id": salonId() },
     areaServed: { "@type": "City", name: "Leonardtown, MD" },
   }));
@@ -57,7 +57,7 @@ export function serviceSchemas() {
 export function faqSchema() {
   return {
     "@type": "FAQPage",
-    "@id": absoluteUrl("/#faq"),
+    "@id": absoluteUrl("/new-here#faq"),
     mainEntity: faqs.map((f) => ({
       "@type": "Question",
       name: f.q,
@@ -80,11 +80,12 @@ export function websiteSchema() {
 export function homeSchema() {
   return {
     "@context": "https://schema.org",
-    "@graph": [salonSchema(), websiteSchema(), ...serviceSchemas(), faqSchema()],
+    "@graph": [salonSchema(), websiteSchema()],
   };
 }
 
-export function breadcrumbSchema() {
+/** Sub-page graph: the salon, a breadcrumb, and anything page-specific (services, FAQ). */
+export function pageSchema(name: string, path: string, extra: object[] = []) {
   return {
     "@context": "https://schema.org",
     "@graph": [
@@ -93,9 +94,10 @@ export function breadcrumbSchema() {
         "@type": "BreadcrumbList",
         itemListElement: [
           { "@type": "ListItem", position: 1, name: "Home", item: absoluteUrl("/") },
-          { "@type": "ListItem", position: 2, name: "Contact", item: absoluteUrl("/contact") },
+          { "@type": "ListItem", position: 2, name, item: absoluteUrl(path) },
         ],
       },
+      ...extra,
     ],
   };
 }

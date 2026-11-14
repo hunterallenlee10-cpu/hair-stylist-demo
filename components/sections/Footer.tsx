@@ -7,8 +7,8 @@ import { container } from "@/lib/ui";
 
 export function Footer() {
   return (
-    <footer className="border-t border-line bg-bg pb-28 pt-16 lg:pb-12 lg:pt-24">
-      <div className={`${container} grid gap-12 sm:grid-cols-2 lg:grid-cols-[1.3fr_1fr_1fr_1fr] [&>*]:min-w-0`}>
+    <footer className="border-t border-line bg-bg pb-28 pt-14 lg:pb-12 lg:pt-20">
+      <div className={`${container} grid grid-cols-2 gap-x-6 gap-y-12 max-[359px]:grid-cols-1 lg:grid-cols-[1.3fr_1fr_1fr_1fr] [&>*]:min-w-0 [&>*:nth-child(-n+2)]:col-span-2 sm:[&>*:nth-child(-n+2)]:col-span-1`}>
         <div>
           <Link href="/" className="inline-flex min-h-[44px] items-center" aria-label="Disco Lemonade Studio, home">
             <Wordmark size="lg" />
@@ -59,7 +59,7 @@ export function Footer() {
           <ul className="mt-2">
             {services.map((s) => (
               <li key={s.id}>
-                <a href={`/#${s.id}`} className="inline-flex min-h-[40px] items-center text-ink hover:text-accent">
+                <a href={`/services#${s.id}`} className="inline-flex min-h-[40px] items-center text-ink hover:text-accent">
                   {s.name}
                 </a>
               </li>
@@ -68,8 +68,19 @@ export function Footer() {
         </div>
 
         <div>
-          <h2 className="eyebrow text-muted">Elsewhere</h2>
+          <h2 className="eyebrow text-muted">More</h2>
           <ul className="mt-2">
+            {[
+              ["/work", "The work"],
+              ["/new-here", "New here and FAQ"],
+              ["/studio", "The studio"],
+            ].map(([href, label]) => (
+              <li key={href}>
+                <Link href={href} className="inline-flex min-h-[40px] items-center text-ink hover:text-accent">
+                  {label}
+                </Link>
+              </li>
+            ))}
             <li>
               <a
                 href={business.instagramUrl}

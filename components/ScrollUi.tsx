@@ -1,14 +1,15 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { ArrowUp, MessageCircle, Phone, Sparkles } from "lucide-react";
+import { ArrowUp, MessageCircle } from "lucide-react";
 import { PlanButton } from "@/components/ConsultBuilder/PlanButton";
-import { business, smsHref, telHref } from "@/lib/business";
+import { business, smsHref } from "@/lib/business";
 
 /**
- * Mobile-only sticky bar [Text] [Call] [Plan My Hair], shown once the hero
- * buttons scroll away. Back to top appears after 1.5 screens: inside the bar
- * on mobile (so it never covers content), floating bottom right on desktop.
+ * Mobile-only action bar with the two ways in: [Text] [Plan My Hair]. It
+ * appears once the hero buttons scroll away. Calling stays one tap away in
+ * the menu and the footer. Back to top floats bottom right on desktop after
+ * 1.5 screens; the pages are short enough on a phone not to need it.
  */
 export function ScrollUi() {
   const [y, setY] = useState(0);
@@ -29,49 +30,32 @@ export function ScrollUi() {
   }, []);
 
   const showBar = y > vh * 0.6;
-  const toTop = () =>
-    window.scrollTo({ top: 0, behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
   const showTop = y > vh * 1.5;
-  const item = "flex min-h-[52px] min-w-0 flex-1 items-center justify-center gap-2 whitespace-nowrap rounded-full px-2 font-bold";
+  const item = "flex min-h-[52px] min-w-0 items-center justify-center gap-2 whitespace-nowrap rounded-full px-4 font-bold";
 
   return (
     <>
       <div
-        className={`fixed inset-x-0 bottom-0 z-30 border-t border-line bg-bg/95 px-3 pb-[max(10px,env(safe-area-inset-bottom))] pt-2.5 backdrop-blur-md transition-transform duration-300 lg:hidden ${
+        className={`fixed inset-x-0 bottom-0 z-30 border-t border-line bg-bg px-3 pb-[max(10px,env(safe-area-inset-bottom))] pt-2.5 transition-transform duration-300 lg:hidden ${
           showBar ? "translate-y-0" : "pointer-events-none translate-y-full"
         }`}
         aria-hidden={!showBar}
         inert={!showBar}
       >
         <div className="mx-auto flex max-w-[560px] gap-2">
-          {showTop && (
-            <button
-              type="button"
-              onClick={toTop}
-              className="grid h-[52px] w-12 shrink-0 place-items-center rounded-full border border-line text-ink"
-              aria-label="Back to top"
-            >
-              <ArrowUp className="h-5 w-5" strokeWidth={2.25} aria-hidden="true" />
-            </button>
-          )}
-          <a href={smsHref()} className={`${item} border border-line text-ink`} aria-label={`Text CONSULTATION to ${business.phoneDisplay}`}>
-            <MessageCircle className="h-5 w-5 shrink-0 text-accent max-[399px]:hidden" strokeWidth={2} aria-hidden="true" />
+          <a href={smsHref()} className={`${item} flex-1 border border-line text-ink`} aria-label={`Text CONSULTATION to ${business.phoneDisplay}`}>
+            <MessageCircle className="h-5 w-5 shrink-0 text-accent" strokeWidth={2} aria-hidden="true" />
             Text
           </a>
-          <a href={telHref} className={`${item} border border-line text-ink`} aria-label={`Call ${business.phoneDisplay}`}>
-            <Phone className="h-5 w-5 shrink-0 text-accent max-[399px]:hidden" strokeWidth={2} aria-hidden="true" />
-            Call
-          </a>
-          <PlanButton className={`${item} flex-[1.6] bg-accent text-on-accent`}>
-            <Sparkles className="h-5 w-5 shrink-0 max-[399px]:hidden" strokeWidth={2} aria-hidden="true" />
-            Plan My Hair
-          </PlanButton>
+          <PlanButton className={`${item} flex-[1.8] bg-accent text-on-accent`}>Plan My Hair</PlanButton>
         </div>
       </div>
 
       <button
         type="button"
-        onClick={toTop}
+        onClick={() =>
+          window.scrollTo({ top: 0, behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" })
+        }
         className={`fixed bottom-8 right-8 z-30 hidden h-12 w-12 place-items-center rounded-full border border-line bg-surface text-ink shadow-soft transition-[opacity,transform] duration-300 hover:border-accent hover:text-accent lg:grid ${
           showTop ? "opacity-100" : "pointer-events-none translate-y-3 opacity-0"
         }`}

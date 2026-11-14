@@ -71,3 +71,26 @@ the always-visible second path and calling as the third.
 - [x] OG image and favicon are hers.
 - [x] Lighthouse SEO 100 live; others 90+. Demo: only the indexing audit fails.
 - [x] One h1 per page with service and town. Unique titles and descriptions. JSON-LD validates.
+
+## Revision 2 (2026-11-14): shorter home page
+
+Owner feedback on the first build: "It feels like kind of a lot on one page." Research into
+award-recognised salon sites and independent vivid colorists (see
+`reports/Top hair stylist website design.md`) showed the same pattern everywhere: a short hub home
+page, with services, the full portfolio, FAQ and new-client detail on their own pages.
+
+| | Before | After |
+|---|---|---|
+| Home page length at 375px | 23.0 screens | 7.8 screens |
+| Home page sections | 11 | 6 |
+| Home page words | 853 | 230 |
+| Planner buttons on the home page | 23 | 4 |
+| Planner steps | 5, phone required | 3, no phone field |
+| Mobile action bar | Text, Call, Plan, Back to top | Text, Plan |
+
+- Home keeps the hero, the Flavor Dial, a three-photo work teaser, a slim holiday strip, the studio
+  quote and the closing call to action.
+- New pages: `/work`, `/services`, `/new-here`, `/studio`. `/contact` stays.
+- The "Why Disco Lemonade" cards were folded into the dial intro ("Do you do vanilla hair? Or just
+  vivids?") and the New here page.
+- Every item in "Things only this business has" is still on the site.

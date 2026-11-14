@@ -21,7 +21,7 @@ export function SectionHeading({
       {kicker && <p className="eyebrow text-muted">{kicker}</p>}
       <h2
         id={id}
-        className="display mt-3 text-[2.5rem] font-[800] leading-[0.98] text-ink sm:text-[3.25rem] lg:text-[4rem]"
+        className="display mt-3 text-[2.25rem] font-[800] leading-[1] text-ink sm:text-[3rem] lg:text-[3.5rem]"
       >
         {title}
       </h2>

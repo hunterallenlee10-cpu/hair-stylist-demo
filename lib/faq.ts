@@ -9,7 +9,7 @@ export const faqs: Array<{ q: string; a: string; link?: { text: string; href: st
   },
   {
     q: "How do I book?",
-    a: `Text the word CONSULTATION to ${business.phoneDisplay}, or use the planner on this page. Every new client starts with a consultation.`,
+    a: `Text the word CONSULTATION to ${business.phoneDisplay}, or use the planner on this site. Every new client starts with a consultation.`,
   },
   { q: "Does the consultation cost anything?", a: "No. It is complimentary." },
   {

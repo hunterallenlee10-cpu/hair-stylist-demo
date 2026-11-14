@@ -1,12 +1,13 @@
+import Link from "next/link";
 import { MapPin } from "lucide-react";
 import { WavyFrame } from "@/components/WavyFrame";
 import { Placeholder } from "@/components/Placeholder";
-import { addressLine1, addressLine2, business, directionsUrl, mapEmbedUrl } from "@/lib/business";
-import { container, sectionPad, textLink } from "@/lib/ui";
+import { addressLine1, addressLine2, business, directionsUrl } from "@/lib/business";
+import { container, textLink } from "@/lib/ui";
 
 export function Studio() {
   return (
-    <section id="the-studio" aria-labelledby="studio-title" className={sectionPad}>
+    <section aria-label="About the studio" className="pb-[72px] lg:pb-[112px]">
       <div className={`${container} grid items-start gap-14 lg:grid-cols-2 lg:gap-20`}>
         <div className="relative mx-auto w-full max-w-[560px] pb-16 sm:pb-20">
           <WavyFrame shape="portrait" className="w-[86%]">
@@ -21,10 +22,7 @@ export function Studio() {
         </div>
 
         <div>
-          <h2 id="studio-title" className="eyebrow text-muted">
-            The studio in Leonardtown, MD
-          </h2>
-          <figure className="mt-5">
+          <figure>
             <blockquote>
               <p className="display text-[2.25rem] font-[600] italic leading-[1.08] text-ink sm:text-[3rem]">
                 &ldquo;{business.studioQuote}&rdquo;
@@ -52,15 +50,15 @@ export function Studio() {
               Get directions
             </a>
           </div>
-          <div className="mt-5 overflow-hidden rounded-[20px] border border-line bg-surface [clip-path:inset(0_round_20px)]">
-            <iframe
-              title={`Map showing ${business.name} at ${addressLine1}, ${addressLine2}`}
-              src={mapEmbedUrl}
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-              className="block h-[260px] w-full grayscale-[0.6] invert-[0.9] hue-rotate-180"
-            />
-          </div>
+          <p className="mt-5 text-muted">
+            Serving Leonardtown, St. Mary&apos;s County and Southern Maryland.{" "}
+            <Link
+              href="/contact#visit"
+              className="font-semibold text-ink underline decoration-accent decoration-2 underline-offset-4 hover:text-accent"
+            >
+              See the map and contact details
+            </Link>
+          </p>
         </div>
       </div>
     </section>

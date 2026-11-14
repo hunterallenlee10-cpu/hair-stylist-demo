@@ -1,4 +1,6 @@
 // Consult Builder options and the prefilled text message.
+// No phone field: the plan is sent as a text from the client's own phone,
+// so Mickayla already has the number.
 export const lookOptions = [
   "Vanilla",
   "A pop",
@@ -33,9 +35,7 @@ export type ConsultAnswers = {
   model: boolean;
   dream: string;
   name: string;
-  phone: string;
   days: string;
-  notes: string;
 };
 
 export const emptyAnswers: ConsultAnswers = {
@@ -47,16 +47,8 @@ export const emptyAnswers: ConsultAnswers = {
   model: false,
   dream: "",
   name: "",
-  phone: "",
   days: "",
-  notes: "",
 };
-
-/** US phone: 10 digits, optional leading 1. */
-export function validPhone(raw: string) {
-  const d = raw.replace(/\D/g, "");
-  return d.length === 10 || (d.length === 11 && d.startsWith("1"));
-}
 
 const clean = (s: string) => s.trim().replace(/\s+/g, " ").replace(/\.$/, "");
 
@@ -79,6 +71,5 @@ export function buildSmsBody(a: ConsultAnswers) {
   if (a.longSession) parts.push("Happy to sit for a long session.");
   if (a.model) parts.push("I would like to be a vivid model.");
   if (a.days) parts.push(`Best days: ${a.days === "Either" ? "either" : a.days.toLowerCase()}.`);
-  if (a.notes.trim()) parts.push(`Notes: ${clean(a.notes)}.`);
   return parts.join(" ");
 }
