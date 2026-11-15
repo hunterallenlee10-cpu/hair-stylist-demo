@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-require-imports */
 // Dev helper: keyboard, reflow (200% and 400% zoom) and builder-flow pass.
 // node scripts/a11y-pass.cjs http://localhost:3100 <shotDir>
 const { chromium } = require("playwright");
