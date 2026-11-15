@@ -16,7 +16,7 @@ Re-read the matching part of the spec at the start of each phase. After each pha
   Flavor Dial "More like this". Home "After beats before" led by 15.
 - [x] **Phase 3.** `lib/services.ts`, service template, four service pages, hub update, nav
   services menu, breadcrumbs.
-- [ ] **Phase 4.** `/studio` with 09 and honest proof, `/new-here` with 16, `/contact` map card,
+- [x] **Phase 4.** `/studio` with 09 and honest proof, `/new-here` with 16, `/contact` map card,
   holiday band swirl edge and gift card link, varied final CTA photos, 404 with the swirl.
 - [ ] **Phase 5.** Builder honest last step and desktop fallback, sticky bar focus fix, keyboard
   and 200% zoom pass.

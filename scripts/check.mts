@@ -59,6 +59,8 @@ function visibleText(html: string) {
       .replace(/<style[\s\S]*?<\/style>/g, " ")
       .replace(/<template[\s\S]*?<\/template>/g, " ")
       .replace(/<!--[\s\S]*?-->/g, " ")
+      // Block boundaries become a separator so text from two elements never reads as one phrase.
+      .replace(/<\/(p|li|div|address|h[1-6]|dd|dt|figcaption|blockquote|section|button|a)>|<br\s*\/?>/g, " | ")
       .replace(/<[^>]+>/g, " "),
   ).replace(/\s+/g, " ");
 }
@@ -128,9 +130,12 @@ for (const route of routes) {
   for (const m of html.matchAll(/href="(tel|sms):([^"?]+)/g)) {
     if (m[2] !== business.phoneE164) fail(route, `${m[1]}: link to ${m[2]}`);
   }
-  for (const m of text.matchAll(/(\S+\s+)?Point Lookout Rd(\s+\S+)?/g)) {
-    if (!m[0].startsWith(business.address.street.split(" ")[0]) || !/#3/.test(m[0]))
-      fail(route, `address "${m[0]}" does not match ${business.address.street}`);
+  // A house number or unit next to the street must be hers. "on Point Lookout Rd" alone is fine.
+  const [num] = business.address.street.split(" ");
+  const unit = business.address.street.match(/#\d+/)?.[0];
+  for (const m of text.matchAll(/(\d+)?\s*Point Lookout Rd(?:\s*(#\d+))?/g)) {
+    if ((m[1] && m[1] !== num) || (m[2] && m[2] !== unit) || (m[1] && !m[2]))
+      fail(route, `address "${m[0].trim()}" does not match ${business.address.street}`);
   }
   for (const m of text.matchAll(/(?:Maryland|MD)\s+(\d{5})/g)) {
     if (m[1] !== business.address.postalCode) fail(route, `ZIP ${m[1]} does not match ${business.address.postalCode}`);

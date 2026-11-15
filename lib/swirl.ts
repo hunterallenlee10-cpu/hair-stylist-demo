@@ -29,3 +29,21 @@ export function swirlArmPath() {
   const pts = [...a, ...b].map(([x, y]) => `${f(x)} ${f(y)}`);
   return `M${pts.join("L")}Z`;
 }
+
+/**
+ * A torn paper edge across a 1440 x 24 box, as a closed path filled below the
+ * tear. Deterministic, so server and client render the same thing.
+ */
+export function tornEdgePath(seed = 11, step = 16) {
+  let s = seed;
+  const rand = () => {
+    s = (s * 9301 + 49297) % 233280;
+    return s / 233280;
+  };
+  const pts: string[] = [];
+  for (let x = 0; x <= 1440; x += step) {
+    const y = 6 + rand() * 10 + (rand() < 0.15 ? rand() * 6 : 0);
+    pts.push(`${x} ${y.toFixed(1)}`);
+  }
+  return `M0 24L${pts.join("L")}L1440 24Z`;
+}

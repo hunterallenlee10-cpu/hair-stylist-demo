@@ -5,6 +5,7 @@ import { FindYourFlavor } from "@/components/sections/FindYourFlavor";
 import { AfterBeatsBefore } from "@/components/sections/AfterBeatsBefore";
 import { HolidayStrip } from "@/components/sections/HolidayStrip";
 import { StudioQuote } from "@/components/sections/StudioQuote";
+import { ModelCall } from "@/components/sections/HowItWorks";
 import { homeSchema } from "@/lib/schema";
 import { absoluteUrl } from "@/lib/site";
 
@@ -21,6 +22,7 @@ export default function Home() {
       <FindYourFlavor />
       <AfterBeatsBefore />
       <HolidayStrip />
+      <ModelCall />
       <StudioQuote />
     </PageShell>
   );

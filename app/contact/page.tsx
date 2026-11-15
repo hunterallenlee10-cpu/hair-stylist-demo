@@ -1,7 +1,11 @@
-import { Instagram, MapPin, MessageCircle, Phone } from "lucide-react";
+import { MapPin, MessageCircle, Phone } from "lucide-react";
 import { PageShell } from "@/components/PageShell";
 import { ConsultForm } from "@/components/ConsultBuilder/ConsultForm";
-import { addressLine1, addressLine2, business, directionsUrl, mapEmbedUrl, smsHref, telHref } from "@/lib/business";
+import { addressLine1, addressLine2, business, directionsUrl, smsHref, telHref } from "@/lib/business";
+import { MapCard } from "@/components/MapCard";
+import { PageTitle } from "@/components/PageShell";
+import { Draft } from "@/components/Draft";
+import { InstagramIcon } from "@/components/icons/InstagramIcon";
 import { pageMeta } from "@/lib/meta";
 import { pageSchema } from "@/lib/schema";
 import { container, textLink } from "@/lib/ui";
@@ -30,7 +34,7 @@ const tiles = [
   },
   {
     href: business.instagramUrl,
-    icon: Instagram,
+    icon: InstagramIcon,
     label: "Instagram",
     title: `Message ${business.instagramHandle} on Instagram`,
     body: "Years of her work, and a DM inbox.",
@@ -43,14 +47,15 @@ export default function ContactPage() {
     <PageShell schema={pageSchema("Contact", "/contact")}>
         <section aria-labelledby="contact-title" className="pb-12 pt-10 lg:pb-16 lg:pt-20">
           <div className={container}>
-            <h1 id="contact-title">
-              <span className="eyebrow block text-muted">
-                Contact {business.name}, vivid hair color in Leonardtown, MD
-              </span>
-              <span className="display mt-4 block text-[2.25rem] font-[800] leading-[0.96] text-ink xs:text-[2.75rem] sm:text-[4.5rem] lg:text-[5.5rem]">
-                Text the word <span className="italic text-accent">CONSULTATION.</span>
-              </span>
-            </h1>
+            <PageTitle
+              id="contact-title"
+              eyebrow={`Contact ${business.name}, vivid hair color in Leonardtown, MD`}
+              title={
+                <>
+                  Text the word <span className="italic text-accent">CONSULTATION.</span>
+                </>
+              }
+            />
             <p className="mt-5 max-w-[36rem] text-lg text-muted">
               Send it to{" "}
               <a href={smsHref()} className="font-semibold text-ink underline decoration-accent decoration-2 underline-offset-4">
@@ -68,7 +73,7 @@ export default function ContactPage() {
                     className="group flex h-full flex-col rounded-[20px] border border-line bg-surface p-6 transition-colors hover:border-accent"
                   >
                     <span className="grid h-12 w-12 place-items-center rounded-2xl border border-line bg-bg text-accent">
-                      <t.icon className="h-5 w-5" strokeWidth={2} aria-hidden="true" />
+                      <t.icon className="h-5 w-5" />
                     </span>
                     <span className="display mt-6 text-[1.5rem] font-[800] leading-tight text-ink group-hover:text-accent">
                       {t.title}
@@ -84,8 +89,8 @@ export default function ContactPage() {
         <section aria-labelledby="planner-title" className="border-y border-line bg-[#160F12] py-[72px] lg:py-[112px]">
           <div className={`${container} grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20`}>
             <div>
-              <p className="eyebrow text-muted">The planner</p>
-              <h2 id="planner-title" className="display mt-3 text-[2.5rem] font-[800] leading-[0.98] text-ink sm:text-[3.25rem]">
+              <p className="text-label font-medium text-muted">The planner</p>
+              <h2 id="planner-title" className="display mt-3 text-h2 font-[800] text-ink">
                 Plan My Dream Hair.
               </h2>
               <p className="mt-5 text-lg text-muted">
@@ -116,7 +121,9 @@ export default function ContactPage() {
                 <div>
                   <dt className="eyebrow text-muted">Hours</dt>
                   {/* DRAFT: confirm working days and hours */}
-                  <dd className="mt-1 text-ink">{business.hours}</dd>
+                  <dd className="mt-1 text-ink">
+                    <Draft note="confirm working days and hours">{business.hours}</Draft>
+                  </dd>
                 </div>
                 <div>
                   <dt className="eyebrow text-muted">Phone</dt>
@@ -136,15 +143,7 @@ export default function ContactPage() {
                 Get directions
               </a>
             </div>
-            <div className="min-h-[320px] overflow-hidden rounded-[20px] border border-line bg-surface [clip-path:inset(0_round_20px)]">
-              <iframe
-                title={`Map showing ${business.name} at ${addressLine1}, ${addressLine2}`}
-                src={mapEmbedUrl}
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                className="block h-full min-h-[320px] w-full grayscale-[0.6] invert-[0.9] hue-rotate-180"
-              />
-            </div>
+            <MapCard />
           </div>
         </section>
     </PageShell>
