@@ -1,5 +1,4 @@
 import type { Metadata, Viewport } from "next";
-import { DM_Sans } from "next/font/google";
 import localFont from "next/font/local";
 import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
@@ -20,11 +19,13 @@ const fraunces = localFont({
   fallback: ["Georgia", "serif"],
 });
 
-const dmSans = DM_Sans({
-  subsets: ["latin"],
-  weight: ["400", "500", "700"],
+// DM Sans, trimmed the same way: weights 400 to 700 stay variable, optical
+// size pinned at 14 (the site's text runs 13 to 22px). 22 KB instead of 36 KB.
+const dmSans = localFont({
+  src: [{ path: "./fonts/DMSans-400-700.woff2", weight: "400 700", style: "normal" }],
   variable: "--font-dmsans",
   display: "swap",
+  fallback: ["ui-sans-serif", "system-ui", "sans-serif"],
 });
 
 export const viewport: Viewport = {

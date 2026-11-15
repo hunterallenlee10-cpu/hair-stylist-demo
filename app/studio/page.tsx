@@ -14,7 +14,7 @@ export const metadata = pageMeta({
 
 export default function StudioPage() {
   return (
-    <PageShell schema={pageSchema("The studio", "/studio")} ctaPhoto="softBrunette">
+    <PageShell schema={pageSchema("The studio", "/studio")} ctaPhoto="softBrunette" ctaTitle={{ lead: "Come sit with", accent: "the lemons." }}>
       <StudioHero />
       <Studio />
       <Proof />

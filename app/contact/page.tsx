@@ -44,7 +44,7 @@ const tiles = [
 
 export default function ContactPage() {
   return (
-    <PageShell schema={pageSchema("Contact", "/contact")}>
+    <PageShell schema={pageSchema("Contact", "/contact")} ctaPhoto="silver" ctaTitle={{ lead: "Still deciding?", accent: "Start with a look you love." }}>
         <section aria-labelledby="contact-title" className="pb-12 pt-10 lg:pb-16 lg:pt-20">
           <div className={container}>
             <PageTitle

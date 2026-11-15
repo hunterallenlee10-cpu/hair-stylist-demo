@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import type { ReactNode } from "react";
+import { ViewTransition, type ReactNode } from "react";
 import { ArrowRight, Scissors, Sparkles, WandSparkles } from "lucide-react";
 import { WavyFrame } from "@/components/WavyFrame";
 import { Draft } from "@/components/Draft";
@@ -86,24 +86,26 @@ export function Services() {
               big
               className="sm:col-span-2 lg:row-span-2"
               media={
-                <WavyFrame clipClass="wave-landscape" band="md" className="aspect-[4/3] w-full lg:aspect-auto lg:min-h-[320px] lg:flex-1">
-                  <Photo first k="melt" sizes="(min-width: 1024px) 640px, (min-width: 640px) 90vw, 100vw" position="50% 30%" />
-                </WavyFrame>
+                <ViewTransition name="service-photo-vivid-hair-color" share="morph" default="none">
+                  <WavyFrame clipClass="wave-landscape" band="md" className="aspect-[4/3] w-full lg:aspect-auto lg:min-h-[320px] lg:flex-1">
+                    <Photo first k="fire" sizes="(min-width: 1024px) 640px, (min-width: 640px) 90vw, 100vw" position="50% 35%" />
+                  </WavyFrame>
+                </ViewTransition>
               }
             />
             <Tile
               id="panels-and-peekaboos"
               className="lg:row-span-2"
               media={
-                <WavyFrame clipClass="wave-portrait" band="md" className="aspect-[1357/1721] w-full lg:aspect-auto lg:min-h-[320px] lg:flex-1">
-                  <Photo k="fire" sizes="(min-width: 1024px) 300px, (min-width: 640px) 45vw, 100vw" />
+                <WavyFrame clipClass="wave-portrait" band="plain" className="aspect-[1357/1721] w-full lg:aspect-auto lg:min-h-[320px] lg:flex-1">
+                  <Photo k="shego" sizes="(min-width: 1024px) 300px, (min-width: 640px) 45vw, 100vw" />
                 </WavyFrame>
               }
             />
             <Tile
               id="lived-in-color"
               media={
-                <WavyFrame shape="wide" band="md" className="w-full">
+                <WavyFrame shape="wide" band="plain" className="w-full">
                   <Photo k="softBrunette" sizes="(min-width: 1024px) 300px, (min-width: 640px) 45vw, 100vw" position="50% 50%" />
                 </WavyFrame>
               }
@@ -114,10 +116,12 @@ export function Services() {
               className="sm:col-span-2"
               media={
                 <div className="grid grid-cols-2 gap-4">
-                  <WavyFrame shape="square" band="md" className="w-full">
-                    <Photo k="silver" sizes="(min-width: 1024px) 300px, 45vw" position="50% 45%" />
-                  </WavyFrame>
-                  <WavyFrame shape="square" band="md" className="w-full">
+                  <ViewTransition name="service-photo-blonding-and-silver" share="morph" default="none">
+                    <WavyFrame shape="square" band="plain" className="w-full">
+                      <Photo k="silver" sizes="(min-width: 1024px) 300px, 45vw" position="50% 45%" />
+                    </WavyFrame>
+                  </ViewTransition>
+                  <WavyFrame shape="square" band="plain" className="w-full">
                     <Photo k="barbie" sizes="(min-width: 1024px) 300px, 45vw" position="50% 55%" />
                   </WavyFrame>
                 </div>
@@ -126,7 +130,7 @@ export function Services() {
             <Tile
               id="hair-gems"
               media={
-                <WavyFrame shape="landscape" band="md" className="w-full">
+                <WavyFrame shape="landscape" band="plain" className="w-full">
                   <Photo k="gems" sizes="(min-width: 1024px) 300px, (min-width: 640px) 45vw, 100vw" position="50% 25%" />
                 </WavyFrame>
               }

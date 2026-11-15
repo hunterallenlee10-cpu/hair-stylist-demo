@@ -22,7 +22,9 @@ const clip: Record<Shape, string> = {
  * Her hot pink wavy sequin mirror. The scalloped clip-path (from <WaveDefs />)
  * cuts both the sequin band and the glass, so the photo sits inside a pink
  * scalloped rim. `band` sets the rim: "lg" 12px, "md" 10px, "sm" 6px for
- * thumbnails, "card" 7 to 10px for gallery cards, "none" for a plain wavy frame.
+ * thumbnails, "card" 7 to 10px, "none" for a plain wavy frame, and "plain" for a
+ * simple rounded crop: grids use it, so the mirror stays special (heroes and the one
+ * featured photo per section).
  *
  * For a shape that changes with the breakpoint, pass `clipClass` (e.g.
  * "wave-square lg:wave-portrait") and an aspect class in `className`.
@@ -36,7 +38,7 @@ export function WavyFrame({
   style,
 }: {
   shape?: Shape;
-  band?: "lg" | "md" | "sm" | "card" | "none";
+  band?: "lg" | "md" | "sm" | "card" | "none" | "plain";
   clipClass?: string;
   children: ReactNode;
   className?: string;
@@ -44,6 +46,16 @@ export function WavyFrame({
 }) {
   const c = clipClass ?? clip[shape];
   const aspect = clipClass ? undefined : ratio[shape];
+  if (band === "plain") {
+    return (
+      <div
+        className={`relative overflow-hidden rounded-[18px] bg-surface shadow-[inset_0_0_0_1px_rgb(255_255_255/0.06)] ${className}`}
+        style={{ aspectRatio: clipClass ? undefined : ratio[shape], ...style }}
+      >
+        {children}
+      </div>
+    );
+  }
   if (band === "none") {
     return (
       <div className={`relative overflow-hidden bg-surface ${c} ${className}`} style={{ aspectRatio: aspect, ...style }}>
@@ -51,7 +63,7 @@ export function WavyFrame({
       </div>
     );
   }
-  const size = { lg: "", md: "mirror-md", sm: "mirror-sm", card: "mirror-card" }[band];
+  const size = { lg: "", md: "mirror-md", sm: "mirror-sm", card: "mirror-card" }[band as "lg" | "md" | "sm" | "card"];
   return (
     <div className={`mirror relative ${size} ${c} ${className}`} style={{ aspectRatio: aspect, ...style }}>
       <div className={`mirror-glass ${c}`}>{children}</div>

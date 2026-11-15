@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { ViewTransition } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -53,6 +54,7 @@ export default async function ServicePage({ params }: Props) {
   return (
     <PageShell
       ctaPhoto={s.ctaPhoto}
+      ctaTitle={s.ctaTitle}
       schema={pageSchema(
         s.name,
         path,
@@ -72,9 +74,7 @@ export default async function ServicePage({ params }: Props) {
             <p className="mt-6 max-w-[38rem] text-lead text-muted">{s.whatItIs}</p>
             {s.slug === "lived-in-color-balayage" && <FirstColorQuote />}
             <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-              <PlanButton preset={preset} className={`${btnPrimary} w-full sm:w-auto`}>
-                {s.planLabel} <ArrowRight className="h-5 w-5" strokeWidth={2.25} aria-hidden="true" />
-              </PlanButton>
+              <PlanButton preset={preset} className={`${btnPrimary} w-full sm:w-auto`} aria-describedby="plan-note" />
               <a href={smsHref()} className={`${btnGhost} w-full px-5 sm:w-auto`}>
                 <MessageCircle className="h-5 w-5 shrink-0 text-accent" strokeWidth={2} aria-hidden="true" />
                 <span>
@@ -82,8 +82,12 @@ export default async function ServicePage({ params }: Props) {
                 </span>
               </a>
             </div>
+            <p id="plan-note" className="mt-3 text-label text-muted">
+              {s.planNote}
+            </p>
           </div>
           <figure className="mx-auto w-full max-w-[320px] sm:max-w-[400px] lg:max-w-[460px]">
+            <ViewTransition name={`service-photo-${s.slug}`} share="morph" default="none">
             <div className="rotate-2">
               <WavyFrame shape="portrait">
                 <Image
@@ -99,6 +103,7 @@ export default async function ServicePage({ params }: Props) {
                 />
               </WavyFrame>
             </div>
+            </ViewTransition>
             <figcaption className="mt-4 text-center text-[0.9375rem] text-muted">{hero.caption}</figcaption>
           </figure>
         </div>
@@ -143,13 +148,6 @@ export default async function ServicePage({ params }: Props) {
             <p className="mt-6 text-lead text-ink">
               From ${price}. {business.pricingLine}
             </p>
-          )}
-          {s.slug === "color-correction" && (
-            <div className="mt-8">
-              <PlanButton preset={preset} className={btnPrimary}>
-                Start with box dye at home <ArrowRight className="h-5 w-5" strokeWidth={2.25} aria-hidden="true" />
-              </PlanButton>
-            </div>
           )}
         </div>
       </section>

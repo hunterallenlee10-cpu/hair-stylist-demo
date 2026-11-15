@@ -73,25 +73,24 @@ export function StudioHero() {
 export function Studio() {
   return (
     <section aria-labelledby="room-title" className={`${sectionPad} border-t border-line`}>
-      <div className={`${container} grid items-start gap-14 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:gap-20`}>
-        <figure className="mx-auto w-full max-w-[380px]">
-          <WavyFrame shape="portrait" band="md">
-            <Placeholder label="Photo: Mickayla, from Disco Lemonade Studio" />
-          </WavyFrame>
+      <div className={`${container} max-w-[60rem]`}>
+        <SectionHeading id="room-title" kicker="The room" title="The room you sit in on color day." />
+        <figure className="mt-8">
+          <blockquote>
+            <p className="display text-h2 font-[600] italic text-ink">&ldquo;{business.studioQuote}&rdquo;</p>
+          </blockquote>
+          <figcaption className="mt-6 flex items-center gap-4">
+            {/* A small, labelled slot for her portrait until she supplies one. Never a stock photo. */}
+            <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-full border border-dashed border-line bg-surface">
+              <Placeholder label="Photo: Mickayla, from Disco Lemonade Studio" compact />
+            </div>
+            <span className="font-semibold text-muted">{business.owner}, owner</span>
+          </figcaption>
         </figure>
-        <div>
-          <SectionHeading id="room-title" kicker="The room" title="The room you sit in on color day." />
-          <figure className="mt-8">
-            <blockquote>
-              <p className="display text-h2 font-[600] italic text-ink">&ldquo;{business.studioQuote}&rdquo;</p>
-            </blockquote>
-            <figcaption className="mt-4 font-semibold text-muted">{business.owner}, owner</figcaption>
-          </figure>
-          <p className="mt-8 max-w-[36rem] text-lead text-muted">
-            Black walls, a hot pink wavy sequin mirror, sequin lemons, and the swirl mural. One chair, so it is just you,
-            her color brushes and the lemons.
-          </p>
-        </div>
+        <p className="mt-8 max-w-[36rem] text-lead text-muted">
+          Black walls, a hot pink wavy sequin mirror, sequin lemons, and the swirl mural. One chair, so it is just you,
+          her color brushes and the lemons.
+        </p>
       </div>
 
       <div id="visit" className={`${container} mt-16 grid gap-6 lg:mt-24 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:gap-10`}>

@@ -19,7 +19,7 @@ export function SectionHeading({
 }) {
   const center = align === "center";
   return (
-    <div className={`${center ? "mx-auto text-center" : ""} max-w-[44rem] ${className}`}>
+    <div className={`reveal ${center ? "mx-auto text-center" : ""} max-w-[44rem] ${className}`}>
       {kicker && <Label className={center ? "justify-center" : ""}>{kicker}</Label>}
       <h2 id={id} className="display mt-3 text-h2 font-[800] text-ink">
         {title}

@@ -1,4 +1,4 @@
-"""Trim Fraunces for the site (run with fontTools and brotli installed).
+"""Trim the site fonts (run with fontTools and brotli installed).
 
 The site always sets Fraunces at SOFT 100 and WONK 1 and only uses weights
 600 to 900, so the variable font is instanced to exactly that: wght stays
@@ -9,7 +9,10 @@ Source files: the Google Fonts latin woff2 for
   Fraunces:ital,SOFT,WONK,wght@0,0..100,0..1,100..900;1,0..100,0..1,100..900
 Fraunces is licensed under the SIL Open Font License 1.1 (no reserved font name).
 
-usage: python trim-fraunces.py <normal.woff2> <italic.woff2> <outdir>
+usage: python trim-fonts.py <normal.woff2> <italic.woff2> <outdir> [dm-sans-latin.woff2]
+
+DM Sans (optional 4th argument, the latin woff2 for DM+Sans:opsz,wght@9..40,100..1000):
+weights 400 to 700 stay variable, optical size pinned at 14.
 """
 import sys
 from fontTools.ttLib import TTFont
@@ -20,3 +23,8 @@ for src, name in [(normal, "Fraunces-SoftWonk-600-900.woff2"), (italic, "Fraunce
     font = instancer.instantiateVariableFont(TTFont(src), {"wght": (600, 900), "SOFT": 100, "WONK": 1})
     font.flavor = "woff2"
     font.save(f"{outdir}/{name}")
+
+if len(sys.argv) > 4:
+    font = instancer.instantiateVariableFont(TTFont(sys.argv[4]), {"wght": (400, 700), "opsz": 14})
+    font.flavor = "woff2"
+    font.save(f"{outdir}/DMSans-400-700.woff2")
