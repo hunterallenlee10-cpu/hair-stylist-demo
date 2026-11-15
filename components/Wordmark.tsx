@@ -11,7 +11,8 @@ export function Wordmark({ size = "md" }: { size?: "md" | "lg" }) {
           className={`display italic font-[800] leading-none text-ink ${big ? "text-[1.625rem] sm:text-[2rem]" : "text-[1.375rem]"}`}
         >
           Disco Lemonade
-        </span>
+        </span>{" "}
+        {/* The space keeps the visible text "Disco Lemonade STUDIO", matching the link's name. */}
         <span className={`font-sans font-bold tracking-[0.28em] text-muted max-[359px]:hidden ${big ? "text-[0.625rem] sm:text-xs" : "text-[0.625rem]"}`}>
           STUDIO
         </span>

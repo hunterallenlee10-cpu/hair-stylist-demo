@@ -14,7 +14,7 @@ export const metadata = pageMeta({
 export default async function WorkPage({ searchParams }: { searchParams: Promise<{ filter?: string | string[] }> }) {
   const { filter } = await searchParams;
   return (
-    <PageShell schema={pageSchema("The work", "/work")} ctaPhoto="closeup">
+    <PageShell schema={pageSchema("The work", "/work")} ctaPhoto="closeup" ctaTitle={{ lead: "Seen one you love?", accent: "Plan it." }}>
       <PageHeader eyebrow="Vivid hair color by Mickayla Ramsey in Leonardtown, MD" title="After beats before.">
         Eighteen photos, all her own work, plus a look at the studio wall. Tap any photo to see it bigger, then plan it.
       </PageHeader>

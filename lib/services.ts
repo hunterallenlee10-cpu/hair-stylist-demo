@@ -33,6 +33,8 @@ export type ServicePage = {
   expect: Expect[];
   faqs: Faq[];
   ctaPhoto: PhotoKey;
+  /** Closing headline for this page. */
+  ctaTitle: { lead: string; accent: string };
   /** schema.org Service */
   serviceType: string;
 };
@@ -96,6 +98,7 @@ export const servicePages: ServicePage[] = [
       },
     ],
     ctaPhoto: "closeup",
+    ctaTitle: { lead: "Ready to go", accent: "loud?" },
     serviceType: "Vivid hair color",
   },
   {
@@ -139,6 +142,7 @@ export const servicePages: ServicePage[] = [
       },
     ],
     ctaPhoto: "firstColor",
+    ctaTitle: { lead: "Vanilla, whenever", accent: "you are." },
     serviceType: "Balayage and lived-in hair color",
   },
   {
@@ -181,6 +185,7 @@ export const servicePages: ServicePage[] = [
       },
     ],
     ctaPhoto: "barbie",
+    ctaTitle: { lead: "Bright and sunny", accent: "starts with a text." },
     serviceType: "Hair blonding and silver hair color",
   },
   {
@@ -216,6 +221,7 @@ export const servicePages: ServicePage[] = [
       },
     ],
     ctaPhoto: "fire",
+    ctaTitle: { lead: "Box dye? Old color?", accent: "Start with a text." },
     serviceType: "Hair color correction",
   },
 ];

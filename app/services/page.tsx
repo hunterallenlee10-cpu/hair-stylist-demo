@@ -17,7 +17,7 @@ export default function ServicesPage() {
     return s ? `/services/${s.slug}` : undefined;
   };
   return (
-    <PageShell schema={pageSchema("Services", "/services", [serviceCatalogSchema(pageFor)])} ctaPhoto="hiddenRainbow">
+    <PageShell schema={pageSchema("Services", "/services", [serviceCatalogSchema(pageFor)])} ctaPhoto="hiddenRainbow" ctaTitle={{ lead: "Found your", accent: "flavor?" }}>
       <PageHeader eyebrow="Hair color services in Leonardtown, MD" title="What she paints.">
         Tap a service to see her work and what to expect, or plan it straight away.
       </PageHeader>

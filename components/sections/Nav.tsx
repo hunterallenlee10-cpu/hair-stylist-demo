@@ -137,6 +137,7 @@ export function Nav() {
 
   return (
     <header
+      style={{ viewTransitionName: "site-header" }}
       className={`sticky top-0 z-40 h-[var(--nav-h)] border-b transition-colors duration-300 ${
         scrolled ? "border-line bg-bg/90 backdrop-blur-md" : "border-transparent bg-bg"
       }`}

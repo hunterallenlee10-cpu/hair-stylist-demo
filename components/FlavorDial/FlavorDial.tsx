@@ -165,7 +165,7 @@ export function FlavorDial() {
                     }}
                   >
                     <span className="sr-only">Open larger: </span>
-                    <WavyFrame shape="square" band="sm">
+                    <WavyFrame shape="square" band="plain" className="!rounded-[12px]">
                       {near && (
                         <Image
                           src={p.src}

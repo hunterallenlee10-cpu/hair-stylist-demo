@@ -17,7 +17,7 @@ export const metadata = pageMeta({
 
 export default function NewHerePage() {
   return (
-    <PageShell schema={pageSchema("New here", "/new-here", [faqSchema()])}>
+    <PageShell schema={pageSchema("New here", "/new-here", [faqSchema()])} ctaPhoto="hiddenRainbow" ctaTitle={{ lead: "One word gets you in:", accent: "CONSULTATION." }}>
       <PageHeader eyebrow="New clients: vivid hair color in Leonardtown, MD" title={
           <>
             New here? <span className="sm:block">Start with a text.</span>

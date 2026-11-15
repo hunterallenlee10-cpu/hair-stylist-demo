@@ -57,6 +57,7 @@ export function ScrollUi() {
     <>
       <div
         ref={bar}
+        style={{ viewTransitionName: "action-bar" }}
         className={`fixed inset-x-0 bottom-0 z-30 border-t border-line bg-bg px-3 pb-[max(10px,env(safe-area-inset-bottom))] pt-2.5 transition-transform duration-300 lg:hidden ${
           showBar ? "translate-y-0" : "pointer-events-none translate-y-full"
         }`}

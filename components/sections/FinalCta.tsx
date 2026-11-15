@@ -14,15 +14,27 @@ const steps = ["Text CONSULTATION", "Free consult", "Color day"];
  * mirror (max 440px wide, never stretched), varied per page. On the home page
  * it also carries the three-step summary of how booking works.
  */
-export function FinalCta({ steps: showSteps = false, photo = "fire" }: { steps?: boolean; photo?: PhotoKey }) {
+export type CtaTitle = { lead: string; accent: string };
+const defaultTitle: CtaTitle = { lead: "Ready when you are,", accent: "rainbow enthusiast." };
+
+export function FinalCta({
+  steps: showSteps = false,
+  photo = "fire",
+  title = defaultTitle,
+}: {
+  steps?: boolean;
+  photo?: PhotoKey;
+  /** Varied per page, so the closing band never reads the same twice. */
+  title?: CtaTitle;
+}) {
   const p = photos[photo];
   return (
     <section aria-labelledby="cta-title" className="py-[72px] lg:py-[112px]">
       <div className={container}>
-        <div className="grid items-center gap-10 overflow-hidden rounded-[28px] border border-line bg-surface px-6 py-12 sm:px-12 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,0.8fr)] lg:gap-16 lg:px-16 lg:py-16">
+        <div className="reveal grid items-center gap-10 overflow-hidden rounded-[28px] border border-line bg-surface px-6 py-12 sm:px-12 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,0.8fr)] lg:gap-16 lg:px-16 lg:py-16">
           <div>
             <h2 id="cta-title" className="display max-w-[36rem] text-h2 font-[800] text-ink">
-              Ready when you are, <span className="italic text-accent">rainbow enthusiast.</span>
+              {title.lead} <span className="italic text-accent [overflow-wrap:anywhere]">{title.accent}</span>
             </h2>
 
             {showSteps && (

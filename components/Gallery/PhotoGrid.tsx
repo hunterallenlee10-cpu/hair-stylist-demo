@@ -27,7 +27,7 @@ export function PhotoGrid({
   sizes,
   className = "",
   itemClassName = "",
-  band = "card",
+  band = "plain",
   positions = {},
   eager = 0,
 }: {
@@ -40,7 +40,7 @@ export function PhotoGrid({
   sizes: string;
   className?: string;
   itemClassName?: string;
-  band?: "card" | "sm" | "md";
+  band?: "plain" | "card" | "sm" | "md";
   positions?: Partial<Record<string, string>>;
   /** Photos in the first screen load eagerly with high priority (masonry: the top of each phone column). */
   eager?: number;
@@ -89,7 +89,7 @@ export function PhotoGrid({
           const p = photos[e.photo];
           const own = layout === "masonry";
           return (
-            <li key={e.photo} className={`${layout === "row" ? "w-[62%] shrink-0 snap-start sm:w-auto" : ""} ${itemClassName}`}>
+            <li key={e.photo} className={`${layout === "row" ? "w-[62%] shrink-0 snap-start sm:w-auto" : "reveal"} ${itemClassName}`}>
               <figure>
                 <button
                   type="button"
@@ -112,6 +112,7 @@ export function PhotoGrid({
                       width={p.width}
                       height={p.height}
                       sizes={sizes}
+                      quality={band === "plain" ? 60 : 75}
                       loading={above.has(i) ? "eager" : "lazy"}
                       fetchPriority={above.has(i) ? "high" : undefined}
                       className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.04] motion-reduce:transition-none"

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { ViewTransition } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -53,6 +54,7 @@ export default async function ServicePage({ params }: Props) {
   return (
     <PageShell
       ctaPhoto={s.ctaPhoto}
+      ctaTitle={s.ctaTitle}
       schema={pageSchema(
         s.name,
         path,
@@ -84,6 +86,7 @@ export default async function ServicePage({ params }: Props) {
             </div>
           </div>
           <figure className="mx-auto w-full max-w-[320px] sm:max-w-[400px] lg:max-w-[460px]">
+            <ViewTransition name={`service-photo-${s.slug}`} share="morph" default="none">
             <div className="rotate-2">
               <WavyFrame shape="portrait">
                 <Image
@@ -99,6 +102,7 @@ export default async function ServicePage({ params }: Props) {
                 />
               </WavyFrame>
             </div>
+            </ViewTransition>
             <figcaption className="mt-4 text-center text-[0.9375rem] text-muted">{hero.caption}</figcaption>
           </figure>
         </div>

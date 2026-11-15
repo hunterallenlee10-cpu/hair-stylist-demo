@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import { ViewTransition, type ReactNode } from "react";
 import { Nav } from "@/components/sections/Nav";
 import { Footer } from "@/components/sections/Footer";
 import { FinalCta } from "@/components/sections/FinalCta";
@@ -6,6 +6,7 @@ import { ScrollUi } from "@/components/ScrollUi";
 import { JsonLd } from "@/components/JsonLd";
 import { LemonMark } from "@/components/LemonMark";
 import type { PhotoKey } from "@/lib/photos";
+import type { CtaTitle } from "@/components/sections/FinalCta";
 import { container } from "@/lib/ui";
 
 /** Shared frame for every page: nav, main, closing call to action, footer, mobile bar. */
@@ -15,6 +16,7 @@ export function PageShell({
   cta = true,
   ctaSteps = false,
   ctaPhoto = "silver",
+  ctaTitle,
 }: {
   children: ReactNode;
   schema?: object;
@@ -22,15 +24,20 @@ export function PageShell({
   ctaSteps?: boolean;
   /** The photo in the closing call to action. Varied per page so it is never the same band twice. */
   ctaPhoto?: PhotoKey;
+  /** The closing headline, varied per page. */
+  ctaTitle?: CtaTitle;
 }) {
   return (
     <>
       {schema && <JsonLd data={schema} />}
       <Nav />
-      <main id="main">
-        {children}
-        {cta && <FinalCta steps={ctaSteps} photo={ctaPhoto} />}
-      </main>
+      {/* Route changes: the page content crossfades and rises a little; the nav holds still. */}
+      <ViewTransition enter="page-enter" exit="page-exit" default="none">
+        <main id="main">
+          {children}
+          {cta && <FinalCta steps={ctaSteps} photo={ctaPhoto} title={ctaTitle} />}
+        </main>
+      </ViewTransition>
       <Footer />
       <ScrollUi />
     </>
