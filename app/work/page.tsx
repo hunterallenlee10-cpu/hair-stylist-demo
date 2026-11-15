@@ -16,7 +16,7 @@ export default async function WorkPage({ searchParams }: { searchParams: Promise
   return (
     <PageShell schema={pageSchema("The work", "/work")} ctaPhoto="closeup">
       <PageHeader eyebrow="Vivid hair color by Mickayla Ramsey in Leonardtown, MD" title="After beats before.">
-        Eighteen looks, all painted by hand in Leonardtown. Tap any photo to see it bigger, then plan it.
+        Eighteen photos, all her own work, plus a look at the studio wall. Tap any photo to see it bigger, then plan it.
       </PageHeader>
       <Work initialFilter={filterFromSlug(Array.isArray(filter) ? filter[0] : filter)} />
     </PageShell>

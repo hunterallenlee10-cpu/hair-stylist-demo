@@ -22,8 +22,12 @@ Re-read the matching part of the spec at the start of each phase. After each pha
   and 200% zoom pass.
 - [x] **Phase 6.** Demo safety and SEO: headers, robots, sitemap and `llms.txt` gating, titles,
   descriptions, JSON-LD, OG images, `SEO-LAUNCH.md`. Lighthouse live then demo, phone and desktop.
-- [ ] **Phase 7.** Review 2 (juror plus fact audit), one round of fixes, final checklist,
+- [x] **Phase 7.** Review 2 (juror plus fact audit), one round of fixes, final checklist,
   `npm run check`, merge and push.
+  Review 2: 82/100 (design 33, usability 25, creativity 17, content 7). Fixed: every unsupported
+  line the fact audit found, DRAFT markers on brief-given lines the owner must confirm, quieter
+  review placeholder row, map pin, and a real phone bug (photo rows widened the layout viewport
+  on /services/vivid-hair-color, zooming the page out; fixed with contain: paint and now tested).
 
 ## Tokens (Tailwind `@theme`)
 
@@ -52,14 +56,14 @@ v1 class names (`ink`, `line`, `accent`, `on-accent`) stay as aliases of the rol
 
 ## Final checklist
 
-- [ ] Every item in "What is wrong with v1" is fixed.
-- [ ] At 375 by 812 the first screen shows colour from her work, the whole headline and the primary button.
-- [ ] The swirl appears in exactly three places, turns slowly in the hero only, and stops under reduced motion.
-- [ ] No sample or invented review text exists anywhere. Placeholders are empty and labelled.
-- [ ] All 18 photos are used per the photo map, none wider than native, 08 and 12 cropped as noted, and no client faces.
-- [ ] The four service pages exist, each with three unique things, linked from the hub, nav and each other.
-- [ ] Every "Plan My Dream Hair" opens the builder with the right pre-selects. The last step texts her with CONSULTATION first, and desktop gets copy and Instagram DM.
-- [ ] Max 2 fonts, the palette as tokens, no tracked all-caps labels, motion in two places.
-- [ ] Every nav link resolves, no page is thin or built on guesses, keyboard-only and 200% zoom passes done.
-- [ ] Demo mode: noindex meta, X-Robots-Tag on the home page and on an image, no sitemap, no llms.txt, AI crawlers disallowed, footer line present. Live mode: SEO 100.
-- [ ] Zero em dashes, zero stock or AI images, zero invented facts.
+- [x] Every item in "What is wrong with v1" is fixed.
+- [x] At 375 by 812 the first screen shows colour from her work, the whole headline and the primary button.
+- [x] The swirl appears in exactly three places, turns slowly in the hero only, and stops under reduced motion.
+- [x] No sample or invented review text exists anywhere. Placeholders are empty and labelled.
+- [x] All 18 photos are used per the photo map, none wider than native, 08 and 12 cropped as noted, and no client faces.
+- [x] The four service pages exist, each with three unique things, linked from the hub, nav and each other.
+- [x] Every "Plan My Dream Hair" opens the builder with the right pre-selects. The last step texts her with CONSULTATION first, and desktop gets copy and Instagram DM.
+- [x] Max 2 fonts, the palette as tokens, no tracked all-caps labels, motion in two places.
+- [x] Every nav link resolves, no page is thin or built on guesses, keyboard-only and 200% zoom passes done.
+- [x] Demo mode: noindex meta, X-Robots-Tag on the home page and on an image, no sitemap, no llms.txt, AI crawlers disallowed, footer line present. Live mode: SEO 100.
+- [x] Zero em dashes, zero stock or AI images, zero invented facts.

@@ -189,7 +189,7 @@ function SparklyAndCuts() {
         <div id="shags-and-shullets" className="scroll-mt-[calc(var(--nav-h)+24px)]">
           <h2 className="display text-h2 font-[800] text-ink">Shags and shullets.</h2>
           <p className="mt-5 max-w-[34rem] text-lead text-muted">
-            Shaggy, lived-in cuts made for color. Add one to any color day, or come in for the cut on its own.
+            Shaggy, lived-in cuts made for color. Ask about one when you plan your color.
           </p>
           <p aria-hidden="true" className="display mt-5 text-h3 font-[700] italic text-muted">
             shag + mullet <span className="text-accent">= shullet</span>

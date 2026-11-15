@@ -20,6 +20,19 @@ const problems = [];
   }
   console.log("reflow at 640px (200%) and 320px (400%): checked", routes.length, "routes each");
 
+  // Phone emulation: the layout viewport must stay at the device width on every route
+  // (overflowing content makes a phone browser zoom the whole page out).
+  {
+    const p = await b.newPage({ viewport: { width: 375, height: 812 }, hasTouch: true, isMobile: true });
+    for (const r of routes) {
+      await p.goto(base + r, { waitUntil: "networkidle" });
+      const iw = await p.evaluate(() => innerWidth);
+      if (iw !== 375) problems.push(`phone ${r}: layout viewport ${iw}px wide, page zooms out`);
+    }
+    await p.close();
+    console.log("phone layout viewport: checked", routes.length, "routes");
+  }
+
   // Keyboard on a phone: focus is visible and never under the sticky bar.
   const m = await b.newPage({ viewport: { width: 375, height: 812 }, hasTouch: true, isMobile: true });
   for (const r of ["/", "/services/vivid-hair-color", "/contact"]) {

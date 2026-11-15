@@ -3,6 +3,7 @@ import { ArrowRight } from "lucide-react";
 import { SectionHeading } from "@/components/SectionHeading";
 import { PhotoGrid } from "@/components/Gallery/PhotoGrid";
 import { entriesFor } from "@/lib/gallery";
+import { Draft } from "@/components/Draft";
 import { btnGhost, container, sectionPad, textLink } from "@/lib/ui";
 
 /**
@@ -14,7 +15,7 @@ export function AfterBeatsBefore() {
     <section aria-labelledby="abb-title" className={sectionPad}>
       <div className={container}>
         <SectionHeading id="abb-title" kicker="The work" title="After beats before.">
-          Every photo is her own work, painted by hand in Leonardtown.
+          Every photo is her own work, linked to her own posts.
         </SectionHeading>
 
         <div className="mt-10 grid items-start gap-8 lg:mt-14 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-14">
@@ -27,7 +28,10 @@ export function AfterBeatsBefore() {
               positions={{ beforeAfter: "50% 50%" }}
             />
             <figcaption className="display mt-4 text-h3 font-[600] italic text-ink">
-              Her before and after. <span className="text-muted">Same client, one color day.</span>
+              Her before and after.{" "}
+              <span className="text-muted">
+                <Draft note="confirm same client, one color day">Same client, one color day.</Draft>
+              </span>
             </figcaption>
           </figure>
 

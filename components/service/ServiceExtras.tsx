@@ -126,8 +126,10 @@ function BarbieStory() {
         </h2>
         <div className="text-lead text-muted">
           <p>
-            That very long Barbie blonde above? She skipped the toner and kept the raw lift, because the client wanted it
-            bright and sunny.
+            <Draft note="confirm Barbie blonde story wording">
+              That very long Barbie blonde above? She skipped the toner and kept the raw lift, because the client wanted it
+              bright and sunny.
+            </Draft>
           </p>
           <p className="mt-4 text-ink">Tell her what you picture, and the plan follows the picture.</p>
         </div>

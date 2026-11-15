@@ -34,9 +34,12 @@ export function MapCard({ headingLevel = "h3" }: { headingLevel?: "h2" | "h3" })
               <path d="M-10 60C60 70 90 40 140 30" strokeWidth="3" />
               <path d="M200 260C230 220 300 200 420 210" strokeWidth="3" />
             </g>
-            <g transform="translate(0 -44)"><circle cx="214" cy="112" r="34" fill="#FF3D8B" opacity="0.12" />
-            <path d="M214 74c-14 0-24 10-24 23 0 17 24 37 24 37s24-20 24-37c0-13-10-23-24-23z" fill="#FF3D8B" />
-            <circle cx="214" cy="97" r="8" fill="#120E10" /></g>
+          </svg>
+          {/* Her pin, kept in the top corner so it never meets the text. */}
+          <svg aria-hidden="true" viewBox="0 0 80 80" className="absolute right-6 top-6 h-20 w-20">
+            <circle cx="40" cy="44" r="34" fill="#FF3D8B" opacity="0.12" />
+            <path d="M40 10c-14 0-24 10-24 23 0 17 24 37 24 37s24-20 24-37c0-13-10-23-24-23z" fill="#FF3D8B" />
+            <circle cx="40" cy="33" r="8" fill="#120E10" />
           </svg>
           <div className="relative mt-auto bg-gradient-to-t from-surface via-surface/95 to-transparent p-6 pt-16 sm:p-7 sm:pt-20">
             <H className="display text-h3 font-[800] text-ink">Find the studio</H>

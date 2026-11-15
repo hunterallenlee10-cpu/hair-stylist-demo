@@ -64,7 +64,7 @@ export const business = {
   loyaltyLine: "Some clients have been in her chair for six years and more",
   // DRAFT: confirm opening month. Her post of 2 March 2026: "welcome to Disco Lemonade".
   openedLine: "Open since spring 2026",
-  // Her newest post, 14 Nov 2026, a client's first ever color.
+  // Her post of 14 Nov 2026, a client's first ever color.
   firstColorQuote:
     "being trusted not only with a person's hair, but with a first ever color experience, will forever feel so special to me",
   // Her own question of the week, from her posts.

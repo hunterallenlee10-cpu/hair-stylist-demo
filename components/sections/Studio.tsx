@@ -24,13 +24,15 @@ export function StudioHero() {
             eyebrow="A private hair color studio in Leonardtown, MD"
             title={
               <>
-                Black walls. Pink mirror. <span className="italic text-accent">A swirl she painted.</span> Lots of lemons.
+                Black walls. Pink mirror. <span className="italic text-accent">
+                  <Draft note="confirm she painted the mural">A swirl she painted.</Draft>
+                </span> Lots of lemons.
               </>
             }
           />
           <p className="mt-6 max-w-[36rem] text-lead text-muted">
             {business.name} is a private, one-chair color studio on Point Lookout Rd in Leonardtown. One client at a time,
-            for as long as your color takes.
+            for the whole appointment.
           </p>
           <p className="mt-4 font-semibold text-ink">
             <Draft note="confirm opening month">{business.openedLine}.</Draft>
@@ -78,7 +80,7 @@ export function Studio() {
           </WavyFrame>
         </figure>
         <div>
-          <SectionHeading id="room-title" kicker="The room" title="Where you sit for six hours." />
+          <SectionHeading id="room-title" kicker="The room" title="The room you sit in on color day." />
           <figure className="mt-8">
             <blockquote>
               <p className="display text-h2 font-[600] italic text-ink">&ldquo;{business.studioQuote}&rdquo;</p>
@@ -145,7 +147,7 @@ export function Proof() {
               <Draft note="live Instagram count">{business.looksCount}</Draft>
             </p>
             <p className="display mt-3 text-h3 font-[800] text-ink">Looks on Instagram</p>
-            <p className="mt-2 text-muted">Every one her own work, posted from her own chair.</p>
+            <p className="mt-2 text-muted">Every one her own work, posted on her own account.</p>
           </li>
           <li className="rounded-[20px] border border-line bg-surface p-7">
             <p className="display text-h2 font-[800] italic text-accent">
@@ -162,7 +164,7 @@ export function Proof() {
             <li
               key={n}
               data-placeholder="review"
-              className="grid min-h-[160px] place-items-center rounded-[20px] border border-dashed border-line p-7 text-center text-muted"
+              className="grid min-h-[96px] place-items-center rounded-[20px] border border-dashed border-line p-5 text-center text-[0.9375rem] text-muted"
             >
               Your Google reviews go here
             </li>

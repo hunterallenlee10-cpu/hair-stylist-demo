@@ -42,19 +42,26 @@ export function PhotoGrid({
   itemClassName?: string;
   band?: "card" | "sm" | "md";
   positions?: Partial<Record<string, string>>;
-  /** Load the first n photos eagerly (above the fold); the first gets high fetch priority. */
+  /** Photos in the first screen load eagerly with high priority (masonry: the top of each phone column). */
   eager?: number;
 }) {
   const [filter, setFilter] = useState<GalleryFilter>(initialFilter);
   const [open, setOpen] = useState<number | null>(null);
   const trigger = useRef<HTMLButtonElement | null>(null);
   const items = filters ? entries.filter((e) => filter === "All" || e.categories.includes(filter)) : entries;
+  // Photos in the first screen load eagerly. CSS columns fill top to bottom, so in the
+  // two-column phone masonry the top photos are item 0 and the first item of column two.
+  const above = new Set<number>(
+    eager > 0 ? (layout === "masonry" ? [0, Math.ceil(items.length / 2)] : Array.from({ length: eager }, (_, k) => k)) : [],
+  );
 
   const list =
     layout === "masonry"
       ? "masonry columns-2 lg:columns-3 xl:columns-4"
       : layout === "row"
-        ? "-mx-5 flex snap-x snap-mandatory gap-4 overflow-x-auto px-5 pb-3 [scrollbar-width:none] sm:mx-0 sm:grid sm:overflow-visible sm:px-0 sm:pb-0 [&::-webkit-scrollbar]:hidden"
+        ? // contain: paint keeps the swipeable row from widening a phone's layout viewport
+          // (the scalloped clip-path on each card otherwise leaks into its width).
+          "-mx-5 flex snap-x snap-mandatory gap-4 overflow-x-auto px-5 pb-3 [contain:paint] [scrollbar-width:none] sm:mx-0 sm:grid sm:overflow-visible sm:px-0 sm:pb-0 sm:[contain:none] [&::-webkit-scrollbar]:hidden"
         : "grid";
 
   return (
@@ -105,8 +112,8 @@ export function PhotoGrid({
                       width={p.width}
                       height={p.height}
                       sizes={sizes}
-                      loading={i < eager ? "eager" : "lazy"}
-                      fetchPriority={i === 0 && eager > 0 ? "high" : undefined}
+                      loading={above.has(i) ? "eager" : "lazy"}
+                      fetchPriority={above.has(i) ? "high" : undefined}
                       className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.04] motion-reduce:transition-none"
                       style={{ objectPosition: positions[e.photo] ?? "50% 40%" }}
                     />

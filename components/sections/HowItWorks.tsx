@@ -13,7 +13,7 @@ const steps = [
     t: "Free consult.",
     b: "Share your hair history and your inspiration. Mickayla maps out the plan, the time and the price.",
   },
-  { t: "Color day.", b: "Settle in. Leave with the hair you described." },
+  { t: "Color day.", b: "Settle in. The plan you made together goes on by hand." },
 ];
 
 /** The three steps, directly under the New here page header. Photo 16 sits beside step 3. */

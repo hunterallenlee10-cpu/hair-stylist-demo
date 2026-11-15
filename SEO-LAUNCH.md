@@ -38,6 +38,9 @@ Search the code for `DRAFT` and `data-placeholder`. As of 15 Nov 2026:
 - [ ] **Prices.** Only if she wants them published: fill `pricing[...].fromPrice` in
       `lib/business.ts` (null keeps them hidden).
 - [ ] **Did she paint the mural herself?** `/studio` says "A swirl she painted." Confirm.
+- [ ] **Photo 15 caption.** "Same client, one color day." Confirm it was one appointment.
+- [ ] **Barbie blonde story** on the blonding page (skipped the toner, kept the raw lift). Confirm the wording.
+- [ ] **"500 more on Instagram"** on `/work`. About 492 beyond the 18 shown; keep or soften to "hundreds more".
 
 ## 2. Launch day
 

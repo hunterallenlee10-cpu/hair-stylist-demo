@@ -135,7 +135,7 @@ export const servicePages: ServicePage[] = [
       },
       {
         q: "Is a first ever color okay?",
-        a: "Yes. Her newest post is a client's first ever color, and she wrote that being trusted with it will forever feel so special to her.",
+        a: "Yes. Her post of 14 November 2026 is a client's first ever color, and she wrote that being trusted with it will forever feel so special to her.",
       },
     ],
     ctaPhoto: "firstColor",

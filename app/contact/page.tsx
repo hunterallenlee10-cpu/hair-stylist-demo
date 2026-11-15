@@ -23,14 +23,14 @@ const tiles = [
     icon: MessageCircle,
     label: "Text",
     title: `Text CONSULTATION to ${business.phoneDisplay}`,
-    body: "The fastest way in. This is how every new client starts.",
+    body: "This is how every new client starts, in her own words: text the word CONSULTATION.",
   },
   {
     href: telHref,
     icon: Phone,
     label: "Call",
     title: `Call ${business.phoneDisplay}`,
-    body: "If she is mid-color, leave a message and she will call back.",
+    body: "Rather talk it through? Same number.",
   },
   {
     href: business.instagramUrl,
