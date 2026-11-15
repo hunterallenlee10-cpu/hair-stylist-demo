@@ -1,23 +1,74 @@
 @import "tailwindcss";
 
-/* Blacklight Lemonade design tokens. Exactly 3 colours plus text. */
+/*
+ * "Swirl Room" design tokens, by role. OKLCH values, hex alongside.
+ * The four swirl colours are sampled from photo 09 (her mural) and are
+ * decorative only: they never carry text.
+ */
 @theme {
-  --color-bg: #120e10;
-  --color-surface: #1e1719;
-  --color-line: #33272b;
-  --color-accent: #ff3d8b;
-  --color-on-accent: #120e10;
-  --color-ink: #fbf6ee;
-  --color-muted: #b9aba9;
-  --color-lemon: #f2d13c;
+  --color-bg: oklch(17% 0.008 346.3); /* #120E10 page */
+  --color-surface: oklch(21.4% 0.012 359.1); /* #1E1719 cards, mirror back */
+  --color-surface-2: oklch(25.6% 0.016 358.4); /* #2A2023 raised panels, builder */
+  --color-border: oklch(28.8% 0.019 356.4); /* #33272B 1px lines */
+  --color-text: oklch(97.5% 0.012 79.8); /* #FBF6EE body and headings */
+  --color-muted: oklch(75.2% 0.016 27.3); /* #B9ABA9 secondary text */
+  --color-primary: oklch(67.3% 0.233 1.9); /* #FF3D8B buttons, active, mirror frame */
+  --color-primary-hover: oklch(72% 0.195 357.1); /* #FF66A6 hover and press */
+  --color-on-primary: oklch(17% 0.008 346.3); /* #120E10 text on pink (5.7:1) */
+  --color-lemon: oklch(86.4% 0.161 96); /* #F2D13C holiday band and lemon mark only */
+  --color-swirl-pink: oklch(60.4% 0.224 15.5); /* #E82553 */
+  --color-swirl-yellow: oklch(87% 0.183 106.9); /* #E3DB16 */
+  --color-swirl-green: oklch(61.2% 0.161 142.7); /* #3E9B3A */
+  --color-swirl-orange: oklch(66.3% 0.209 38.3); /* #F75513 */
+  --color-success: oklch(77.3% 0.142 156.4); /* #5BD08F */
+  --color-error: oklch(73.5% 0.163 21.9); /* #FF7A7A */
+
+  /* v1 names kept as aliases so older markup keeps working. */
+  --color-ink: var(--color-text);
+  --color-line: var(--color-border);
+  --color-accent: var(--color-primary);
+  --color-on-accent: var(--color-on-primary);
 
   --font-display: var(--font-fraunces), "Georgia", serif;
   --font-sans: var(--font-dmsans), ui-sans-serif, system-ui, sans-serif;
+
+  /* Type scale: named steps, each a clamp() with rem bounds (ceiling <= 2.5x floor). */
+  --text-label: clamp(0.8125rem, 0.78rem + 0.15vw, 0.875rem);
+  --text-label--line-height: 1.4;
+  --text-body: clamp(1rem, 0.96rem + 0.2vw, 1.125rem);
+  --text-body--line-height: 1.55;
+  --text-lead: clamp(1.125rem, 1.05rem + 0.4vw, 1.375rem);
+  --text-lead--line-height: 1.5;
+  --text-h3: clamp(1.375rem, 1.2rem + 0.8vw, 1.875rem);
+  --text-h3--line-height: 1.12;
+  --text-h2: clamp(2rem, 1.6rem + 2vw, 3.5rem);
+  --text-h2--line-height: 1;
+  --text-h1: clamp(2.5rem, 1.9rem + 3vw, 5rem);
+  --text-h1--line-height: 0.98;
+  --text-display: clamp(2.75rem, 1.8rem + 4.6vw, 6.5rem);
+  --text-display--line-height: 0.98;
 
   --radius-card: 20px;
   --shadow-soft: 0 12px 24px rgb(0 0 0 / 0.35);
 
   --breakpoint-xs: 26rem;
+}
+
+/* Wavy mirror clip-paths (defined once in <WaveDefs />), as utilities so they take variants. */
+@utility wave-portrait {
+  clip-path: url(#wave-portrait);
+}
+@utility wave-tall {
+  clip-path: url(#wave-tall);
+}
+@utility wave-square {
+  clip-path: url(#wave-square);
+}
+@utility wave-landscape {
+  clip-path: url(#wave-landscape);
+}
+@utility wave-wide {
+  clip-path: url(#wave-wide);
 }
 
 @layer base {
@@ -47,8 +98,8 @@ body {
   background: var(--color-bg);
   color: var(--color-ink);
   font-family: var(--font-sans);
-  font-size: 1rem;
-  line-height: 1.6;
+  font-size: var(--text-body);
+  line-height: 1.55;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: clip;
@@ -79,30 +130,52 @@ body {
   letter-spacing: -0.02em;
 }
 
-/* Eyebrows and small tracked labels. */
+/* Small labels: sentence case DM Sans 500 at the label step. No tracked caps. */
 .eyebrow {
   font-family: var(--font-sans);
-  font-size: 0.8125rem;
-  font-weight: 700;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
+  font-size: var(--text-label);
+  line-height: var(--text-label--line-height);
+  font-weight: 500;
 }
 
-/* Wavy mirror frames: clip-paths are defined once in <WaveDefs />. */
-.wave-portrait {
-  clip-path: url(#wave-portrait);
+/*
+ * The sequin mirror: her hot pink wavy mirror. The outer scallop is filled
+ * with primary and a fine sequin pattern (two pink tints of tiny offset
+ * circles); the photo sits inset by the band width inside the same scallop.
+ * The only sequin texture on the site.
+ */
+.mirror {
+  --band: 14px;
+  background-color: var(--color-primary);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8' viewBox='0 0 8 8'%3E%3Ccircle cx='2' cy='2' r='1.55' fill='%23FF7FB2'/%3E%3Ccircle cx='6' cy='6' r='1.55' fill='%23D9286F'/%3E%3Ccircle cx='1.6' cy='1.6' r='.45' fill='%23FFE3EE'/%3E%3C/svg%3E");
+  background-size: 8px 8px;
 }
-.wave-tall {
-  clip-path: url(#wave-tall);
+.mirror-sm {
+  --band: 6px;
+  background-size: 6px 6px;
 }
-.wave-square {
-  clip-path: url(#wave-square);
+.mirror-md {
+  --band: 10px;
 }
-.wave-landscape {
-  clip-path: url(#wave-landscape);
+.mirror > .mirror-glass {
+  position: absolute;
+  inset: var(--band);
+  overflow: hidden;
+  background: var(--color-surface);
 }
-.wave-wide {
-  clip-path: url(#wave-wide);
+
+/* The swirl turns once every 90 seconds, transform only. */
+@keyframes swirl-turn {
+  to {
+    transform: rotate(1turn);
+  }
+}
+.swirl-turn {
+  animation: swirl-turn 90s linear infinite;
+  will-change: transform;
+}
+.swirl-turn[data-paused="true"] {
+  animation-play-state: paused;
 }
 
 /* A single thin wavy line, used as the section divider. */
@@ -203,6 +276,10 @@ body {
   *::after {
     transition-duration: 0.01ms !important;
     animation-duration: 0.01ms !important;
+  }
+  /* Still, not sped up. */
+  .swirl-turn {
+    animation: none !important;
   }
 }
 

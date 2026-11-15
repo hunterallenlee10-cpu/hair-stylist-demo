@@ -6,9 +6,11 @@ Re-read the matching part of the spec at the start of each phase. After each pha
 
 ## Phases
 
-- [ ] **Phase 1.** Version check (Next 16.4.6, React 19.3.1, Tailwind 4.3.5 already current;
+- [x] **Phase 1.** Version check (Next 16.4.6, React 19.3.1, Tailwind 4.3.5 already current;
   framer-motion 14 to `motion`). Tokens in `@theme`, type scale, palette board, sequin mirror
   frame, drawn swirl, sentence-case labels. Home hero "The Swirl Room", phone first. Review 1.
+  Review 1: 75/100 (design 30, usability 22, creativity 16, content 7). Fixed: quieter text
+  button on one line, fuller swirl ring with 14px sequin band, labelled "Pause swirl" pill.
 - [ ] **Phase 2.** Photos 09 to 18 into the pipeline (crops: 12 signs, 14 face, 11 and 17 signs,
   16 bystander). `lib/gallery.ts` to 18 entries. `/work` filters and lightbox with permalinks.
   Flavor Dial "More like this". Home "After beats before" led by 15.

@@ -1,88 +1,90 @@
 import { MessageCircle } from "lucide-react";
 import { WavyFrame } from "@/components/WavyFrame";
 import { LemonMark } from "@/components/LemonMark";
+import { Swirl } from "@/components/Swirl";
+import { SwirlTurn } from "@/components/SwirlTurn";
+import { Draft } from "@/components/Draft";
+import { InstagramIcon } from "@/components/icons/InstagramIcon";
 import { PlanButton } from "@/components/ConsultBuilder/PlanButton";
 import { business, smsHref } from "@/lib/business";
-import { btnGhost, btnPrimary, container } from "@/lib/ui";
+import { btnPrimary, container } from "@/lib/ui";
 import { HeroMelt } from "./HeroMelt";
 
-const facts = ["Vivids and rainbows specialist", "Free consultation", "Private one-on-one studio"];
-
+/**
+ * "The Swirl Room". Her swirl mural turns slowly behind her pink sequin
+ * mirror, and The Melt plays once on photo 01 inside it.
+ * Phone: the mirror comes first (about 300px, cropped to the crown and
+ * mid-lengths), then the headline and the primary button, all in the first
+ * screen. Desktop: type left, mirror right, the swirl cropped by the edge.
+ */
 export function Hero() {
   return (
     <section aria-labelledby="hero-title" className="relative overflow-hidden">
-      {/* One soft pink bloom behind the photo, nothing else glows. */}
       <div
-        aria-hidden="true"
-        className="pointer-events-none absolute right-[-10%] top-[8%] hidden h-[640px] w-[640px] rounded-full opacity-[0.16] blur-[90px] lg:block"
-        style={{ background: "radial-gradient(circle, #FF3D8B 0%, transparent 65%)" }}
-      />
-      <div
-        className={`${container} relative grid grid-cols-1 gap-x-16 pb-16 pt-5 sm:pt-10 lg:grid-cols-[minmax(0,1.08fr)_minmax(0,0.92fr)] lg:grid-rows-[auto_1fr] lg:pb-28 lg:pt-14`}
+        className={`${container} relative grid grid-cols-1 items-center gap-x-10 pb-14 pt-3 sm:pt-8 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:pb-20 lg:pt-8 xl:gap-x-16`}
       >
-        <div className="lg:col-start-1 lg:row-start-1 lg:self-end">
-          <h1 id="hero-title">
-            <span className="eyebrow block max-w-[22rem] text-muted sm:max-w-none">
-              Vivid hair color in Leonardtown, MD <span aria-hidden="true" className="hidden px-1 text-accent sm:inline">·</span>{" "}
-              <span className="block sm:inline">Southern Maryland</span>
-            </span>
-            <span className="display mt-4 block text-[2.875rem] font-[800] leading-[0.94] text-ink xs:text-[3.25rem] sm:text-[4.5rem] lg:mt-6 lg:text-[3.75rem] xl:text-[4.5rem]">
-              <span className="lg:whitespace-nowrap">Your dream hair.</span>{" "}
-              <span className="block italic font-[700] text-accent">Vanilla or otherwise.</span>
-            </span>
-          </h1>
-
-          <p className="mt-4 max-w-[34rem] text-[1.0625rem] leading-relaxed text-muted sm:mt-6 sm:text-lg">
-            <span className="sm:hidden">
-              Mickayla Ramsey paints vivids, rainbows and everything in between.
-            </span>
-            <span className="hidden sm:inline">
-              Mickayla Ramsey paints vivids, rainbows and everything in between at {business.name} in Leonardtown.
-              Every new look starts with a free consultation.
-            </span>
-          </p>
-
-          <div className="mt-6 flex flex-col gap-3 sm:mt-8 sm:flex-row sm:flex-wrap">
-            <PlanButton className={`${btnPrimary} w-full sm:w-auto`} />
-            <a href={smsHref()} className={`${btnGhost} w-full px-5 sm:w-auto`}>
-              <MessageCircle className="h-5 w-5 shrink-0 text-accent" strokeWidth={2} aria-hidden="true" />
-              <span className="text-left sm:text-center">
-                Text <span className="tracking-wide">CONSULTATION</span> to <br className="xs:hidden" />
-                {business.phoneDisplay}
-              </span>
-            </a>
+        {/* The mirror and the wall behind it. First on phones. */}
+        <div className="relative mx-auto w-[min(76vw,296px)] sm:w-[340px] lg:col-start-2 lg:row-start-1 lg:w-full lg:max-w-[480px] lg:justify-self-center">
+          <SwirlTurn
+            boxClassName="pointer-events-none absolute left-1/2 top-1/2 aspect-square w-[134%] -translate-x-1/2 -translate-y-1/2 lg:w-[150%] lg:translate-x-[-44%]"
+            buttonClassName="absolute -bottom-12 right-[-6vw] sm:-right-16 lg:-bottom-16 lg:right-0"
+          >
+            <Swirl id="hero" halo className="h-full w-full opacity-[0.88]" />
+          </SwirlTurn>
+          <div className="relative rotate-[2deg] drop-shadow-[0_24px_40px_rgb(0_0_0/0.55)]">
+            <WavyFrame clipClass="wave-square lg:wave-portrait" className="aspect-square lg:aspect-[1357/1721]">
+              <HeroMelt position="50% 22%" />
+            </WavyFrame>
           </div>
         </div>
 
-        {/* Photo: type first on mobile, then the photo, starting inside the first screen. */}
-        <div className="relative mt-8 lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:mt-0 lg:self-center">
-          <figure className="relative mx-auto w-full max-w-[560px] px-3 sm:px-0 lg:max-w-[520px]">
-            <div className="relative rotate-[2deg]">
-              <div aria-hidden="true" className="wave-portrait absolute -inset-[10px] bg-line" />
-              <WavyFrame shape="portrait" className="shadow-soft">
-                <HeroMelt />
-              </WavyFrame>
-            </div>
-            <figcaption className="relative mt-6 flex justify-center lg:justify-start lg:pl-6">
-              <span className="inline-flex items-center gap-2 rounded-full border border-line bg-surface px-4 py-2 text-sm font-medium text-ink">
-                <LemonMark className="h-5 w-5" />
-                Painted at {business.name}
-              </span>
-            </figcaption>
-          </figure>
-        </div>
+        <div className="relative mt-[52px] flex flex-col lg:col-start-1 lg:row-start-1 lg:mt-0">
+          <h1 id="hero-title">
+            <span className="flex items-center gap-2 font-sans text-label font-medium text-muted">
+              <LemonMark className="h-5 w-5" />
+              Hair color studio in Leonardtown, MD
+            </span>
+            <span className="display mt-3 block text-display font-[800] text-ink lg:mt-5">
+              Your dream hair. <span className="block italic font-[700] text-accent">Vanilla or otherwise.</span>
+            </span>
+          </h1>
 
-        <ul className="mt-8 flex flex-wrap gap-x-5 gap-y-2 sm:mt-10 sm:grid sm:grid-cols-3 sm:gap-3 lg:col-start-1 lg:row-start-2 lg:mt-12 lg:self-start lg:gap-4">
-          {facts.map((f) => (
-            <li
-              key={f}
-              className="flex items-center gap-2 text-[0.8125rem] font-bold uppercase tracking-[0.12em] text-ink sm:min-h-[56px] sm:gap-3 sm:border-t sm:border-line sm:pt-3"
+          <p className="order-3 mt-6 max-w-[34rem] text-lead text-muted lg:order-none lg:mt-6">
+            {business.owner} paints vivids, rainbows and everything in between, by hand, in a private one-chair studio in
+            Leonardtown. Every new look starts with a free consultation.
+          </p>
+
+          <div className="order-2 mt-5 flex flex-col gap-3 sm:flex-row sm:flex-wrap lg:order-none lg:mt-8">
+            <PlanButton className={`${btnPrimary} min-h-[56px] w-full text-[1.0625rem] sm:w-auto`} />
+            <a
+              href={smsHref()}
+              className="inline-flex min-h-[48px] w-full items-center justify-center gap-2 rounded-full border border-line px-4 text-[0.9375rem] font-medium text-ink transition-colors hover:border-accent hover:text-accent sm:w-auto sm:border-transparent sm:px-3"
             >
-              <span aria-hidden="true" className="h-2 w-2 shrink-0 rounded-full bg-accent" />
-              {f}
+              <MessageCircle className="h-[18px] w-[18px] shrink-0 text-accent" strokeWidth={2} aria-hidden="true" />
+              <span>
+                Text CONSULTATION to <span className="whitespace-nowrap">{business.phoneDisplay}</span>
+              </span>
+            </a>
+          </div>
+
+          <ul className="order-4 mt-5 flex flex-col gap-x-6 text-[0.9375rem] text-ink/85 sm:flex-row sm:flex-wrap lg:order-none lg:mt-6">
+            <li>
+              <a
+                href={business.instagramUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex min-h-[44px] items-center gap-2 font-semibold text-ink underline decoration-accent/60 decoration-2 underline-offset-4 hover:text-accent"
+              >
+                <InstagramIcon className="h-[18px] w-[18px] text-accent" />
+                <Draft note="live Instagram count">Verified on Instagram, {business.looksCount} looks</Draft>
+                <span className="sr-only">(opens Instagram)</span>
+              </a>
             </li>
-          ))}
-        </ul>
+            <li className="flex min-h-[44px] items-center">
+              <Draft note="confirm loyalty line">{business.loyaltyLine}.</Draft>
+            </li>
+          </ul>
+        </div>
       </div>
     </section>
   );

@@ -46,8 +46,31 @@ export const business = {
   // certification, educator or ambassador claim.
   colorLines: ["Danger Jones", "Pravana", "Joico Color Intensity", "Moroccanoil", "K18"],
 
-  // DRAFT: confirm typical session lengths
-  sessionLine: "Big transformations in her chair have run 6 to 9 hours.",
+  // DRAFT: confirm typical session lengths. From her captions: a 9 hour
+  // Joico Intensity melty vivid (May 2026), almost exactly seven hours with
+  // styling and pictures (March 2026), and one project over 2 days and 13 hours.
+  sessionLine: "Big transformations in her chair have run 6 to 9 hours, and the biggest took two days.",
+  sessions: [
+    { length: "9 hours", what: "A melty vivid transformation in Joico Color Intensity, May 2026." },
+    { length: "About 7 hours", what: "Including styling and pictures, March 2026." },
+    { length: "2 days and 13 hours", what: "One project, start to finish. The biggest so far." },
+  ],
+
+  // DRAFT: live count. 510 posts on her verified account on 15 Nov 2026.
+  looksCount: "500+",
+  instagramVerified: true,
+  // DRAFT: confirm. From her captions: "SIX YEARS of this babe trusting me",
+  // and one client she has colored for almost ten years.
+  loyaltyLine: "Some clients have been in her chair for six years and more",
+  // DRAFT: confirm opening month. Her post of 2 March 2026: "welcome to Disco Lemonade".
+  openedLine: "Open since spring 2026",
+  // Her newest post, 14 Nov 2026, a client's first ever color.
+  firstColorQuote:
+    "being trusted not only with a person's hair, but with a first ever color experience, will forever feel so special to me",
+  // Her own question of the week, from her posts.
+  vanillaQuestion: "Do you do vanilla hair? Or just vivids?",
+  // Her line, set as type on the vivid page.
+  afterBeforeLine: ["after >>>>> before.", "vivids >>>>> no vivids"],
 
   studioQuote: "It's just me, my color brushes, and my lemons against the world.",
 

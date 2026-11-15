@@ -43,7 +43,7 @@ export function FlavorDial() {
   }, []);
 
   // Arm the sweep: start at 1 while the section is still off screen.
-  // Framer Motion is imported on demand when the sweep is about to run.
+  // motion is imported on demand when the sweep is about to run.
   useEffect(() => {
     if (swept.current || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const el = rootRef.current;
@@ -57,7 +57,7 @@ export function FlavorDial() {
         if (!entries.some((e) => e.isIntersecting) || swept.current) return;
         swept.current = true;
         io.disconnect();
-        import("framer-motion/dom").then(({ animate }) => {
+        import("motion/react").then(({ animate }) => {
           if (touched.current) return;
           sweep.current = animate(1, LAST, {
             duration: 2,
