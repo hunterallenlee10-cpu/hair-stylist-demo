@@ -2,6 +2,8 @@ import { absoluteUrl, isLive, pages } from "@/lib/site";
 
 // Live mode lists every route with its real last-modified date.
 // Demo mode has no sitemap at all: a plain 404, not an empty file.
+// Rendered per request: a prerendered 404 body is served by Vercel with a 200 status.
+export const dynamic = "force-dynamic";
 export function GET() {
   if (!isLive) return new Response("Not found", { status: 404 });
   const urls = pages
