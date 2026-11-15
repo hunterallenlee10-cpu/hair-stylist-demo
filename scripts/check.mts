@@ -50,7 +50,7 @@ const decode = (s: string) =>
     .replace(/&lt;/g, "<")
     .replace(/&gt;/g, ">")
     .replace(/&nbsp;|&#160;/g, " ")
-    .replace(/&mdash;|&#8212;|&#x2014;/g, "—");
+    .replace(/&mdash;|&#8212;|&#x2014;/g, "\u2014");
 
 function visibleText(html: string) {
   const body = html.slice(html.indexOf("<body"));
@@ -113,7 +113,7 @@ for (const route of routes) {
   }
 
   // Dashes.
-  if (text.includes("—")) fail(route, "em dash in rendered text");
+  if (text.includes("\u2014")) fail(route, "em dash in rendered text");
   const dd = text.match(/.{0,20}--.{0,20}/);
   if (dd) fail(route, `double hyphen in rendered text: "${dd[0]}"`);
 
