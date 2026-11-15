@@ -18,7 +18,7 @@ Re-read the matching part of the spec at the start of each phase. After each pha
   services menu, breadcrumbs.
 - [x] **Phase 4.** `/studio` with 09 and honest proof, `/new-here` with 16, `/contact` map card,
   holiday band swirl edge and gift card link, varied final CTA photos, 404 with the swirl.
-- [ ] **Phase 5.** Builder honest last step and desktop fallback, sticky bar focus fix, keyboard
+- [x] **Phase 5.** Builder honest last step and desktop fallback, sticky bar focus fix, keyboard
   and 200% zoom pass.
 - [ ] **Phase 6.** Demo safety and SEO: headers, robots, sitemap and `llms.txt` gating, titles,
   descriptions, JSON-LD, OG images, `SEO-LAUNCH.md`. Lighthouse live then demo, phone and desktop.

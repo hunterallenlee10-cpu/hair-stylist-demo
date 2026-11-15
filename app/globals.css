@@ -88,6 +88,12 @@ html {
   -webkit-text-size-adjust: 100%;
   scroll-padding-top: calc(var(--nav-h) + 16px);
 }
+/* Phones: the sticky action bar (about 74px plus the safe area) must never cover focus. */
+@media (max-width: 1023.98px) {
+  html {
+    scroll-padding-bottom: calc(88px + env(safe-area-inset-bottom));
+  }
+}
 @media (prefers-reduced-motion: no-preference) {
   html {
     scroll-behavior: smooth;

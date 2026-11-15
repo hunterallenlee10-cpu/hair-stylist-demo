@@ -1,8 +1,7 @@
 "use client";
 
 import { useEffect, useId, useRef, useState, type ReactNode } from "react";
-import { ArrowLeft, ArrowRight, Check, MessageCircle, Phone } from "lucide-react";
-import { business, smsHref, telHref } from "@/lib/business";
+import { ArrowLeft, ArrowRight, Check } from "lucide-react";
 import {
   buildSmsBody,
   dayOptions,
@@ -15,6 +14,8 @@ import {
 } from "@/lib/consult";
 import { btnGhost, btnPrimary } from "@/lib/ui";
 import type { ConsultPreset } from "./ConsultContext";
+import { SendStep } from "./SendStep";
+import { RatherTalk } from "./RatherTalk";
 
 const TOTAL = 3;
 const titles = ["What are we doing?", "Your hair now.", "Last bit."];
@@ -105,55 +106,20 @@ export function ConsultForm({
 
   const body = buildSmsBody(a);
 
-  if (done) {
+  if (done)
     return (
-      <div aria-live="polite">
-        <span className="grid h-16 w-16 place-items-center rounded-full bg-accent text-on-accent">
-          <Check className="h-8 w-8" strokeWidth={3} aria-hidden="true" />
-        </span>
-        <H ref={headRef} tabIndex={-1} id={titleId} className="display mt-6 text-[2.25rem] font-[800] leading-[1.02] text-ink outline-none sm:text-[2.75rem]">
-          You are one text away.
-        </H>
-        {/* DRAFT: confirm reply method and timing */}
-        <p className="mt-3 text-lg text-muted">Mickayla will reply to plan your consultation.</p>
-
-        <dl className="mt-6 grid gap-3 rounded-2xl border border-line bg-bg p-5 text-[0.9375rem]">
-          {[
-            ["Looking for", a.looks.join(", ")],
-            ["Hair now", [a.hairNow, a.length, a.thickness].filter(Boolean).join(", ")],
-            ["Extras", [a.longSession && "Long session is fine", a.model && "Vivid model"].filter(Boolean).join(", ")],
-            ["Dream hair", a.dream],
-            ["Name", a.name],
-            ["Best days", a.days],
-          ]
-            .filter(([, v]) => v)
-            .map(([k, v]) => (
-              <div key={k} className="grid grid-cols-[7rem_1fr] gap-3">
-                <dt className="text-muted">{k}</dt>
-                <dd className="text-ink">{v}</dd>
-              </div>
-            ))}
-        </dl>
-
-        <p className="mt-6 text-muted">Your message, ready to send:</p>
-        <p className="mt-2 rounded-2xl rounded-br-md bg-ink px-4 py-3 text-[0.9375rem] text-bg">{body}</p>
-
-        <div className="mt-6 grid gap-3 sm:grid-cols-2">
-          <a href={smsHref(body)} className={`${btnPrimary} min-h-[60px] text-lg`}>
-            <MessageCircle className="h-5 w-5" strokeWidth={2.25} aria-hidden="true" />
-            Text this to Mickayla
-          </a>
-          <a href={telHref} className={`${btnGhost} min-h-[60px] text-lg`}>
-            <Phone className="h-5 w-5" strokeWidth={2.25} aria-hidden="true" />
-            Call now
-          </a>
-        </div>
-        <p className="mt-4 text-sm text-muted">
-          Texts go to {business.phoneDisplay}. You can send inspiration photos in the same thread.
-        </p>
-      </div>
+      <SendStep
+        a={a}
+        body={body}
+        headRef={headRef}
+        titleId={titleId}
+        H={H}
+        onEdit={() => {
+          setDone(false);
+          setStep(1);
+        }}
+      />
     );
-  }
 
   return (
     <form
@@ -239,7 +205,7 @@ export function ConsultForm({
 
         {step === 3 && (
           <div className="mt-6 grid gap-6">
-            <p className="text-muted">All optional. No phone number needed: the plan goes as a text from your own phone.</p>
+            <p className="text-muted">All optional. No phone number needed: the request goes as a text from your own phone.</p>
             <div className="grid gap-5 sm:grid-cols-2">
               <div>
                 <label htmlFor={`${uid}-name`} className="font-semibold text-ink">
@@ -287,7 +253,7 @@ export function ConsultForm({
         )}
       </div>
 
-      <p id={`${uid}-error`} role="alert" className="mt-5 min-h-[1.5rem] font-semibold text-accent">
+      <p id={`${uid}-error`} role="alert" className="mt-5 min-h-[1.5rem] font-semibold text-error">
         {error}
       </p>
 
@@ -308,10 +274,11 @@ export function ConsultForm({
           <span />
         )}
         <button type="submit" className={btnPrimary}>
-          {step < TOTAL ? "Next" : "See my plan"}
+          {step < TOTAL ? "Next" : "Review and send"}
           <ArrowRight className="h-5 w-5" strokeWidth={2.25} aria-hidden="true" />
         </button>
       </div>
+      <RatherTalk />
     </form>
   );
 }

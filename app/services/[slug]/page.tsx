@@ -109,7 +109,7 @@ export default async function ServicePage({ params }: Props) {
           <div className={container}>
             <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
               <SectionHeading id="row-title" kicker="The work" title="Painted by hand in Leonardtown." />
-              <Link href={`/work?filter=${s.workFilter}`} className={`${textLink} shrink-0`}>
+              <Link href={`/work?filter=${s.workFilter}`} className={`${textLink} sm:max-w-[22rem] lg:max-w-none`}>
                 {s.workFilterLabel} <ArrowUpRight className="h-5 w-5 text-accent" strokeWidth={2} aria-hidden="true" />
               </Link>
             </div>

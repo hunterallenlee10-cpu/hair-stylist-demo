@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ArrowUp, MessageCircle } from "lucide-react";
 import { PlanButton } from "@/components/ConsultBuilder/PlanButton";
 import { business, smsHref } from "@/lib/business";
@@ -14,6 +14,7 @@ import { business, smsHref } from "@/lib/business";
 export function ScrollUi() {
   const [y, setY] = useState(0);
   const [vh, setVh] = useState(800);
+  const bar = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const on = () => {
@@ -30,12 +31,32 @@ export function ScrollUi() {
   }, []);
 
   const showBar = y > vh * 0.6;
+
+  // Focus is never hidden under the bar (WCAG 2.4.11): if a focused element
+  // lands behind it, scroll just enough to lift it clear. Checked on focus and
+  // again when the bar slides in (tabbing can scroll the page and reveal it).
+  useEffect(() => {
+    const lift = (el: Element | null) => {
+      const b = bar.current;
+      if (!b || !showBar || !el || el === document.body || b.contains(el)) return;
+      const top = window.innerHeight - b.offsetHeight; // final position, not mid-slide
+      const r = el.getBoundingClientRect();
+      if (r.bottom > top && r.top < window.innerHeight) {
+        window.scrollBy({ top: Math.max(0, Math.min(r.bottom - top + 16, r.top - 80)), behavior: "instant" });
+      }
+    };
+    lift(document.activeElement);
+    const onFocus = (e: FocusEvent) => lift(e.target as Element);
+    document.addEventListener("focusin", onFocus);
+    return () => document.removeEventListener("focusin", onFocus);
+  }, [showBar]);
   const showTop = y > vh * 1.5;
   const item = "flex min-h-[52px] min-w-0 items-center justify-center gap-2 whitespace-nowrap rounded-full px-4 font-bold";
 
   return (
     <>
       <div
+        ref={bar}
         className={`fixed inset-x-0 bottom-0 z-30 border-t border-line bg-bg px-3 pb-[max(10px,env(safe-area-inset-bottom))] pt-2.5 transition-transform duration-300 lg:hidden ${
           showBar ? "translate-y-0" : "pointer-events-none translate-y-full"
         }`}
