@@ -1,5 +1,6 @@
 import Image from "next/image";
-import { MapPin, MessageCircle } from "lucide-react";
+import { TextConsultation } from "@/components/TextConsultation";
+import { MapPin } from "lucide-react";
 import { WavyFrame } from "@/components/WavyFrame";
 import { Placeholder } from "@/components/Placeholder";
 import { PageTitle } from "@/components/PageShell";
@@ -8,9 +9,9 @@ import { MapCard } from "@/components/MapCard";
 import { SectionHeading } from "@/components/SectionHeading";
 import { InstagramIcon } from "@/components/icons/InstagramIcon";
 import { PlanButton } from "@/components/ConsultBuilder/PlanButton";
-import { addressLine1, addressLine2, business, directionsUrl, smsHref } from "@/lib/business";
+import { addressLine1, addressLine2, business, directionsUrl } from "@/lib/business";
 import { photos } from "@/lib/photos";
-import { btnGhost, btnPrimary, container, sectionPad, textLink } from "@/lib/ui";
+import { btnPrimary, container, sectionPad, textLink } from "@/lib/ui";
 
 /** The studio hero: her mural and sequin lemon (photo 09) in the mirror. */
 export function StudioHero() {
@@ -39,12 +40,7 @@ export function StudioHero() {
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
             <PlanButton className={`${btnPrimary} w-full sm:w-auto`} />
-            <a href={smsHref()} className={`${btnGhost} w-full px-5 sm:w-auto`}>
-              <MessageCircle className="h-5 w-5 shrink-0 text-accent" strokeWidth={2} aria-hidden="true" />
-              <span>
-                Text CONSULTATION to <span className="whitespace-nowrap">{business.phoneDisplay}</span>
-              </span>
-            </a>
+            <TextConsultation />
           </div>
         </div>
         <figure className="mx-auto w-full max-w-[340px] sm:max-w-[480px] lg:max-w-[640px]">
