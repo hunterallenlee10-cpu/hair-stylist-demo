@@ -3,19 +3,91 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import { Menu, MessageCircle, Phone, X } from "lucide-react";
+import { ChevronDown, Menu, MessageCircle, Phone, X } from "lucide-react";
 import { Wordmark } from "@/components/Wordmark";
 import { PlanButton } from "@/components/ConsultBuilder/PlanButton";
 import { business, smsHref, telHref } from "@/lib/business";
 import { btnGhost, btnPrimary, container } from "@/lib/ui";
+import { servicePages } from "@/lib/services";
 
-// Four destinations, one page each. Short enough to show in full on desktop.
+// Four destinations. Services opens a small menu of the four service pages and the hub.
 const links = [
   { href: "/work", label: "Work" },
   { href: "/services", label: "Services" },
   { href: "/new-here", label: "New here" },
   { href: "/studio", label: "The studio" },
 ];
+const serviceLinks = [
+  ...servicePages.map((s) => ({ href: `/services/${s.slug}`, label: s.name })),
+  { href: "/services", label: "All services" },
+];
+
+/** Desktop Services menu: a disclosure button with a short list of links. Esc and outside click close it. */
+function ServicesMenu({ pathname }: { pathname: string }) {
+  const [open, setOpen] = useState(false);
+  const ref = useRef<HTMLLIElement>(null);
+  const btn = useRef<HTMLButtonElement>(null);
+  const current = pathname.startsWith("/services");
+
+  useEffect(() => {
+    if (!open) return;
+    const onDown = (e: PointerEvent) => !ref.current?.contains(e.target as Node) && setOpen(false);
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setOpen(false);
+        btn.current?.focus();
+      }
+    };
+    const onFocus = (e: FocusEvent) => !ref.current?.contains(e.target as Node) && setOpen(false);
+    document.addEventListener("pointerdown", onDown);
+    document.addEventListener("keydown", onKey);
+    document.addEventListener("focusin", onFocus);
+    return () => {
+      document.removeEventListener("pointerdown", onDown);
+      document.removeEventListener("keydown", onKey);
+      document.removeEventListener("focusin", onFocus);
+    };
+  }, [open]);
+
+  return (
+    <li ref={ref} className="relative">
+      <button
+        ref={btn}
+        type="button"
+        aria-expanded={open}
+        aria-controls="services-menu"
+        onClick={() => setOpen((o) => !o)}
+        className={`inline-flex min-h-[44px] items-center gap-1 whitespace-nowrap rounded-full px-4 text-[0.9375rem] font-medium transition-colors hover:text-ink ${
+          current ? "text-ink underline decoration-accent decoration-2 underline-offset-8" : "text-muted"
+        }`}
+      >
+        Services
+        <ChevronDown className={`h-4 w-4 transition-transform ${open ? "rotate-180" : ""}`} strokeWidth={2.25} aria-hidden="true" />
+      </button>
+      {open && (
+        <ul
+          id="services-menu"
+          className="absolute left-1/2 top-[calc(100%+10px)] w-[300px] -translate-x-1/2 rounded-[18px] border border-line bg-surface p-2 shadow-soft"
+        >
+          {serviceLinks.map((l, i) => (
+            <li key={l.href} className={i === serviceLinks.length - 1 ? "mt-1 border-t border-line pt-1" : ""}>
+              <Link
+                href={l.href}
+                onClick={() => setOpen(false)}
+                aria-current={pathname === l.href ? "page" : undefined}
+                className={`flex min-h-[44px] items-center rounded-xl px-4 font-medium hover:bg-surface-2 hover:text-ink ${
+                  pathname === l.href ? "text-accent" : "text-ink"
+                }`}
+              >
+                {l.label}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      )}
+    </li>
+  );
+}
 
 export function Nav() {
   const pathname = usePathname();
@@ -77,6 +149,7 @@ export function Nav() {
         <nav aria-label="Main" className="hidden lg:block">
           <ul className="flex items-center">
             {links.map((a) => {
+              if (a.href === "/services") return <ServicesMenu key={a.href} pathname={pathname} />;
               const current = pathname === a.href;
               return (
                 <li key={a.href}>
@@ -152,10 +225,26 @@ export function Nav() {
                     href={a.href}
                     onClick={() => setOpen(false)}
                     aria-current={pathname === a.href ? "page" : undefined}
-                    className="display flex min-h-[64px] items-center text-[2rem] font-[700] text-ink"
+                    className="display flex min-h-[60px] items-center text-[1.875rem] font-[700] text-ink"
                   >
                     {a.label}
                   </Link>
+                  {a.href === "/services" && (
+                    <ul className="-mt-1 grid grid-cols-2 gap-x-4 pb-3">
+                      {servicePages.map((sp) => (
+                        <li key={sp.slug}>
+                          <Link
+                            href={`/services/${sp.slug}`}
+                            onClick={() => setOpen(false)}
+                            aria-current={pathname === `/services/${sp.slug}` ? "page" : undefined}
+                            className="flex min-h-[44px] items-center text-[0.9375rem] font-medium leading-tight text-muted hover:text-ink"
+                          >
+                            {sp.name}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
                 </li>
               ))}
               <li className="border-b border-line">

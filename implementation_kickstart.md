@@ -14,7 +14,7 @@ Re-read the matching part of the spec at the start of each phase. After each pha
 - [x] **Phase 2.** Photos 09 to 18 into the pipeline (crops: 12 signs, 14 face, 11 and 17 signs,
   16 bystander). `lib/gallery.ts` to 18 entries. `/work` filters and lightbox with permalinks.
   Flavor Dial "More like this". Home "After beats before" led by 15.
-- [ ] **Phase 3.** `lib/services.ts`, service template, four service pages, hub update, nav
+- [x] **Phase 3.** `lib/services.ts`, service template, four service pages, hub update, nav
   services menu, breadcrumbs.
 - [ ] **Phase 4.** `/studio` with 09 and honest proof, `/new-here` with 16, `/contact` map card,
   holiday band swirl edge and gift card link, varied final CTA photos, 404 with the swirl.

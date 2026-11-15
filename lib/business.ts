@@ -72,6 +72,16 @@ export const business = {
   // Her line, set as type on the vivid page.
   afterBeforeLine: ["after >>>>> before.", "vivids >>>>> no vivids"],
 
+  // Pricing slot for each service page. `fromPrice: null` hides it. Never
+  // invent a price: fill these only with numbers she has confirmed.
+  pricing: {
+    "vivid-hair-color": { fromPrice: null as number | null },
+    "lived-in-color-balayage": { fromPrice: null as number | null },
+    "blonding-and-silver": { fromPrice: null as number | null },
+    "color-correction": { fromPrice: null as number | null },
+  },
+  pricingLine: "Pricing depends on your hair and the look, and is quoted at your free consultation.",
+
   studioQuote: "It's just me, my color brushes, and my lemons against the world.",
 
   // Her vivid care rules, paraphrased closely from her own post.

@@ -30,28 +30,32 @@ export function salonSchema() {
     // Source: OpenStreetMap Nominatim, see lib/business.ts
     geo: { "@type": "GeoCoordinates", latitude: business.geo.latitude, longitude: business.geo.longitude },
     hasMap: `https://www.google.com/maps/search/?api=1&query=${business.geo.latitude},${business.geo.longitude}`,
-    areaServed: [
-      { "@type": "City", name: "Leonardtown, MD" },
-      { "@type": "AdministrativeArea", name: "St. Mary's County, MD" },
-      { "@type": "Place", name: "Southern Maryland" },
-    ],
+    areaServed,
     sameAs: [business.instagramUrl],
     founder: { "@type": "Person", name: business.owner, jobTitle: business.ownerTitle },
     knowsAbout: ["Vivid hair color", "Rainbow hair", "Color melts", "Balayage", "Blonding", "Color correction"],
   };
 }
 
-export function serviceSchemas() {
-  return services.map((s) => ({
-    "@type": "Service",
-    "@id": absoluteUrl(`/services#${s.id}`),
-    name: s.name,
-    serviceType: s.schemaDescription,
-    description: s.blurb,
-    url: absoluteUrl(`/services#${s.id}`),
-    provider: { "@id": salonId() },
-    areaServed: { "@type": "City", name: "Leonardtown, MD" },
-  }));
+/** Hub: every service as an OfferCatalog on the salon, pointing at its own page where one exists. */
+export function serviceCatalogSchema(pageFor: (hubId: string) => string | undefined) {
+  return {
+    "@type": "OfferCatalog",
+    "@id": absoluteUrl("/services#catalog"),
+    name: "Hair color services",
+    itemListElement: services.map((s) => ({
+      "@type": "Offer",
+      itemOffered: {
+        "@type": "Service",
+        name: s.name,
+        serviceType: s.schemaDescription,
+        description: s.blurb,
+        url: absoluteUrl(pageFor(s.id) ?? `/services#${s.id}`),
+        provider: { "@id": salonId() },
+        areaServed,
+      },
+    })),
+  };
 }
 
 export function faqSchema() {
@@ -84,20 +88,46 @@ export function homeSchema() {
   };
 }
 
+export type Crumb = { name: string; path: string };
+
+export function breadcrumbSchema(trail: Crumb[]) {
+  return {
+    "@type": "BreadcrumbList",
+    itemListElement: [{ name: "Home", path: "/" }, ...trail].map((c, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      name: c.name,
+      item: absoluteUrl(c.path),
+    })),
+  };
+}
+
 /** Sub-page graph: the salon, a breadcrumb, and anything page-specific (services, FAQ). */
-export function pageSchema(name: string, path: string, extra: object[] = []) {
+export function pageSchema(name: string, path: string, extra: object[] = [], parents: Crumb[] = []) {
   return {
     "@context": "https://schema.org",
-    "@graph": [
-      salonSchema(),
-      {
-        "@type": "BreadcrumbList",
-        itemListElement: [
-          { "@type": "ListItem", position: 1, name: "Home", item: absoluteUrl("/") },
-          { "@type": "ListItem", position: 2, name, item: absoluteUrl(path) },
-        ],
-      },
-      ...extra,
-    ],
+    "@graph": [salonSchema(), breadcrumbSchema([...parents, { name, path }]), ...extra],
+  };
+}
+
+const areaServed = [
+  { "@type": "City", name: "Leonardtown, MD" },
+  { "@type": "AdministrativeArea", name: "St. Mary's County, MD" },
+  { "@type": "Place", name: "Southern Maryland" },
+];
+
+/** One service page's Service node. No price, no rating. */
+export function servicePageSchema(s: { slug: string; name: string; serviceType: string; description: string; heroSrc: string }) {
+  const url = absoluteUrl(`/services/${s.slug}`);
+  return {
+    "@type": "Service",
+    "@id": `${url}#service`,
+    name: s.name,
+    serviceType: s.serviceType,
+    description: s.description,
+    url,
+    image: absoluteUrl(s.heroSrc),
+    provider: { "@id": salonId() },
+    areaServed,
   };
 }

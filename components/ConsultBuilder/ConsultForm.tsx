@@ -65,6 +65,7 @@ export function ConsultForm({
     ...emptyAnswers,
     looks: (preset.looks ?? []).filter((l) => (lookOptions as readonly string[]).includes(l)),
     model: !!preset.model,
+    hairNow: hairNowOptions.some((h) => h.label === preset.hairNow) ? preset.hairNow! : "",
   });
   const headRef = useRef<HTMLHeadingElement>(null);
   const shown = useRef({ step: 1, done: false });

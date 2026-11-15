@@ -1,7 +1,9 @@
 import Link from "next/link";
-import { Gift, Instagram, MapPin, MessageCircle, Phone } from "lucide-react";
+import { Gift, MapPin, MessageCircle, Phone } from "lucide-react";
 import { Wordmark } from "@/components/Wordmark";
-import { addressLine1, addressLine2, business, directionsUrl, services, smsHref, telHref } from "@/lib/business";
+import { addressLine1, addressLine2, business, directionsUrl, smsHref, telHref } from "@/lib/business";
+import { servicePages } from "@/lib/services";
+import { InstagramIcon } from "@/components/icons/InstagramIcon";
 import { isLive } from "@/lib/site";
 import { container } from "@/lib/ui";
 
@@ -57,13 +59,18 @@ export function Footer() {
         <div>
           <h2 className="eyebrow text-muted">Services</h2>
           <ul className="mt-2">
-            {services.map((s) => (
-              <li key={s.id}>
-                <a href={`/services#${s.id}`} className="inline-flex min-h-[40px] items-center text-ink hover:text-accent">
+            {servicePages.map((s) => (
+              <li key={s.slug}>
+                <Link href={`/services/${s.slug}`} className="inline-flex min-h-[44px] items-center text-ink hover:text-accent">
                   {s.name}
-                </a>
+                </Link>
               </li>
             ))}
+            <li>
+              <Link href="/services" className="inline-flex min-h-[44px] items-center text-ink hover:text-accent">
+                All services
+              </Link>
+            </li>
           </ul>
         </div>
 
@@ -76,7 +83,7 @@ export function Footer() {
               ["/studio", "The studio"],
             ].map(([href, label]) => (
               <li key={href}>
-                <Link href={href} className="inline-flex min-h-[40px] items-center text-ink hover:text-accent">
+                <Link href={href} className="inline-flex min-h-[44px] items-center text-ink hover:text-accent">
                   {label}
                 </Link>
               </li>
@@ -88,7 +95,7 @@ export function Footer() {
                 rel="noopener noreferrer"
                 className="inline-flex min-h-[44px] items-center gap-2 text-ink hover:text-accent"
               >
-                <Instagram className="h-5 w-5 text-accent" strokeWidth={2} aria-hidden="true" />
+                <InstagramIcon className="h-5 w-5 text-accent" />
                 Instagram {business.instagramHandle}
               </a>
             </li>
