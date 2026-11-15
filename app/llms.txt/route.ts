@@ -2,7 +2,8 @@ import { business, fullAddress } from "@/lib/business";
 import { absoluteUrl, isLive } from "@/lib/site";
 
 // A small courtesy file for AI assistants, served in live mode only.
-// Demo mode: 404.
+// Demo mode: 404. Rendered per request so the 404 status survives on Vercel.
+export const dynamic = "force-dynamic";
 export function GET() {
   if (!isLive) return new Response("Not found", { status: 404 });
   const l = (label: string, path: string, note: string) => `- [${label}](${absoluteUrl(path)}): ${note}`;
