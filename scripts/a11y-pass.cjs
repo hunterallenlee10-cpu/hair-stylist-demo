@@ -71,7 +71,7 @@ const problems = [];
   // The builder, end to end, on a phone and on a desktop.
   for (const [label, page] of [["375", m], ["1440", await b.newPage({ viewport: { width: 1440, height: 900 } })]]) {
     await page.goto(base + "/services/color-correction", { waitUntil: "networkidle" });
-    const trigger = page.locator("main button", { hasText: "Plan my correction" }).first();
+    const trigger = page.locator('section[aria-labelledby="service-title"] button[aria-haspopup="dialog"]').first();
     await trigger.click();
     await page.waitForSelector('[role="dialog"] form');
     const pre = await page.$$eval('[role="dialog"] input:checked', (els) => els.map((e) => e.closest("label")?.textContent?.trim()));
@@ -103,7 +103,7 @@ const problems = [];
     await page.waitForTimeout(300);
     const back = await page.evaluate(() => document.activeElement?.textContent?.trim());
     console.log(`${label} focus after Escape:`, back);
-    if (!/Plan my correction/.test(back || "")) problems.push(`${label}: focus did not return to the trigger`);
+    if (!/Plan My Dream Hair/.test(back || "")) problems.push(`${label}: focus did not return to the trigger`);
   }
 
   await b.close();

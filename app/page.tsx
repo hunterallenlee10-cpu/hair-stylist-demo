@@ -17,7 +17,7 @@ export const metadata: Metadata = {
 // gallery, the studio, and everything a new client asks live on their own pages.
 export default function Home() {
   return (
-    <PageShell schema={homeSchema()} ctaSteps ctaPhoto="fire">
+    <PageShell schema={homeSchema()} ctaSteps ctaPhoto="softBrunette">
       <Hero />
       <FindYourFlavor />
       <AfterBeatsBefore />

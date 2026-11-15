@@ -29,7 +29,8 @@ export type ServicePage = {
   /** Consult Builder pre-selects. */
   looks: string[];
   hairNow?: string;
-  planLabel: string;
+  /** What the planner opens with, said under the button. */
+  planNote: string;
   expect: Expect[];
   faqs: Faq[];
   ctaPhoto: PhotoKey;
@@ -62,14 +63,14 @@ export const servicePages: ServicePage[] = [
     title: "Vivid Hair Color in Leonardtown, MD | Disco Lemonade Studio",
     description:
       "Rainbows, melts, panels and reds by Mickayla Ramsey at Disco Lemonade Studio in Leonardtown, MD. See her real work and plan a free vivid consultation.",
-    heroPhoto: "melt",
+    heroPhoto: "fire",
     whatItIs:
       "Vivids are what she is known for: full rainbows, color melts, high-contrast panels, peekaboos and reds. Every one is painted by hand, in sections, and planned with you at a free consultation before a single brush comes out.",
-    gallery: ["fire", "shego", "colorBlock", "hiddenRainbow", "closeup"],
+    gallery: ["melt", "shego", "colorBlock", "hiddenRainbow", "closeup"],
     workFilter: "vivids",
     workFilterLabel: "See every vivid in the gallery",
     looks: ["Full rainbow"],
-    planLabel: "Plan my vivid",
+    planNote: "Opens with Full rainbow picked. Change it any time.",
     expect: [
       consultExpect,
       { title: "Plan for a long day.", body: business.sessionLine, draft: "confirm typical session lengths" },
@@ -97,7 +98,7 @@ export const servicePages: ServicePage[] = [
         draft: "confirm the model call is still open",
       },
     ],
-    ctaPhoto: "closeup",
+    ctaPhoto: "gems",
     ctaTitle: { lead: "Ready to go", accent: "loud?" },
     serviceType: "Vivid hair color",
   },
@@ -118,7 +119,7 @@ export const servicePages: ServicePage[] = [
     workFilter: "lived-in",
     workFilterLabel: "See every lived-in look in the gallery",
     looks: ["Vanilla"],
-    planLabel: "Plan my lived-in color",
+    planNote: "Opens with Vanilla picked. Change it any time.",
     expect: [
       consultExpect,
       { title: "Made to grow out.", body: "Dimension and balayage placed to grow out gracefully, so the in-between looks intentional." },
@@ -141,7 +142,7 @@ export const servicePages: ServicePage[] = [
         a: "Yes. Her post of 14 November 2026 is a client's first ever color, and she wrote that being trusted with it will forever feel so special to her.",
       },
     ],
-    ctaPhoto: "firstColor",
+    ctaPhoto: "hiddenRainbow",
     ctaTitle: { lead: "Vanilla, whenever", accent: "you are." },
     serviceType: "Balayage and lived-in hair color",
   },
@@ -162,7 +163,7 @@ export const servicePages: ServicePage[] = [
     workFilter: "blondes-and-silver",
     workFilterLabel: "See every blonde and silver in the gallery",
     looks: ["Blonding or silver"],
-    planLabel: "Plan my blonde",
+    planNote: "Opens with Blonding or silver picked. Change it any time.",
     expect: [
       consultExpect,
       { title: "Your hair history matters.", body: "What is on your hair now decides the plan. Be honest at the consult: it changes the plan, not the welcome." },
@@ -184,7 +185,7 @@ export const servicePages: ServicePage[] = [
         a: "Yes. Silver gray and icy silver are on the menu. The close up at the top of this page is her work.",
       },
     ],
-    ctaPhoto: "barbie",
+    ctaPhoto: "colorBlock",
     ctaTitle: { lead: "Bright and sunny", accent: "starts with a text." },
     serviceType: "Hair blonding and silver hair color",
   },
@@ -205,7 +206,7 @@ export const servicePages: ServicePage[] = [
     workFilterLabel: "See her reds and the before and after in the gallery",
     looks: ["Correction or big change"],
     hairNow: "Box dye at home",
-    planLabel: "Plan my correction",
+    planNote: "Opens with Correction or big change and Box dye at home picked.",
     expect: [
       consultExpect,
       { title: "No judgement.", body: "Box dye counts as history, not a confession. Tell her everything: it changes the plan, not the welcome." },

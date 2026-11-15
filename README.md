@@ -59,7 +59,7 @@ them to `.webp` with crops that remove other businesses' signs (08, 11, 12, 17),
 profile (14) and a bystander (16), and writes `lib/image-dimensions.json`.
 `node scripts/brand-assets.mts` and `node scripts/og-image.mts` rebuild the favicon, touch icon,
 lemon mark, dial thumb, logo and the two Open Graph images (`og-image.png`, `og-studio.png`).
-Fraunces is trimmed to how the site uses it (`app/fonts/README.md`).
+Both fonts are self-hosted and trimmed to how the site uses them (`app/fonts/README.md`, `scripts/trim-fonts.py`).
 
 ## Deploy to Vercel
 

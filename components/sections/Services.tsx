@@ -88,7 +88,7 @@ export function Services() {
               media={
                 <ViewTransition name="service-photo-vivid-hair-color" share="morph" default="none">
                   <WavyFrame clipClass="wave-landscape" band="md" className="aspect-[4/3] w-full lg:aspect-auto lg:min-h-[320px] lg:flex-1">
-                    <Photo first k="melt" sizes="(min-width: 1024px) 640px, (min-width: 640px) 90vw, 100vw" position="50% 30%" />
+                    <Photo first k="fire" sizes="(min-width: 1024px) 640px, (min-width: 640px) 90vw, 100vw" position="50% 35%" />
                   </WavyFrame>
                 </ViewTransition>
               }
@@ -98,7 +98,7 @@ export function Services() {
               className="lg:row-span-2"
               media={
                 <WavyFrame clipClass="wave-portrait" band="plain" className="aspect-[1357/1721] w-full lg:aspect-auto lg:min-h-[320px] lg:flex-1">
-                  <Photo k="fire" sizes="(min-width: 1024px) 300px, (min-width: 640px) 45vw, 100vw" />
+                  <Photo k="shego" sizes="(min-width: 1024px) 300px, (min-width: 640px) 45vw, 100vw" />
                 </WavyFrame>
               }
             />

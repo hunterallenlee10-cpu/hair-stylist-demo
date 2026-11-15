@@ -37,11 +37,11 @@ export function AfterBeatsBefore() {
 
           <div>
             <PhotoGrid
-              entries={entriesFor(["fire", "ribbons", "closeup", "shego", "gems", "firstColor"])}
+              entries={entriesFor(["fire", "ribbons", "closeup", "shego", "hiddenRainbow", "firstColor"])}
               shape="portrait"
               className="grid-cols-3 gap-3 sm:gap-5"
               sizes="(min-width: 1024px) 220px, 31vw"
-              positions={{ gems: "50% 30%", closeup: "50% 30%" }}
+              positions={{ closeup: "50% 30%" }}
             />
             <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-8">
               <Link href="/work" className={`${btnGhost} w-full sm:w-auto`}>

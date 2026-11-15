@@ -15,6 +15,7 @@ export function PlanButton({
   preset?: ConsultPreset;
   className?: string;
   "aria-label"?: string;
+  "aria-describedby"?: string;
 }) {
   const { openBuilder } = useConsult();
   return (
