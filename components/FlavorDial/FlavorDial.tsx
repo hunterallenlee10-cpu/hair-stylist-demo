@@ -39,7 +39,7 @@ export function FlavorDial() {
           io.disconnect();
         }
       },
-      { rootMargin: "600px 0px" },
+      { rootMargin: "150px 0px" },
     );
     io.observe(el);
     return () => io.disconnect();

@@ -16,7 +16,8 @@ let server: ChildProcess | undefined;
 if (!base) {
   const port = 3000 + Math.floor(Math.random() * 900) + 50;
   base = `http://localhost:${port}`;
-  server = spawn("npx", ["next", "start", "-p", String(port)], { stdio: "ignore" });
+  // Own process group, so the whole tree (npx and next-server) can be stopped at the end.
+  server = spawn("npx", ["next", "start", "-p", String(port)], { stdio: "ignore", detached: true });
   for (let i = 0; i < 60; i++) {
     try {
       await fetch(base);
@@ -193,7 +194,7 @@ if (demo) {
   if (home.html.includes("Concept preview")) fail("live", "concept footer line still present");
 }
 
-server?.kill();
+if (server?.pid) process.kill(-server.pid, "SIGTERM");
 
 console.log(`\nnpm run check (${demo ? "demo" : "live"} mode, ${base})`);
 console.log(`Routes checked: ${routes.length}. Internal link targets checked: ${linkTargets.size}.`);

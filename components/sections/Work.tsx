@@ -16,6 +16,7 @@ export function Work({ initialFilter = "All" }: { initialFilter?: GalleryFilter 
           filters
           captions
           initialFilter={initialFilter}
+          eager={2}
           sizes="(min-width: 1280px) 320px, (min-width: 1024px) 420px, 50vw"
         />
         <p className="mx-auto mt-10 max-w-[40rem] text-center text-lead text-muted">

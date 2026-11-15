@@ -20,7 +20,7 @@ Re-read the matching part of the spec at the start of each phase. After each pha
   holiday band swirl edge and gift card link, varied final CTA photos, 404 with the swirl.
 - [x] **Phase 5.** Builder honest last step and desktop fallback, sticky bar focus fix, keyboard
   and 200% zoom pass.
-- [ ] **Phase 6.** Demo safety and SEO: headers, robots, sitemap and `llms.txt` gating, titles,
+- [x] **Phase 6.** Demo safety and SEO: headers, robots, sitemap and `llms.txt` gating, titles,
   descriptions, JSON-LD, OG images, `SEO-LAUNCH.md`. Lighthouse live then demo, phone and desktop.
 - [ ] **Phase 7.** Review 2 (juror plus fact audit), one round of fixes, final checklist,
   `npm run check`, merge and push.

@@ -61,6 +61,7 @@ export function HeroMelt({ position = "50% 50%" }: { position?: string }) {
           height={p.height}
           sizes={sizes}
           preload
+          fetchPriority="high"
           onLoad={start}
           ref={(el) => {
             if (el?.complete) start();

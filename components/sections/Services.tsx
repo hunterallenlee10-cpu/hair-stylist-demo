@@ -23,7 +23,7 @@ function Photo({ k, sizes, position = "50% 50%", first = false }: { k: PhotoKey;
       width={p.width}
       height={p.height}
       sizes={sizes}
-      {...(first ? { preload: true } : { loading: "lazy" as const })}
+      {...(first ? { preload: true, fetchPriority: "high" as const } : { loading: "lazy" as const })}
       className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03] motion-reduce:transition-none"
       style={{ objectPosition: position }}
     />

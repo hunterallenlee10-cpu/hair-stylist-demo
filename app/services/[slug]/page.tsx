@@ -93,6 +93,7 @@ export default async function ServicePage({ params }: Props) {
                   height={hero.height}
                   sizes="(min-width: 1024px) 460px, (min-width: 640px) 400px, 320px"
                   preload
+                  fetchPriority="high"
                   className="h-full w-full object-cover"
                   style={{ objectPosition: s.heroPosition ?? "50% 50%" }}
                 />

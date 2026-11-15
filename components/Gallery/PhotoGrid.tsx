@@ -29,6 +29,7 @@ export function PhotoGrid({
   itemClassName = "",
   band = "card",
   positions = {},
+  eager = 0,
 }: {
   entries: GalleryEntry[];
   layout?: "masonry" | "grid" | "row";
@@ -41,6 +42,8 @@ export function PhotoGrid({
   itemClassName?: string;
   band?: "card" | "sm" | "md";
   positions?: Partial<Record<string, string>>;
+  /** Load the first n photos eagerly (above the fold); the first gets high fetch priority. */
+  eager?: number;
 }) {
   const [filter, setFilter] = useState<GalleryFilter>(initialFilter);
   const [open, setOpen] = useState<number | null>(null);
@@ -102,7 +105,8 @@ export function PhotoGrid({
                       width={p.width}
                       height={p.height}
                       sizes={sizes}
-                      loading="lazy"
+                      loading={i < eager ? "eager" : "lazy"}
+                      fetchPriority={i === 0 && eager > 0 ? "high" : undefined}
                       className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.04] motion-reduce:transition-none"
                       style={{ objectPosition: positions[e.photo] ?? "50% 40%" }}
                     />

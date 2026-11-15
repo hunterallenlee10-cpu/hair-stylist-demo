@@ -55,6 +55,7 @@ export function StudioHero() {
                 height={p.height}
                 sizes="(min-width: 1024px) 600px, (min-width: 640px) 480px, 340px"
                 preload
+                fetchPriority="high"
                 className="h-full w-full object-cover"
               />
             </WavyFrame>

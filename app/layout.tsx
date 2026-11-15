@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
-import { DM_Sans, Fraunces } from "next/font/google";
+import { DM_Sans } from "next/font/google";
+import localFont from "next/font/local";
 import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 import { WaveDefs } from "@/components/WaveDefs";
@@ -7,12 +8,16 @@ import { ConsultProvider } from "@/components/ConsultBuilder/ConsultContext";
 import { business } from "@/lib/business";
 import { isLive, ogImage, siteUrl } from "@/lib/site";
 
-const fraunces = Fraunces({
-  subsets: ["latin"],
-  style: ["normal", "italic"],
-  axes: ["SOFT", "WONK"],
+// Fraunces, trimmed to how the site uses it: weights 600 to 900, SOFT 100,
+// WONK 1 (see app/fonts/README.md). About half the bytes of the full variable font.
+const fraunces = localFont({
+  src: [
+    { path: "./fonts/Fraunces-SoftWonk-600-900.woff2", weight: "600 900", style: "normal" },
+    { path: "./fonts/Fraunces-SoftWonk-600-900-Italic.woff2", weight: "600 900", style: "italic" },
+  ],
   variable: "--font-fraunces",
   display: "swap",
+  fallback: ["Georgia", "serif"],
 });
 
 const dmSans = DM_Sans({
@@ -28,9 +33,9 @@ export const viewport: Viewport = {
   initialScale: 1,
 };
 
-const title = "Vivid Hair Color in Leonardtown, MD | Disco Lemonade Studio";
+const title = "Hair Color Studio in Leonardtown, MD | Disco Lemonade Studio";
 const description =
-  "Mickayla Ramsey paints vivids, rainbows and lived-in color at Disco Lemonade Studio in Leonardtown, MD. Text CONSULTATION to (240) 561-8519 to start.";
+  "Mickayla Ramsey paints vivids, rainbows and lived-in color by hand at Disco Lemonade Studio in Leonardtown, MD. Text CONSULTATION to (240) 561-8519.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
