@@ -157,6 +157,17 @@ body {
 .mirror-md {
   --band: 10px;
 }
+/* Gallery cards: a thinner rim on phones, where cards are small. */
+.mirror-card {
+  --band: 7px;
+  background-size: 6px 6px;
+}
+@media (min-width: 640px) {
+  .mirror-card {
+    --band: 10px;
+    background-size: 8px 8px;
+  }
+}
 .mirror > .mirror-glass {
   position: absolute;
   inset: var(--band);

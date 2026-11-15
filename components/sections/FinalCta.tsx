@@ -1,43 +1,27 @@
 import Image from "next/image";
 import Link from "next/link";
 import { MessageCircle } from "lucide-react";
+import { WavyFrame } from "@/components/WavyFrame";
 import { PlanButton } from "@/components/ConsultBuilder/PlanButton";
 import { business, smsHref } from "@/lib/business";
-import { photos } from "@/lib/photos";
+import { photos, type PhotoKey } from "@/lib/photos";
 import { btnGhost, btnPrimary, container } from "@/lib/ui";
 
 const steps = ["Text CONSULTATION", "Free consult", "Color day"];
 
 /**
- * Closing call to action. Photo 06 as a contained, darkened panel, never
- * stretched (capped at 640px wide). On the home page it also carries the
- * three-step summary of how booking works.
+ * Closing call to action. The right half holds a real photo in her sequin
+ * mirror (max 440px wide, never stretched), varied per page. On the home page
+ * it also carries the three-step summary of how booking works.
  */
-export function FinalCta({ steps: showSteps = false }: { steps?: boolean }) {
-  const p = photos.silver;
+export function FinalCta({ steps: showSteps = false, photo = "fire" }: { steps?: boolean; photo?: PhotoKey }) {
+  const p = photos[photo];
   return (
     <section aria-labelledby="cta-title" className="py-[72px] lg:py-[112px]">
       <div className={container}>
-        <div className="relative isolate overflow-hidden rounded-[20px] border border-line bg-surface">
-          <div className="absolute inset-y-0 right-0 -z-10 w-full max-w-[640px]">
-            <Image
-              src={p.src}
-              alt=""
-              width={p.width}
-              height={p.height}
-              sizes="640px"
-              loading="lazy"
-              className="h-full w-full object-cover opacity-70"
-              style={{ objectPosition: "50% 35%" }}
-            />
-            <div
-              aria-hidden="true"
-              className="absolute inset-0"
-              style={{ background: "linear-gradient(90deg, #1E1719 0%, rgba(30,23,25,0.75) 35%, rgba(18,14,16,0.35) 100%)" }}
-            />
-          </div>
-          <div className="px-6 py-14 sm:px-12 sm:py-20 lg:px-16 lg:py-24">
-            <h2 id="cta-title" className="display max-w-[40rem] text-[2.5rem] font-[800] leading-[0.98] text-ink sm:text-[3.75rem] lg:text-[4.25rem]">
+        <div className="grid items-center gap-10 overflow-hidden rounded-[28px] border border-line bg-surface px-6 py-12 sm:px-12 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,0.8fr)] lg:gap-16 lg:px-16 lg:py-16">
+          <div>
+            <h2 id="cta-title" className="display max-w-[36rem] text-h2 font-[800] text-ink">
               Ready when you are, <span className="italic text-accent">rainbow enthusiast.</span>
             </h2>
 
@@ -58,7 +42,9 @@ export function FinalCta({ steps: showSteps = false }: { steps?: boolean }) {
               <PlanButton className={`${btnPrimary} w-full sm:w-auto`} />
               <a href={smsHref()} className={`${btnGhost} w-full bg-bg/60 px-5 sm:w-auto`}>
                 <MessageCircle className="h-5 w-5 shrink-0 text-accent" strokeWidth={2} aria-hidden="true" />
-                Text CONSULTATION to {business.phoneDisplay}
+                <span>
+                  Text CONSULTATION to <span className="whitespace-nowrap">{business.phoneDisplay}</span>
+                </span>
               </a>
             </div>
 
@@ -74,6 +60,23 @@ export function FinalCta({ steps: showSteps = false }: { steps?: boolean }) {
               </p>
             )}
           </div>
+
+          <figure className="mx-auto w-full max-w-[300px] sm:max-w-[360px] lg:max-w-[440px]">
+            <div className="-rotate-2">
+              <WavyFrame shape="portrait">
+                <Image
+                  src={p.src}
+                  alt={p.alt}
+                  width={p.width}
+                  height={p.height}
+                  sizes="(min-width: 1024px) 440px, 360px"
+                  loading="lazy"
+                  className="h-full w-full object-cover"
+                />
+              </WavyFrame>
+            </div>
+            <figcaption className="mt-4 text-center text-[0.9375rem] text-muted">{p.caption}</figcaption>
+          </figure>
         </div>
       </div>
     </section>

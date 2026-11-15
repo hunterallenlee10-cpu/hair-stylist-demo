@@ -1,5 +1,6 @@
 // Photo registry. Alt text and captions come only from the photo map in the
-// brief. Every photo is shot from behind: no client faces anywhere.
+// brief. Every photo is shot from behind or close up: no client faces anywhere.
+// Crops (signs, a face in profile, a bystander) live in scripts/optimize-images.mjs.
 import dims from "./image-dimensions.json";
 
 export type PhotoKey =
@@ -10,7 +11,17 @@ export type PhotoKey =
   | "dipped"
   | "silver"
   | "vanilla"
-  | "barbie";
+  | "barbie"
+  | "mural"
+  | "fire"
+  | "ribbons"
+  | "nineHour"
+  | "closeup"
+  | "firstColor"
+  | "beforeAfter"
+  | "inProgress"
+  | "hiddenRainbow"
+  | "softBrunette";
 
 export type Photo = {
   key: PhotoKey;
@@ -74,5 +85,65 @@ export const photos: Record<PhotoKey, Photo> = {
     "08-long-bright-barbie-blonde-waves",
     "Very long bright blonde waves on a red tee, lifted by Mickayla's tattooed arm.",
     "Long bright Barbie blonde waves",
+  ),
+  mural: photo(
+    "mural",
+    "09-studio-swirl-mural-sequin-lemon",
+    "Her studio wall: a hot pink, lemon yellow, lime and orange swirl mural with a round pink sequin lemon mirror.",
+    "The studio wall: her swirl mural and the pink sequin lemon",
+  ),
+  fire: photo(
+    "fire",
+    "10-fire-panels-red-orange-on-black",
+    "Back of a client's head: black hair with red, orange and yellow fire panels at the part.",
+    "Fire panels: red, orange and yellow on black",
+  ),
+  ribbons: photo(
+    "ribbons",
+    "11-red-ribbons-through-dark-curls",
+    "Back of a client's head: long dark curls with bright red ribbons all through.",
+    "Bright red ribbons through long dark curls",
+  ),
+  nineHour: photo(
+    "nineHour",
+    "12-nine-hour-magenta-melt-straight",
+    "Very long straight magenta hair melting to deep berry, held up by Mickayla's hand.",
+    "Magenta melting to deep berry. A nine hour day.",
+  ),
+  closeup: photo(
+    "closeup",
+    "13-magenta-violet-closeup-pink-claw",
+    "Close up of magenta melting into violet and blue, with Mickayla's pink and lilac nail.",
+    "Magenta into violet into blue, up close",
+  ),
+  firstColor: photo(
+    "firstColor",
+    "14-first-color-rich-brunette-waves",
+    "Long rich chocolate brunette waves with soft caramel dimension, lifted by Mickayla's hand.",
+    "Rich brunette with soft caramel. A client's first ever color.",
+  ),
+  beforeAfter: photo(
+    "beforeAfter",
+    "15-before-after-red-inset",
+    "Her before and after graphic: a dull dark before photo inset over the glossy red after.",
+    "Before and after: dull dark to glossy red",
+  ),
+  inProgress: photo(
+    "inProgress",
+    "16-in-progress-pink-painting",
+    "From behind: hot pink color painted on in sections over a cape, mid-appointment.",
+    "Mid-paint. Pink goes on in sections.",
+  ),
+  hiddenRainbow: photo(
+    "hiddenRainbow",
+    "17-hidden-rainbow-under-brown-veil",
+    "A rich brown bob lifted by hand to show a hidden magenta, violet and orange underlayer.",
+    "A hidden rainbow under a brown veil",
+  ),
+  softBrunette: photo(
+    "softBrunette",
+    "18-soft-brunette-balayage-back",
+    "Soft brunette balayage waves, seen from behind.",
+    "Soft brunette balayage",
   ),
 };

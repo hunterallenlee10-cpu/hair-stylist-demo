@@ -22,7 +22,7 @@ const clip: Record<Shape, string> = {
  * Her hot pink wavy sequin mirror. The scalloped clip-path (from <WaveDefs />)
  * cuts both the sequin band and the glass, so the photo sits inside a pink
  * scalloped rim. `band` sets the rim: "lg" 12px, "md" 10px, "sm" 6px for
- * thumbnails, "none" for a plain wavy frame.
+ * thumbnails, "card" 7 to 10px for gallery cards, "none" for a plain wavy frame.
  *
  * For a shape that changes with the breakpoint, pass `clipClass` (e.g.
  * "wave-square lg:wave-portrait") and an aspect class in `className`.
@@ -36,7 +36,7 @@ export function WavyFrame({
   style,
 }: {
   shape?: Shape;
-  band?: "lg" | "md" | "sm" | "none";
+  band?: "lg" | "md" | "sm" | "card" | "none";
   clipClass?: string;
   children: ReactNode;
   className?: string;
@@ -51,10 +51,19 @@ export function WavyFrame({
       </div>
     );
   }
-  const size = band === "sm" ? "mirror-sm" : band === "md" ? "mirror-md" : "";
+  const size = { lg: "", md: "mirror-md", sm: "mirror-sm", card: "mirror-card" }[band];
   return (
     <div className={`mirror relative ${size} ${c} ${className}`} style={{ aspectRatio: aspect, ...style }}>
       <div className={`mirror-glass ${c}`}>{children}</div>
     </div>
   );
+}
+
+/** The wave shape closest to a photo's own proportions. */
+export function shapeFor(width: number, height: number): Shape {
+  const r = width / height;
+  if (r < 0.7) return "tall";
+  if (r < 0.9) return "portrait";
+  if (r < 1.15) return "square";
+  return r < 1.5 ? "landscape" : "wide";
 }
