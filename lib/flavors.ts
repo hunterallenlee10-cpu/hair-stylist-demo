@@ -7,18 +7,21 @@ export const flavors = [
     photo: "vanilla",
     readout: "Lived-in color that looks like you, on a very good day. Caramel, honey, soft grow-out.",
     builder: "Vanilla",
+    more: ["firstColor", "softBrunette"],
   },
   {
     name: "A pop",
     photo: "dipped",
     readout: "Mostly natural, with one loud secret. Dipped ends or a hidden flash of color.",
     builder: "A pop",
+    more: ["hiddenRainbow", "dipped"],
   },
   {
     name: "Panels",
     photo: "shego",
     readout: "High contrast on purpose. Bold panels through your natural shade.",
     builder: "Panels",
+    more: ["fire", "ribbons"],
     note: "She calls this one SHEGO.",
   },
   {
@@ -26,17 +29,21 @@ export const flavors = [
     photo: "colorBlock",
     readout: "Two or three colors in clean sections. Flip your hair, change the look.",
     builder: "Color block",
+    more: ["colorBlock", "closeup"],
   },
   {
     name: "Full rainbow",
     photo: "melt",
     readout: "All in. A full melt of color from root to ends.",
     builder: "Full rainbow",
+    more: ["closeup", "nineHour"],
   },
 ] as const satisfies ReadonlyArray<{
   name: string;
   photo: PhotoKey;
   readout: string;
   builder: string;
+  /** "More like this": other real photos for this stop, opened in the shared lightbox. */
+  more: readonly PhotoKey[];
   note?: string;
 }>;

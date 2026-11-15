@@ -1,15 +1,18 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import Image from "next/image";
 import { useEffect, useId, useRef, useState } from "react";
 import { ArrowRight } from "lucide-react";
 import { WavyFrame } from "@/components/WavyFrame";
 import { PlanButton } from "@/components/ConsultBuilder/PlanButton";
 import { flavors } from "@/lib/flavors";
+import { entriesFor } from "@/lib/gallery";
 import { photos } from "@/lib/photos";
 import { btnPrimary } from "@/lib/ui";
 
 const LAST = flavors.length; // 5
+const Lightbox = dynamic(() => import("@/components/Gallery/Lightbox"), { ssr: false });
 
 /**
  * The Flavor Dial. A native <input type="range"> (real slider semantics,
@@ -36,14 +39,14 @@ export function FlavorDial() {
           io.disconnect();
         }
       },
-      { rootMargin: "600px 0px" },
+      { rootMargin: "150px 0px" },
     );
     io.observe(el);
     return () => io.disconnect();
   }, []);
 
   // Arm the sweep: start at 1 while the section is still off screen.
-  // Framer Motion is imported on demand when the sweep is about to run.
+  // motion is imported on demand when the sweep is about to run.
   useEffect(() => {
     if (swept.current || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const el = rootRef.current;
@@ -57,7 +60,7 @@ export function FlavorDial() {
         if (!entries.some((e) => e.isIntersecting) || swept.current) return;
         swept.current = true;
         io.disconnect();
-        import("framer-motion/dom").then(({ animate }) => {
+        import("motion/react").then(({ animate }) => {
           if (touched.current) return;
           sweep.current = animate(1, LAST, {
             duration: 2,
@@ -92,7 +95,11 @@ export function FlavorDial() {
     choose(Math.round(Math.min(1, Math.max(0, ratio)) * (LAST - 1)) + 1);
   };
 
+  const [box, setBox] = useState<number | null>(null);
+  const thumbTrigger = useRef<HTMLButtonElement | null>(null);
+
   const f = flavors[stop - 1];
+  const more = entriesFor([...f.more]);
   const pct = ((stop - 1) / (LAST - 1)) * 100;
 
   return (
@@ -139,6 +146,54 @@ export function FlavorDial() {
             {f.readout}
           </p>
         </div>
+
+        {/* More like this: other real photos for the current stop. */}
+        <div className="mt-4 flex items-center gap-4">
+          <p className="w-[5.5rem] shrink-0 text-label font-medium leading-tight text-muted">More like this</p>
+          <ul className="flex gap-3">
+            {more.map((e, i) => {
+              const p = photos[e.photo];
+              return (
+                <li key={`${f.name}-${e.photo}`} className="w-[72px] sm:w-[84px]">
+                  <button
+                    type="button"
+                    aria-haspopup="dialog"
+                    className="group block w-full rounded-[14px]"
+                    onClick={(ev) => {
+                      thumbTrigger.current = ev.currentTarget;
+                      setBox(i);
+                    }}
+                  >
+                    <span className="sr-only">Open larger: </span>
+                    <WavyFrame shape="square" band="sm">
+                      {near && (
+                        <Image
+                          src={p.src}
+                          alt={p.alt}
+                          width={p.width}
+                          height={p.height}
+                          sizes="96px"
+                          className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-110"
+                        />
+                      )}
+                    </WavyFrame>
+                  </button>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+        {box !== null && (
+          <Lightbox
+            entries={more}
+            index={box}
+            onIndex={setBox}
+            onClose={() => {
+              setBox(null);
+              requestAnimationFrame(() => thumbTrigger.current?.focus());
+            }}
+          />
+        )}
 
         {/* The dial */}
         <div className="relative mt-5 select-none sm:mt-8">

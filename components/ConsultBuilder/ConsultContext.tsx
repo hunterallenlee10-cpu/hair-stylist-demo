@@ -6,8 +6,10 @@ import { createContext, useCallback, useContext, useMemo, useRef, useState, type
 export type ConsultPreset = {
   /** Step 1 options to pre-select, by label. */
   looks?: string[];
-  /** Tick "I would like to be a vivid model" on step 4. */
+  /** Tick "I would like to be a vivid model" on the last step. */
   model?: boolean;
+  /** Step 2 "Your hair now" answer, by label (e.g. "Box dye at home"). */
+  hairNow?: string;
 };
 
 type Ctx = {

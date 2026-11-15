@@ -1,7 +1,8 @@
 import { PageHeader, PageShell } from "@/components/PageShell";
 import { Services } from "@/components/sections/Services";
 import { pageMeta } from "@/lib/meta";
-import { pageSchema, serviceSchemas } from "@/lib/schema";
+import { pageSchema, serviceCatalogSchema } from "@/lib/schema";
+import { serviceByHubId } from "@/lib/services";
 
 export const metadata = pageMeta({
   title: "Hair Color Services in Leonardtown | Disco Lemonade Studio",
@@ -11,10 +12,14 @@ export const metadata = pageMeta({
 });
 
 export default function ServicesPage() {
+  const pageFor = (id: string) => {
+    const s = serviceByHubId(id === "panels-and-peekaboos" ? "vivid-color" : id);
+    return s ? `/services/${s.slug}` : undefined;
+  };
   return (
-    <PageShell schema={pageSchema("Services", "/services", serviceSchemas())}>
-      <PageHeader eyebrow="Vivid hair color services in Leonardtown, MD" title="What she paints.">
-        Tap anything that looks like you. It goes straight into your consultation plan.
+    <PageShell schema={pageSchema("Services", "/services", [serviceCatalogSchema(pageFor)])} ctaPhoto="hiddenRainbow">
+      <PageHeader eyebrow="Hair color services in Leonardtown, MD" title="What she paints.">
+        Tap a service to see her work and what to expect, or plan it straight away.
       </PageHeader>
       <Services />
     </PageShell>

@@ -1,5 +1,7 @@
 import type { ReactNode } from "react";
+import { Label } from "./Label";
 
+/** Section heading: an optional sentence-case label with the lemon, then the h2. */
 export function SectionHeading({
   id,
   kicker,
@@ -18,14 +20,11 @@ export function SectionHeading({
   const center = align === "center";
   return (
     <div className={`${center ? "mx-auto text-center" : ""} max-w-[44rem] ${className}`}>
-      {kicker && <p className="eyebrow text-muted">{kicker}</p>}
-      <h2
-        id={id}
-        className="display mt-3 text-[2.25rem] font-[800] leading-[1] text-ink sm:text-[3rem] lg:text-[3.5rem]"
-      >
+      {kicker && <Label className={center ? "justify-center" : ""}>{kicker}</Label>}
+      <h2 id={id} className="display mt-3 text-h2 font-[800] text-ink">
         {title}
       </h2>
-      {children && <div className="mt-5 text-lg leading-relaxed text-muted">{children}</div>}
+      {children && <div className="mt-5 max-w-[40rem] text-lead text-muted">{children}</div>}
     </div>
   );
 }

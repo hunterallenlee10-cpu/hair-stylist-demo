@@ -16,14 +16,18 @@ export function absoluteUrl(path = "/") {
   return `${siteUrl}${path.startsWith("/") ? path : `/${path}`}`;
 }
 
-// Real last-modified dates for the sitemap. Update when a page changes.
+// The 10 routes, with real last-modified dates for the sitemap. Update when a page changes.
 export const pages = [
-  { path: "/", lastModified: "2026-11-14", priority: 1 },
-  { path: "/work", lastModified: "2026-11-14", priority: 0.8 },
-  { path: "/services", lastModified: "2026-11-14", priority: 0.9 },
-  { path: "/new-here", lastModified: "2026-11-14", priority: 0.8 },
-  { path: "/studio", lastModified: "2026-11-14", priority: 0.7 },
-  { path: "/contact", lastModified: "2026-11-14", priority: 0.7 },
+  { path: "/", lastModified: "2026-11-15" },
+  { path: "/work", lastModified: "2026-11-15" },
+  { path: "/services", lastModified: "2026-11-15" },
+  { path: "/services/vivid-hair-color", lastModified: "2026-11-15" },
+  { path: "/services/lived-in-color-balayage", lastModified: "2026-11-15" },
+  { path: "/services/blonding-and-silver", lastModified: "2026-11-15" },
+  { path: "/services/color-correction", lastModified: "2026-11-15" },
+  { path: "/new-here", lastModified: "2026-11-15" },
+  { path: "/studio", lastModified: "2026-11-15" },
+  { path: "/contact", lastModified: "2026-11-15" },
 ] as const;
 
 export const ogImage = {

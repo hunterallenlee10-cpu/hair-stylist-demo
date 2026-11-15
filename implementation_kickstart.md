@@ -1,96 +1,69 @@
-# Disco Lemonade Studio: implementation kickstart
+# Implementation kickstart: Disco Lemonade Studio v2 ("Swirl Room")
 
-Concept site for Disco Lemonade Studio (Mickayla Ramsey, Leonardtown, MD). Front end only.
-Built by Lee Enterprises Unlimited as a spec demo. One goal: every action leads to
-**Plan My Dream Hair** (the Consult Builder), with texting CONSULTATION to (240) 561-8519 as
-the always-visible second path and calling as the third.
+Brief: `BUILD-SPEC.md`. v1 plan: `docs/implementation_kickstart-v1.md`. Branch: `v2-upgrade`.
+Re-read the matching part of the spec at the start of each phase. After each phase: screenshot
+1440 and 375, fix the three weakest things, run `npm run check`, commit.
 
-## Plan
+## Phases
 
-- **Stack:** Next.js 16 (App Router) + TypeScript + Tailwind CSS 4. Framer Motion only for
-  The Melt (hero) and the Flavor Dial. `lucide-react` for icons (pinned to 0.x so the Instagram
-  glyph still exists). `@vercel/analytics`. No backend.
-- **Data:** every business fact in `lib/business.ts`, gallery in `lib/gallery.ts`, dial stops in
-  `lib/flavors.ts`, photo dimensions generated into `lib/image-dimensions.json`.
-- **Images:** the 8 real photos from Drive in `public/images/raw`, converted to `.webp` by
-  `npm run images` (sharp). Photo 08 is cropped so the "Oasis" wall sign is out of frame. No
-  stock, no AI images. Studio and portrait are labelled placeholders.
-- **Structure:** one component per section in `components/sections/`, the builder in
-  `components/ConsultBuilder/`, the dial in `components/FlavorDial/`, shared `WavyFrame`,
-  `LemonMark`, `Wordmark`. No file over 500 lines.
-- **Launch switch:** `NEXT_PUBLIC_SITE_MODE` (`demo` default, or `live`) and
-  `NEXT_PUBLIC_SITE_URL`. Demo: `noindex, nofollow`, no sitemap, concept footer line.
-  Live: `index, follow`, sitemap, no concept line.
+- [x] **Phase 1.** Version check (Next 16.4.6, React 19.3.1, Tailwind 4.3.5 already current;
+  framer-motion 14 to `motion`). Tokens in `@theme`, type scale, palette board, sequin mirror
+  frame, drawn swirl, sentence-case labels. Home hero "The Swirl Room", phone first. Review 1.
+  Review 1: 75/100 (design 30, usability 22, creativity 16, content 7). Fixed: quieter text
+  button on one line, fuller swirl ring with 14px sequin band, labelled "Pause swirl" pill.
+- [x] **Phase 2.** Photos 09 to 18 into the pipeline (crops: 12 signs, 14 face, 11 and 17 signs,
+  16 bystander). `lib/gallery.ts` to 18 entries. `/work` filters and lightbox with permalinks.
+  Flavor Dial "More like this". Home "After beats before" led by 15.
+- [x] **Phase 3.** `lib/services.ts`, service template, four service pages, hub update, nav
+  services menu, breadcrumbs.
+- [x] **Phase 4.** `/studio` with 09 and honest proof, `/new-here` with 16, `/contact` map card,
+  holiday band swirl edge and gift card link, varied final CTA photos, 404 with the swirl.
+- [x] **Phase 5.** Builder honest last step and desktop fallback, sticky bar focus fix, keyboard
+  and 200% zoom pass.
+- [x] **Phase 6.** Demo safety and SEO: headers, robots, sitemap and `llms.txt` gating, titles,
+  descriptions, JSON-LD, OG images, `SEO-LAUNCH.md`. Lighthouse live then demo, phone and desktop.
+- [x] **Phase 7.** Review 2 (juror plus fact audit), one round of fixes, final checklist,
+  `npm run check`, merge and push.
+  Review 2: 82/100 (design 33, usability 25, creativity 17, content 7). Fixed: every unsupported
+  line the fact audit found, DRAFT markers on brief-given lines the owner must confirm, quieter
+  review placeholder row, map pin, and a real phone bug (photo rows widened the layout viewport
+  on /services/vivid-hair-color, zooming the page out; fixed with contain: paint and now tested).
 
-## Design tokens: "Blacklight Lemonade"
+## Tokens (Tailwind `@theme`)
 
-| Token | Value | Use |
+| Token | Hex | OKLCH |
 |---|---|---|
-| `--bg` | `#120E10` | Studio black page background |
-| `--surface` | `#1E1719` | Mirror-back cards |
-| `--line` | `#33272B` | 1px borders, wavy dividers |
-| `--accent` | `#FF3D8B` | Sequin pink: primary button, lemon mark, key numbers, active states, dial thumb |
-| `--on-accent` | `#120E10` | Text on pink |
-| `--text` | `#FBF6EE` | Body text |
-| `--muted` | `#B9ABA9` | Secondary text |
-| `--lemon` | `#F2D13C` | The holiday band only, plus the tiny lemon mark |
+| `--color-bg` | #120E10 | oklch(17.0% 0.008 346.3) |
+| `--color-surface` | #1E1719 | oklch(21.4% 0.012 359.1) |
+| `--color-surface-2` | #2A2023 | oklch(25.6% 0.016 358.4) |
+| `--color-border` | #33272B | oklch(28.8% 0.019 356.4) |
+| `--color-text` | #FBF6EE | oklch(97.5% 0.012 79.8) |
+| `--color-muted` | #B9ABA9 | oklch(75.2% 0.016 27.3) |
+| `--color-primary` | #FF3D8B | oklch(67.3% 0.233 1.9) |
+| `--color-primary-hover` | #FF66A6 | oklch(72.0% 0.195 357.1) |
+| `--color-lemon` | #F2D13C | oklch(86.4% 0.161 96.0) |
+| `--color-swirl-pink` | #E82553 | oklch(60.4% 0.224 15.5) |
+| `--color-swirl-yellow` | #E3DB16 | oklch(87.0% 0.183 106.9) |
+| `--color-swirl-green` | #3E9B3A | oklch(61.2% 0.161 142.7) |
+| `--color-swirl-orange` | #F75513 | oklch(66.3% 0.209 38.3) |
+| `--color-success` | #5BD08F | oklch(77.3% 0.142 156.4) |
+| `--color-error` | #FF7A7A | oklch(73.5% 0.163 21.9) |
 
-- **Type:** Fraunces (variable, 600 to 900, italics, SOFT and WONK axes up) for display,
-  numbers and the wordmark. DM Sans 400/500/700 for body. Both via `next/font`, `display: swap`.
-  Body text never below 16px.
-- **Material:** the wavy mirror. Every photo sits in a scalloped SVG clip-path frame (about 10
-  gentle waves per side). Cards: flat, 1px border, 20px radius. Section dividers: one thin wavy
-  line. Shadows no heavier than a soft 24px blur.
-- **Spacing:** 8px grid. Sections 112 to 128px desktop, 72px mobile.
-- **Motion:** only The Melt and the Flavor Dial. Hover and press states elsewhere. Reduced
-  motion respected everywhere.
+Type steps (`text-label` ... `text-display`): label, body, lead, h3, h2, h1, display, each a
+`clamp()` from section 3 of the spec. Body line height 1.55, display 0.98.
 
-## Checklist
+v1 class names (`ink`, `line`, `accent`, `on-accent`) stay as aliases of the role tokens.
 
-- [x] Phase 1: scaffold, tokens, fonts, `WavyFrame`, lemon mark, nav, hero with The Melt, footer
-- [x] Phase 2: Why Disco Lemonade, the Flavor Dial
-- [x] Phase 3: services bento, The Work gallery with filters and lightbox
-- [x] Phase 4: The Studio, how it works + Keep it loud, holiday band + model strip, reviews, FAQ, final CTA
-- [x] Phase 5: Consult Builder, wiring and pre-selects, prefilled SMS, mobile sticky bar, `/contact`
-- [x] Phase 6: launch switch, titles and descriptions, single h1, JSON-LD, robots, sitemap, `llms.txt`, OG image, favicon, 404, `SEO-LAUNCH.md`
-- [x] Phase 6b: Lighthouse on a production build, mobile and desktop, live and demo modes
-- [x] Phase 7: final review, commit, ready for GitHub and Vercel
+## Final checklist
 
-## Final review checklist
-
-- [x] Hero sells the job. The Melt plays once. At 375px the headline and primary button are visible without scrolling.
-- [x] Flavor Dial swaps photo and readout at all 5 stops; mouse, touch and keyboard.
-- [x] Every Plan button opens the builder with the right pre-selects. SMS link prefilled with CONSULTATION. Phone, text, directions, Instagram, gift card links work.
-- [x] Every "Things only this business has" item is on the page.
-- [x] Zero em dashes, zero "--" in copy, zero stock/AI images, zero invented facts, zero profanity.
-- [x] Drafts and samples labelled.
-- [x] 2 fonts, 3 colours plus text, motion in 2 places only.
-- [x] No photo above native size. Photo 08 has the sign cropped out.
-- [x] 375px: no overflow, burger works, sticky bar works.
-- [x] Footer on both pages; concept line in demo only. Demo `noindex, nofollow`; live `index, follow` + sitemap.
-- [x] OG image and favicon are hers.
-- [x] Lighthouse SEO 100 live; others 90+. Demo: only the indexing audit fails.
-- [x] One h1 per page with service and town. Unique titles and descriptions. JSON-LD validates.
-
-## Revision 2 (2026-11-14): shorter home page
-
-Owner feedback on the first build: "It feels like kind of a lot on one page." Research into
-award-recognised salon sites and independent vivid colorists (see
-`reports/Top hair stylist website design.md`) showed the same pattern everywhere: a short hub home
-page, with services, the full portfolio, FAQ and new-client detail on their own pages.
-
-| | Before | After |
-|---|---|---|
-| Home page length at 375px | 23.0 screens | 7.8 screens |
-| Home page sections | 11 | 6 |
-| Home page words | 853 | 230 |
-| Planner buttons on the home page | 23 | 4 |
-| Planner steps | 5, phone required | 3, no phone field |
-| Mobile action bar | Text, Call, Plan, Back to top | Text, Plan |
-
-- Home keeps the hero, the Flavor Dial, a three-photo work teaser, a slim holiday strip, the studio
-  quote and the closing call to action.
-- New pages: `/work`, `/services`, `/new-here`, `/studio`. `/contact` stays.
-- The "Why Disco Lemonade" cards were folded into the dial intro ("Do you do vanilla hair? Or just
-  vivids?") and the New here page.
-- Every item in "Things only this business has" is still on the site.
+- [x] Every item in "What is wrong with v1" is fixed.
+- [x] At 375 by 812 the first screen shows colour from her work, the whole headline and the primary button.
+- [x] The swirl appears in exactly three places, turns slowly in the hero only, and stops under reduced motion.
+- [x] No sample or invented review text exists anywhere. Placeholders are empty and labelled.
+- [x] All 18 photos are used per the photo map, none wider than native, 08 and 12 cropped as noted, and no client faces.
+- [x] The four service pages exist, each with three unique things, linked from the hub, nav and each other.
+- [x] Every "Plan My Dream Hair" opens the builder with the right pre-selects. The last step texts her with CONSULTATION first, and desktop gets copy and Instagram DM.
+- [x] Max 2 fonts, the palette as tokens, no tracked all-caps labels, motion in two places.
+- [x] Every nav link resolves, no page is thin or built on guesses, keyboard-only and 200% zoom passes done.
+- [x] Demo mode: noindex meta, X-Robots-Tag on the home page and on an image, no sitemap, no llms.txt, AI crawlers disallowed, footer line present. Live mode: SEO 100.
+- [x] Zero em dashes, zero stock or AI images, zero invented facts.
