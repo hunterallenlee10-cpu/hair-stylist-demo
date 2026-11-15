@@ -52,7 +52,7 @@ export default function ContactPage() {
               eyebrow={`Contact ${business.name}, vivid hair color in Leonardtown, MD`}
               title={
                 <>
-                  Text the word <span className="italic text-accent [overflow-wrap:anywhere]">CONSULTATION.</span>
+                  Text the word <span className="italic text-accent text-[min(1em,10.4vw)]">CONSULTATION.</span>
                 </>
               }
             />

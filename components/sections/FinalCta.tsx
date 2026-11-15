@@ -1,11 +1,10 @@
 import Image from "next/image";
+import { TextConsultation } from "@/components/TextConsultation";
 import Link from "next/link";
-import { MessageCircle } from "lucide-react";
 import { WavyFrame } from "@/components/WavyFrame";
 import { PlanButton } from "@/components/ConsultBuilder/PlanButton";
-import { business, smsHref } from "@/lib/business";
 import { photos, type PhotoKey } from "@/lib/photos";
-import { btnGhost, btnPrimary, container } from "@/lib/ui";
+import { btnPrimary, container } from "@/lib/ui";
 
 const steps = ["Text CONSULTATION", "Free consult", "Color day"];
 
@@ -31,10 +30,10 @@ export function FinalCta({
   return (
     <section aria-labelledby="cta-title" className="py-[72px] lg:py-[112px]">
       <div className={container}>
-        <div className="reveal grid items-center gap-10 overflow-hidden rounded-[28px] border border-line bg-surface px-6 py-12 sm:px-12 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,0.8fr)] lg:gap-16 lg:px-16 lg:py-16">
+        <div className="reveal grid items-center gap-10 overflow-hidden rounded-[28px] border border-line bg-surface px-5 py-12 sm:px-12 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,0.8fr)] lg:gap-16 lg:px-16 lg:py-16">
           <div>
             <h2 id="cta-title" className="display max-w-[36rem] text-h2 font-[800] text-ink">
-              {title.lead} <span className="italic text-accent [overflow-wrap:anywhere]">{title.accent}</span>
+              {title.lead} <span className="italic text-accent text-[min(1em,10vw)]">{title.accent}</span>
             </h2>
 
             {showSteps && (
@@ -52,12 +51,7 @@ export function FinalCta({
 
             <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
               <PlanButton className={`${btnPrimary} w-full sm:w-auto`} />
-              <a href={smsHref()} className={`${btnGhost} w-full bg-bg/60 px-5 sm:w-auto`}>
-                <MessageCircle className="h-5 w-5 shrink-0 text-accent" strokeWidth={2} aria-hidden="true" />
-                <span>
-                  Text CONSULTATION to <span className="whitespace-nowrap">{business.phoneDisplay}</span>
-                </span>
-              </a>
+              <TextConsultation />
             </div>
 
             {showSteps && (

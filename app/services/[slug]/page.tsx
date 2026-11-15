@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
+import { TextConsultation } from "@/components/TextConsultation";
 import { ViewTransition } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowRight, ArrowUpRight, MessageCircle } from "lucide-react";
+import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { PageShell, PageTitle } from "@/components/PageShell";
 import { WavyFrame } from "@/components/WavyFrame";
 import { Draft } from "@/components/Draft";
@@ -13,13 +14,13 @@ import { PhotoGrid } from "@/components/Gallery/PhotoGrid";
 import { FaqList } from "@/components/sections/Faq";
 import { Breadcrumbs } from "@/components/service/Breadcrumbs";
 import { FirstColorQuote, ServiceExtras } from "@/components/service/ServiceExtras";
-import { business, smsHref } from "@/lib/business";
+import { business } from "@/lib/business";
 import { entriesFor } from "@/lib/gallery";
 import { pageMeta } from "@/lib/meta";
 import { photos } from "@/lib/photos";
 import { pageSchema, servicePageSchema } from "@/lib/schema";
 import { serviceBySlug, servicePages } from "@/lib/services";
-import { btnGhost, btnPrimary, container, sectionPad, textLink } from "@/lib/ui";
+import { btnPrimary, container, sectionPad, textLink } from "@/lib/ui";
 
 export const dynamicParams = false;
 
@@ -75,12 +76,7 @@ export default async function ServicePage({ params }: Props) {
             {s.slug === "lived-in-color-balayage" && <FirstColorQuote />}
             <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
               <PlanButton preset={preset} className={`${btnPrimary} w-full sm:w-auto`} aria-describedby="plan-note" />
-              <a href={smsHref()} className={`${btnGhost} w-full px-5 sm:w-auto`}>
-                <MessageCircle className="h-5 w-5 shrink-0 text-accent" strokeWidth={2} aria-hidden="true" />
-                <span>
-                  Text CONSULTATION to <span className="whitespace-nowrap">{business.phoneDisplay}</span>
-                </span>
-              </a>
+              <TextConsultation />
             </div>
             <p id="plan-note" className="mt-3 text-label text-muted">
               {s.planNote}

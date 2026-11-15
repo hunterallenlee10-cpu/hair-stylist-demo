@@ -1,4 +1,4 @@
-import { MessageCircle } from "lucide-react";
+import { TextConsultation } from "@/components/TextConsultation";
 import { WavyFrame } from "@/components/WavyFrame";
 import { LemonMark } from "@/components/LemonMark";
 import { Swirl } from "@/components/Swirl";
@@ -6,7 +6,7 @@ import { SwirlTurn } from "@/components/SwirlTurn";
 import { Draft } from "@/components/Draft";
 import { InstagramIcon } from "@/components/icons/InstagramIcon";
 import { PlanButton } from "@/components/ConsultBuilder/PlanButton";
-import { business, smsHref } from "@/lib/business";
+import { business } from "@/lib/business";
 import { btnPrimary, container } from "@/lib/ui";
 import { HeroMelt } from "./HeroMelt";
 
@@ -24,7 +24,7 @@ export function Hero() {
         className={`${container} relative grid grid-cols-1 items-center gap-x-10 pb-14 pt-3 sm:pt-8 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:pb-20 lg:pt-8 xl:gap-x-16`}
       >
         {/* The mirror and the wall behind it. First on phones. */}
-        <div className="relative mx-auto w-[min(76vw,296px)] sm:w-[340px] lg:col-start-2 lg:row-start-1 lg:w-full lg:max-w-[480px] lg:justify-self-center">
+        <div className="relative mx-auto w-[min(76vw,296px,36svh)] sm:w-[340px] lg:col-start-2 lg:row-start-1 lg:w-full lg:max-w-[480px] lg:justify-self-center">
           <SwirlTurn
             boxClassName="pointer-events-none absolute left-1/2 top-1/2 aspect-square w-[134%] -translate-x-1/2 -translate-y-1/2 lg:w-[150%] lg:translate-x-[-44%]"
             buttonClassName="absolute -bottom-12 right-[-6vw] sm:-right-16 lg:-bottom-16 lg:right-0"
@@ -56,15 +56,7 @@ export function Hero() {
 
           <div className="order-2 mt-5 flex flex-col gap-3 sm:flex-row sm:flex-wrap lg:order-none lg:mt-8">
             <PlanButton className={`${btnPrimary} min-h-[56px] w-full text-[1.0625rem] sm:w-auto`} />
-            <a
-              href={smsHref()}
-              className="inline-flex min-h-[48px] w-full items-center justify-center gap-2 rounded-full border border-line px-4 text-[0.9375rem] font-medium text-ink transition-colors hover:border-accent hover:text-accent sm:w-auto sm:border-transparent sm:px-3"
-            >
-              <MessageCircle className="h-[18px] w-[18px] shrink-0 text-accent" strokeWidth={2} aria-hidden="true" />
-              <span>
-                Text CONSULTATION to <span className="whitespace-nowrap">{business.phoneDisplay}</span>
-              </span>
-            </a>
+            <TextConsultation />
           </div>
 
           <ul className="order-4 mt-5 flex flex-col gap-x-6 text-[0.9375rem] text-ink/85 sm:flex-row sm:flex-wrap lg:order-none lg:mt-6">
